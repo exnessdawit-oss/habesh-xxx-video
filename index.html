@@ -1,1 +1,78 @@
-<meta name="monetag" content="23ca3593c7588e09c94066c4a50207c9">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Z-Edits Video Gallery</title>
+    
+    <meta name="monetag" content="23ca3393c7588ec60c34d55c4a30207d9">
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0f0f0f;
+            color: white;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            color: #ff0050; /* TikTok style color */
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 1200px;
+        }
+        .video-card {
+            background: #1e1e1e;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease;
+        }
+        .video-card:hover {
+            transform: scale(1.02);
+        }
+        video {
+            width: 100%;
+            display: block;
+        }
+        .video-info {
+            padding: 15px;
+        }
+        .video-title {
+            font-size: 16px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Z-Edits Gallery</h1>
+
+    <div class="gallery" id="videoGallery">
+        <div class="video-card">
+            <video controls>
+                <source src="የቪዲዮ_ሊንክ_እዚህ_ይግባ.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="video-info">
+                <div class="video-title">Aesthetic Edit #1</div>
+            </div>
+        </div>
+        
+        </div>
+
+    <script>
+        // ወደፊት እዚህ ጋር ማስታወቂያውን የሚያሳየውን ስክሪፕት እንጨምራለን
+        console.log("Gallery loaded with Monetag verification.");
+    </script>
+</body>
+</html>
