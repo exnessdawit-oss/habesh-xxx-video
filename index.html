@@ -55,70 +55,11 @@
     <div class="gallery" id="videoGallery"></div>
 
     <script>
-        const AdController = window.Adsgram.init({ blockId: "30165" });
-
-        const videos = [
-            { 
-                title: "አዲሱ ቪዲዮ", 
-                /* አጣፈጣት ቤተሰብ   */
-                url: "IMG_20260514_012019_644.mp4", 
-                poster: "IMG_20260514_012150_661.jpg" 
-            }
-        ];
-
-        const gallery = document.getElementById('videoGallery');
-
-        videos.forEach((vid, index) => {
-            let card = document.createElement('div');
-            card.className = 'video-card';
-            card.innerHTML = `<video id="vid-${index}" poster="${vid.poster}" controls playsinline><source src="${vid.url}" type="video/mp4"></video><h3>${vid.title}</h3>`;
-            gallery.appendChild(card);
-            let vElement = document.getElementById(vid-${index});
-            let watchedPoints = new Set();
-
-            vElement.onplay = () => {
-                let duration = vElement.duration / 60;
-                if (duration > 8 && !watchedPoints.has('start')) {
-                    showAd(vElement, 'start', watchedPoints);
-                }
-            };
-
-            vElement.ontimeupdate = () => {
-                let duration = vElement.duration / 60;
-                let currentTime = vElement.currentTime;
-                let progress = (currentTime / vElement.duration) * 100;
-
-                if (duration >= 0.5 && duration <= 2) {
-                    if (progress > 1 && !watchedPoints.has('30s-2m-start')) showAd(vElement, '30s-2m-start', watchedPoints);
-                }
-                else if (duration > 2 && duration <= 8) {
-                    if (progress >= 15 && !watchedPoints.has('mid-15')) showAd(vElement, 'mid-15', watchedPoints);
-                    if (progress >= 50 && !watchedPoints.has('mid-50')) showAd(vElement, 'mid-50', watchedPoints);
-                }
-                else if (duration > 8 && duration <= 30) {
-                    if (progress >= 25 && !watchedPoints.has('long-25')) showAd(vElement, 'long-25', watchedPoints);
-                  if (progress >= 50 && !watchedPoints.has('long-50')) showAd(vElement, 'long-50', watchedPoints);
-                    if (progress >= 75 && !watchedPoints.has('long-75')) showAd(vElement, 'long-75', watchedPoints);
-                }
-            };
-
-            vElement.onended = () => {
-                let duration = vElement.duration / 60;
-                if (duration > 2) showAd(vElement, 'ended', watchedPoints);
-            };
-        });
-
-        function showAd(video, point, set) {
-            if (set.has(point)) return;
-            video.pause();
-            AdController.show().then(() => {
-                set.add(point);
-                video.play();
-            }).catch(() => {
-                set.add(point);
-                video.play();
-            });
-        }
-    </script>
+    const gallery = document.getElementById('videoGallery');
+    const card = document.createElement('div');
+    card.className = 'video-card';
+    card.innerHTML = `<video controls playsinline style="width:100%"><source src="IMG_20260514_012019_644.mp4" type="video/mp4"></video><h3>አዲሱ ቪዲዮ</h3>`;
+    gallery.appendChild(card);
+</script>
 </body>
 </html>
