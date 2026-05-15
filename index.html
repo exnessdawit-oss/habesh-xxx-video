@@ -15,7 +15,7 @@
         body { font-family: sans-serif; background-image: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%); color: var(--text); margin: 0; padding: 0; }
         header { background: var(--card-bg); padding: 15px; border-bottom: 2px solid var(--primary); text-align: center; }
         .admin-section { background: var(--card-bg); padding: 20px; margin: 20px; border-radius: 10px; border: 1px solid #333; display: none; }
-        input { width: 100%; padding: 12px; margin: 8px 0; border-radius: 5px; border: 1px solid #444; background: #222; color: white; }
+        input { width: 100%; padding: 12px; margin: 8px 0; border-radius: 5px; border: 1px solid #444; background: #222; color: white; box-sizing: border-box; }
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; padding: 20px; }
         .video-card { background: var(--card-bg); border-radius: 10px; overflow: hidden; position: relative; border: 1px solid #333; transition: 0.3s; }
         .video-card:hover { transform: translateY(-5px); border-color: var(--primary); }
@@ -43,13 +43,12 @@
 <div class="grid" id="videoGrid"></div>
 
 <script>
-    // Firebase ማገናኛ (ያለህበት በትክክል ገብቷል)
     const firebaseConfig = { databaseURL: "https://habesha-xxx-video-default-rtdb.firebaseio.com/" };
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
     let isAdmin = false;
-    const MY_PASSWORD = "1234"; 
+    const MY_PASSWORD = "1234";
 
     function adminLogin() {
         const pass = prompt("የይለፍ ቃል ያስገቡ:");
