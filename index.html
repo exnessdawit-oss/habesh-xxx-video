@@ -6,8 +6,9 @@
     <title>Habesha XXX Video</title>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
+        // አንተ የላክኸው ትክክለኛው የ Firebase መረጃ
         const firebaseConfig = {
             apiKey: "AIzaSyAa0AlJrexC9S-YuA-seeUt_oO0ZOhMRwc",
             authDomain: "habesha-xxx-video.firebaseapp.com",
@@ -21,56 +22,74 @@
         const db = getFirestore(app);
         const vidsCol = collection(db, "videos");
 
+        // ቪዲዮ ለመጨመር
         window.addVideo = async function() {
             const title = document.getElementById('vTitle').value;
             const url = document.getElementById('vUrl').value;
-            const dur = parseInt(document.getElementById('vDur').value);
-            if(!title || !url || !dur) return alert("ሁሉንም ሙላ!");
-            await addDoc(vidsCol, { title, url, duration: dur, createdAt: Date.now() });
-            alert("✅ ተጨምሯል!");
-            document.getElementById('vTitle').value = ''; document.getElementById('vUrl').value = '';
+            if(!title || !url) return alert("እባክህ ርዕስ እና ሊንክ ሙላ!");
+            
+            try {
+                await addDoc(vidsCol, { title, url, createdAt: Date.now() });
+                alert("✅ ቪዲዮው በትክክል ተጨምሯል!");
+                document.getElementById('vTitle').value = '';
+                document.getElementById('vUrl').value = '';
+            } catch (e) {
+                alert("ስህተት ተከስቷል፦ " + e.message);
+            }
         };
 
+        // ቪዲዮዎችን ከዳታቤዝ አምጥቶ ለማሳየት
         const q = query(vidsCol, orderBy("createdAt", "desc"));
         onSnapshot(q, (snapshot) => {
             const grid = document.getElementById('videoGrid');
             grid.innerHTML = '';
             snapshot.forEach(d => {
                 const v = d.data();
-                grid.innerHTML += `<div class="card"><div class="thumb" onclick="playV('${v.url}', '${v.title}')">🎬</div>
-                <div class="info"><h4>${v.title}</h4><button class="play-btn" onclick="playV('${v.url}', '${v.title}')">▶ አጫውት</button></div></div>`;
+                grid.innerHTML += `
+                <div class="card">
+                    <div class="thumb" onclick="playV('${v.url}')">🎬</div>
+                    <div class="info">
+                        <h4>${v.title}</h4>
+                        <button class="play-btn" onclick="playV('${v.url}')">▶ አጫውት</button>
+                    </div>
+                </div>`;
             });
         });
 
-        window.playV = (url, title) => {
+        window.playV = (url) => {
             document.getElementById('player').style.display = 'block';
             const v = document.getElementById('mainV');
-            v.src = url; v.play();
+            v.src = url;
+            v.play();
         };
     </script>
     <style>
-        body { font-family: sans-serif; background: #0b0f19; color: white; padding: 15px; }
-        .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+        body { font-family: sans-serif; background: #0b0f19; color: white; padding: 15px; margin: 0; }
+        .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
         .card { background: #1e293b; border-radius: 8px; padding: 10px; text-align: center; }
         .thumb { font-size: 40px; cursor: pointer; background: #334155; padding: 20px; border-radius: 5px; }
-        .play-btn { background: #2563eb; color: white; border: none; padding: 8px; width: 100%; border-radius: 4px; margin-top: 5px; }
-        #player { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:black; }
+        .play-btn { background: #2563eb; color: white; border: none; padding: 8px; width: 100%; border-radius: 4px; cursor: pointer; }
+        #player { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:black; z-index: 1000; }
         video { width: 100%; height: 80%; }
-        .admin { margin-top: 30px; background: #1e293b; padding: 15px; border-radius: 8px; }
-        input { width: 90%; padding: 10px; margin: 5px 0; }
+        .admin { margin-top: 30px; background: #1e293b; padding: 15px; border-radius: 8px; border: 1px solid #334155; }
+        input { width: 95%; padding: 10px; margin: 5px 0; border-radius: 4px; border: none; }
     </style>
 </head>
 <body>
-    <h2>Habesha XXX Video</h2>
+    <h2 style="text-align: center;">Habesha Video Player</h2>
+    
     <div class="video-grid" id="videoGrid"></div>
+
     <div class="admin">
+        <h3>አዲስ ቪዲዮ ጨምር</h3>
         <input type="text" id="vTitle" placeholder="የርዕስ ስም">
-        <input type="text" id="vUrl" placeholder="የቪዲዮ ሊንክ (MP4)">
-        <input type="number" id="vDur" placeholder="ርዝመት በሰከንድ">
-        <button class="play-btn" onclick="addVideo()">ቪዲዮ አክል</button>
+        <input type="text" id="vUrl" placeholder="የቪዲዮ MP4 ሊንክ">
+        <button class="play-btn" onclick="addVideo()" style="background: #10b981;">ቪዲዮ አክል</button>
     </div>
+
     <div id="player">
-        <button onclick="document.getElementById('player').style.display='none'; document.getElementById('mainV').pause();" style="color:red; font-size:20px; padding:10px;">X ዝጋ</button>
+        <button onclick="document.getElementById('player').style.display='none'; document.getElementById('mainV').pause();" 
+                style="color:white; background:red; border:none; padding:10px; width:100%; font-weight:bold;">ዝጋ (X)</button>
         <video id="mainV" controls></video>
     </div>
 </body>
