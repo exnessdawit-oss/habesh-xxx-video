@@ -1,78 +1,161 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="am">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Z-Edits Video Gallery</title>
-    
-    <meta name="monetag" content="23ca3393c7588ec60c34d55c4a30207d9">
+    <title>Habesha XXX Video</title>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        // ያንተ Firebase Config
+        const firebaseConfig = {
+            apiKey: "AIzaSyAa0AlJrexC9S-YuA-seeUt_oO0ZOhMRwc",
+            authDomain: "habesha-xxx-video.firebaseapp.com",
+            projectId: "habesha-xxx-video",
+            storageBucket: "habesha-xxx-video.firebasestorage.app",
+            messagingSenderId: "841201015331",
+            appId: "1:841201015331:web:08594d00eb793f6eaf2f96",
+            measurementId: "G-BY2PW29N1Z"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const vidsCol = collection(db, "videos");
+
+        // ቪዲዮ የመጫኛ ተግባር
+        window.addVideo = async function() {
+            const title = document.getElementById('vTitle').value;
+            const url = document.getElementById('vUrl').value;
+            const dur = parseInt(document.getElementById('vDur').value);
+
+            if(!title || !url || !dur) return alert("እባክህ ሁሉንም ሳጥኖች ሙላ!");
+
+            await addDoc(vidsCol, { title, url, duration: dur, createdAt: Date.now() });
+            alert("✅ ቪዲዮው ተጨምሯል!");
+            document.getElementById('vTitle').value = '';
+            document.getElementById('vUrl').value = '';
+        };
+
+        // ቪዲዮዎችን ከ Firebase አምጥቶ ማሳየት
+        const q = query(vidsCol, orderBy("createdAt", "desc"));
+        onSnapshot(q, (snapshot) => {
+            const grid = document.getElementById('videoGrid');
+            grid.innerHTML = '';
+            snapshot.forEach(d => {
+                const v = d.data();
+                grid.innerHTML += `
+                    <div class="card">
+                        <div class="thumb" onclick="playV('${v.url}', '${v.title}', ${v.duration})">🎬</div>
+                        <div class="info">
+                            <h4>${v.title}</h4>
+                            <button class="play-btn" onclick="playV('${v.url}', '${v.title}', ${v.duration})">▶ አጫውት</button>
+                            <button class="del-btn" onclick="deleteV('${d.id}')">ሰርዝ</button>
+                        </div>
+                    </div>`;
+            });
+        });
+
+        window.deleteV = async (id) => { if(confirm("ይሰረዝ?")) await deleteDoc(doc(db, "videos", id)); };
+    </script>
 
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #0f0f0f;
-            color: white;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        h1 {
-            color: #ff0050; /* TikTok style color */
-            margin-bottom: 20px;
-            font-size: 24px;
-        }
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-            width: 100%;
-            max-width: 1200px;
-        }
-        .video-card {
-            background: #1e1e1e;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            transition: transform 0.3s ease;
-        }
-        .video-card:hover {
-            transform: scale(1.02);
-        }
-        video {
-            width: 100%;
-            display: block;
-        }
-        .video-info {
-            padding: 15px;
-        }
-        .video-title {
-            font-size: 16px;
-            font-weight: bold;
-        }
+        body { font-family: 'Segoe UI', sans-serif; background: #0b0f19; color: white; margin: 0; padding: 15px; }
+        header { text-align: center; border-bottom: 2px solid #1e293b; padding-bottom: 10px; margin-bottom: 20px; }
+        .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; }
+        .card { background: #1e293b; border-radius: 8px; overflow: hidden; }
+        .thumb { height: 100px; background: #334155; display: flex; align-items: center; justify-content: center; font-size: 30px; cursor: pointer; }
+        .info { padding: 8px; text-align: center; }
+        .info h4 { margin: 5px 0; font-size: 14px; white-space: nowrap; overflow: hidden; }
+        .play-btn { background: #2563eb; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; width: 100%; }
+        .del-btn { background: transparent; color: #94a3b8; border: none; font-size: 12px; margin-top: 5px; cursor: pointer; }
+        
+        /* Player Modal */
+        #player { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:black; z-index:1000; }
+        video { width: 100%; height: 80vh; }
+        .close-p { position: absolute; top: 10px; right: 10px; background: red; color: white; border: none; padding: 10px; border-radius: 50%; }
+
+        /* Ad Style */
+        #adBox { display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:white; color:black; padding:20px; border-radius:10px; z-index:2000; text-align:center; width: 80%; }
+        .admin { margin-top: 30px; background: #1e293b; padding: 15px; border-radius: 8px; }
+        input { width: 90%; padding: 10px; margin: 5px 0; border-radius: 5px; border: none; }
     </style>
 </head>
 <body>
 
-    <h1>Z-Edits Gallery</h1>
+    <header><h1>Habesha XXX Video</h1></header>
 
-    <div class="gallery" id="videoGallery">
-        <div class="video-card">
-            <video controls>
-                <source src="የቪዲዮ_ሊንክ_እዚህ_ይግባ.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-            <div class="video-info">
-                <div class="video-title">Aesthetic Edit #1</div>
-            </div>
-        </div>
-        
-        </div>
+    <div class="video-grid" id="videoGrid"></div>
+
+    <div class="admin">
+        <h3>⚙️ Admin - ቪዲዮ አክል</h3>
+        <input type="text" id="vTitle" placeholder="የቪዲዮ ርዕስ">
+        <input type="text" id="vUrl" placeholder="ቪዲዮ MP4 ሊንክ">
+        <input type="number" id="vDur" placeholder="ርዝመት በሰከንድ (ምሳሌ፡ 600)">
+        <button class="play-btn" onclick="addVideo()">አክል</button>
+    </div>
+
+    <div id="player">
+        <button class="close-p" onclick="closeV()">X</button>
+        <h3 id="pTitle" style="padding: 10px;"></h3>
+        <video id="mainV" controls controlsList="nodownload"></video>
+    </div>
+
+    <div id="adBox">
+        <h4>📢 ማስታወቂያ</h4>
+        <p>እባክዎን <span id="timer">5</span> ሰከንድ ይጠብቁ...</p>
+    </div>
 
     <script>
-        // ወደፊት እዚህ ጋር ማስታወቂያውን የሚያሳየውን ስክሪፕት እንጨምራለን
-        console.log("Gallery loaded with Monetag verification.");
+        const video = document.getElementById('mainV');
+        let adsPlayed = [];
+
+        function playV(url, title, duration) {
+            document.getElementById('player').style.display = 'block';
+            document.getElementById('pTitle').innerText = title;
+            video.src = url;
+            adsPlayed = [];
+            video.play();
+        }
+
+        function closeV() {
+            video.pause();
+            document.getElementById('player').style.display = 'none';
+        }
+
+        video.ontimeupdate = function() {
+            const percent = (video.currentTime / video.duration) * 100;
+            const dur = video.duration;
+
+            // Ad Rules
+            if(dur < 120 && percent >= 1 && !adsPlayed.includes(1)) showAd(1);
+            if(dur >= 120 && dur < 480) {
+                if(percent >= 15 && !adsPlayed.includes(15)) showAd(15);
+                if(percent >= 50 && !adsPlayed.includes(50)) showAd(50);
+            }
+            if(dur >= 480) {
+                if(percent >= 25 && !adsPlayed.includes(25)) showAd(25);
+                if(percent >= 50 && !adsPlayed.includes(50)) showAd(50);
+                if(percent >= 75 && !adsPlayed.includes(75)) showAd(75);
+            }
+        };
+
+        function showAd(id) {
+            adsPlayed.push(id);
+            video.pause();
+            document.getElementById('adBox').style.display = 'block';
+            let sec = 5;
+            const countdown = setInterval(() => {
+                sec--;
+                document.getElementById('timer').innerText = sec;
+                if(sec <= 0) {
+                    clearInterval(countdown);
+                    document.getElementById('adBox').style.display = 'none';
+                    video.play();
+                    document.getElementById('timer').innerText = 5;
+                }
+            }, 1000);
+        }
     </script>
 </body>
 </html>
