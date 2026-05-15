@@ -3,47 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Habesha Premium Video</title>
+    <title>HABESHA PREMIUM</title>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
     <style>
-        body { font-family: sans-serif; background-color: #0f172a; color: white; margin: 0; padding: 20px; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #0f172a; color: white; margin: 0; padding: 0; }
+        header { background: #1e293b; padding: 15px; display: flex; align-items: center; border-bottom: 2px solid #ef4444; }
+        .logo { height: 40px; margin-right: 15px; }
+        .brand { font-size: 20px; font-weight: bold; }
+        .brand span { color: #ef4444; }
+        .container { padding: 20px; }
         .admin-panel { background: #1e293b; padding: 20px; border-radius: 10px; margin-bottom: 30px; border: 1px solid #ef4444; }
         input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 5px; border: none; background: #334155; color: white; box-sizing: border-box; }
-        button { width: 100%; padding: 15px; background: #ef4444; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
-        .video-card { background: #1e293b; border-radius: 10px; overflow: hidden; padding-bottom: 10px; }
-        .video-card img { width: 100%; height: 150px; object-fit: cover; }
-        .video-card h3 { padding: 10px; margin: 0; font-size: 16px; }
-        .watch-btn { display: block; text-align: center; background: #3b82f6; color: white; text-decoration: none; margin: 0 10px; padding: 8px; border-radius: 5px; }
+        button { width: 100%; padding: 15px; background: #ef4444; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        button:hover { background: #dc2626; }
+        h2 { border-left: 4px solid #ef4444; padding-left: 10px; text-transform: uppercase; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .video-card { background: #1e293b; border-radius: 10px; overflow: hidden; border: 1px solid #334155; }
+        .video-card img { width: 100%; height: 180px; object-fit: cover; }
+        .video-card h3 { padding: 10px; margin: 0; font-size: 16px; color: #f1f5f9; }
+        .player-box { padding: 10px; }
+        video { width: 100%; border-radius: 5px; background: black; }
     </style>
 </head>
 <body>
 
-    <div class="admin-panel">
-        <h3><span style="color:#ef4444;">+</span> አዲስ ቪዲዮ አስተዳድር</h3>
-        <input type="text" id="vTitle" placeholder="የዛሬው video">
-        <input type="text" id="vThumb" placeholder="የፎቶ (Thumbnail) URL">
-        <input type="text" id="vUrl" placeholder="የቪዲዮ (MP4) URL">
-        <button onclick="addVideo()">ቪዲዮውን አክል</button>
+    <header>
+        <img src="https://i.ibb.co/qMpx4f7Y/logo.png" alt="Logo" class="logo"> <div class="brand">HABESHA <span>PREMIUM</span></div>
+    </header>
+
+    <div class="container">
+        <div class="admin-panel">
+            <h3 style="margin-top:0;"><span style="color:#ef4444;">+</span> አዲስ ቪዲዮ አስተዳድር</h3>
+            <input type="text" id="vTitle" placeholder="የዛሬው video ርዕስ">
+            <input type="text" id="vThumb" placeholder="የተምኔል (Thumbnail) URL">
+            <input type="text" id="vUrl" placeholder="የቪዲዮ (Dropbox/MP4) URL">
+            <button onclick="addVideo()">ቪዲዮውን አክል</button>
+        </div>
+
+        <h2>FEATURED CONTENT</h2>
+        <div class="grid" id="videoGrid"></div>
     </div>
 
-    <h2>FEATURED CONTENT</h2>
-    <div class="grid" id="videoGrid"></div>
-
     <script>
-        // የአንተ Firebase መረጃ እዚህ ይገባል
+        // የአንተ Firebase መረጃ
         const firebaseConfig = {
             databaseURL: "https://habesha-xxx-video-default-rtdb.firebaseio.com/"
         };
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
 
-        // ቪዲዮ ለመጨመር
+        // ቪዲዮ ወደ Firebase ለመላክ
         function addVideo() {
             const title = document.getElementById('vTitle').value;
             const thumb = document.getElementById('vThumb').value;
-            const url = document.getElementById('vUrl').value;
+            let url = document.getElementById('vUrl').value;
+
+            // Dropbox ሊንክ ከሆነ ወደ ቀጥታ ማጫወቻ (dl=1) ይቀይረዋል
+            if(url.includes("dropbox.com") && url.includes("dl=0")) {
+                url = url.replace("dl=0", "dl=1");
+            }
 
             if(title && thumb && url) {
                 db.ref('videos').push({
@@ -52,14 +71,16 @@
                     videoUrl: url
                 }).then(() => {
                     alert("ቪዲዮው በትክክል ተጨምሯል!");
-                    location.reload();
+                    document.getElementById('vTitle').value = '';
+                    document.getElementById('vThumb').value = '';
+                    document.getElementById('vUrl').value = '';
                 }).catch(err => alert("ስህተት፡ " + err.message));
             } else {
-                alert("እባክህ ሁሉንም ቦታ ሙላ!");
+                alert("እባክህ ሁሉንም ሳጥኖች ሙላ!");
             }
         }
 
-        // ቪዲዮዎችን ለማሳየት
+        // ቪዲዮዎችን ከ Firebase ስቦ ለማሳየት
         db.ref('videos').on('value', (snapshot) => {
             const grid = document.getElementById('videoGrid');
             grid.innerHTML = '';
@@ -67,9 +88,14 @@
                 const data = child.val();
                 grid.innerHTML += `
                     <div class="video-card">
-                        <img src="${data.thumbnail}" alt="thumb">
+                        <img src="${data.thumbnail}" alt="thumbnail">
                         <h3>${data.title}</h3>
-                        <a href="${data.videoUrl}" class="watch-btn" target="_blank">አሁን እይ</a>
+                        <div class="player-box">
+                            <video controls poster="${data.thumbnail}">
+                                <source src="${data.videoUrl}" type="video/mp4">
+                                የእርስዎ ብሮውዘር ቪዲዮውን አላጫወተውም።
+                            </video>
+                        </div>
                     </div>
                 `;
             });
