@@ -5,60 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="6a97888e-site-verification" content="33cfab89caddf6484a68db664b8a49de">
     
-    <title>HABESHA PREMIUM | Admin</title>
+    <title>HABESHA PREMIUM</title>
+    
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
     <style>
-        :root { --primary: #ef4444; --bg-dark: #0f172a; --card-bg: #1e293b; --text: #f8fafc; }
-        body { font-family: sans-serif; background: var(--bg-dark); color: var(--text); margin: 0; padding: 0; }
-        header { background: var(--card-bg); padding: 15px; border-bottom: 2px solid var(--primary); display: flex; justify-content: space-between; align-items: center; }
-        .admin-section { background: var(--card-bg); padding: 20px; margin: 20px; border-radius: 10px; border: 1px solid #334155; display: none; } /* መጀመሪያ ተደብቋል */
-        input { width: 100%; padding: 12px; margin: 8px 0; border-radius: 5px; border: 1px solid #334155; background: #0f172a; color: white; box-sizing: border-box; }
-        .btn { width: 100%; padding: 15px; background: var(--primary); color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
+        :root { --primary: #ff4757; --bg-dark: #0a0a0a; --card-bg: #1a1a1a; --text: #f1f2f6; }
+        body { font-family: sans-serif; background-image: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%); color: var(--text); margin: 0; padding: 0; }
+        header { background: var(--card-bg); padding: 15px; border-bottom: 2px solid var(--primary); text-align: center; }
+        .admin-section { background: var(--card-bg); padding: 20px; margin: 20px; border-radius: 10px; border: 1px solid #333; display: none; }
+        input { width: 100%; padding: 12px; margin: 8px 0; border-radius: 5px; border: 1px solid #444; background: #222; color: white; }
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; padding: 20px; }
-        .video-card { background: var(--card-bg); border-radius: 10px; overflow: hidden; position: relative; border: 1px solid #334155; }
-        .video-card img { width: 100%; height: 160px; object-fit: cover; }
-        .del-btn { position: absolute; top: 10px; right: 10px; background: rgba(239, 68, 68, 0.9); color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; display: none; }
+        .video-card { background: var(--card-bg); border-radius: 10px; overflow: hidden; position: relative; border: 1px solid #333; transition: 0.3s; }
+        .video-card:hover { transform: translateY(-5px); border-color: var(--primary); }
         video { width: 100%; aspect-ratio: 16/9; background: #000; }
-        .login-btn { background: #334155; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; }
+        .del-btn { position: absolute; top: 10px; right: 10px; background: rgba(255, 71, 87, 0.9); color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; }
+        .login-btn { background: #333; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; float: right; margin: 10px; }
     </style>
 </head>
 <body>
 
 <header>
-    <div style="font-weight:bold; font-size:20px;">HABESHA <span style="color:var(--primary)">PREMIUM</span></div>
+    <div style="font-weight: bold; font-size: 24px;">HABESHA <span style="color: var(--primary);">PREMIUM</span></div>
     <button class="login-btn" onclick="adminLogin()">Admin Login</button>
 </header>
 
 <div id="adminPanel" class="admin-section">
-    <h3 style="color:var(--primary); margin-top:0;">አዲስ ቪዲዮ ይጫኑ</h3>
-    <input type="text" id="vTitle" placeholder="ርዕስ">
-    <input type="text" id="vThumb" placeholder="የተምኔል ሊንክ">
-    <input type="text" id="vUrl" placeholder="የቪዲዮ ሊንክ">
-    <button class="btn" onclick="addVideo()">ቪዲዮውን አክል</button>
-    <button onclick="adminLogout()" style="margin-top:10px; background:none; color:#94a3b8; border:none; cursor:pointer;">Logout</button>
+    <h3 style="color: var(--primary); margin-top: 0;">ቪዲዮ መጫኛ ክፍል</h3>
+    <input type="text" id="vTitle" placeholder="የቪዲዮው ስም">
+    <input type="text" id="vThumb" placeholder="የፎቶ ሊንክ (Thumbnail)">
+    <input type="text" id="vUrl" placeholder="የቪዲዮ ሊንክ (URL)">
+    <button style="background: var(--primary); color: white; border: none; padding: 12px 25px; border-radius: 5px; cursor: pointer; width: 100%; font-weight: bold;" onclick="addVideo()">ቪዲዮውን ጫን</button>
+    <button onclick="adminLogout()" style="margin-top: 15px; background: none; color: #ff4757; border: none; cursor: pointer;">መውጫ (Logout)</button>
 </div>
 
 <div class="grid" id="videoGrid"></div>
 
 <script>
+    // Firebase ማገናኛ (ያለህበት በትክክል ገብቷል)
     const firebaseConfig = { databaseURL: "https://habesha-xxx-video-default-rtdb.firebaseio.com/" };
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
     let isAdmin = false;
-    const MY_PASSWORD = "1234"; // <--- እዚህ ጋር የምትፈልገውን ፓስወርድ ቀይር!
+    const MY_PASSWORD = "1234"; 
 
-    // 1. Login ማድረግ
     function adminLogin() {
         const pass = prompt("የይለፍ ቃል ያስገቡ:");
-        if(pass === MY_PASSWORD) {
+        if (pass === MY_PASSWORD) {
             isAdmin = true;
             document.getElementById('adminPanel').style.display = 'block';
-            renderVideos(); // ገጹን እንደገና አድስ
-            alert("እንኳን ደህና መጡ !");
+            renderVideos();
+            alert("እንኳን ደህና መጡ!");
         } else {
-            alert("የተሳሳተ ፓስወርድ ነው!");
+            alert("የይለፍ ቃል ተሳስቷል!");
         }
     }
 
@@ -68,19 +69,18 @@
         renderVideos();
     }
 
-    // 2. ቪዲዮ መጨመር
     function addVideo() {
-        if(!isAdmin) return alert("አልተፈቀደልህም!");
+        if (!isAdmin) return alert("መጀመሪያ Login ያድርጉ!");
         const title = document.getElementById('vTitle').value;
         const thumb = document.getElementById('vThumb').value;
         let url = document.getElementById('vUrl').value;
 
-        if(url.includes("dropbox.com")) url = url.replace("dl=0", "dl=1");
+        if (url.includes("dropbox.com")) url = url.replace("dl=0", "raw=1");
 
-        if(title && thumb && url) {
+        if (title && thumb && url) {
             db.ref('videos').push({ title, thumbnail: thumb, videoUrl: url })
             .then(() => {
-                alert("ተጨምሯል!");
+                alert("ተጭኗል!");
                 document.getElementById('vTitle').value = '';
                 document.getElementById('vThumb').value = '';
                 document.getElementById('vUrl').value = '';
@@ -88,16 +88,14 @@
         }
     }
 
-    // 3. ቪዲዮ መደለዝ
     function deleteVideo(id) {
-        if(!isAdmin) return;
-        if(confirm("ይህ ቪዲዮ በቋሚነት ይደለዝ?")) {
+        if (!isAdmin) return;
+        if (confirm("ይህ ቪዲዮ ይጥፋ?")) {
             db.ref('videos/' + id).remove()
-            .then(() => alert("ተሰርዟል!"));
+            .then(() => alert("ጠፍቷል!"));
         }
     }
 
-    // 4. ቪዲዮዎችን ማሳየት
     function renderVideos() {
         db.ref('videos').on('value', (snapshot) => {
             const grid = document.getElementById('videoGrid');
@@ -107,21 +105,20 @@
                 const key = child.key;
                 grid.innerHTML += `
                     <div class="video-card">
-                        <button class="del-btn" style="display:${isAdmin ? 'block' : 'none'}" onclick="deleteVideo('${key}')">ሰርዝ</button>
-                        <img src="${data.thumbnail}">
-                        <div style="padding:10px;">
-                            <h4 style="margin:0 0 10px 0;">${data.title}</h4>
-                            <video controls poster="${data.thumbnail}">
-                                <source src="${data.videoUrl}" type="video/mp4">
-                            </video>
+                        ${isAdmin ? `<button class="del-btn" onclick="deleteVideo('${key}')">አጥፋ</button>` : ''}
+                        <video controls poster="${data.thumbnail}">
+                            <source src="${data.videoUrl}" type="video/mp4">
+                        </video>
+                        <div style="padding: 12px;">
+                            <h4 style="margin: 0; font-size: 15px;">${data.title}</h4>
                         </div>
-                    </div>
-                `;
+                    </div>`;
             });
         });
     }
 
     renderVideos();
 </script>
+
 </body>
 </html>
