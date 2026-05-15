@@ -3,94 +3,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Habesha XXX Video</title>
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, collection, addDoc, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    <title>Habesha Premium Video</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <style>
+        body { background-color: #0f172a; color: white; font-family: sans-serif; }
+        .video-card { transition: transform 0.3s; background-color: #1e293b; border-radius: 12px; overflow: hidden; border: 1px solid #334155; }
+        .video-card:hover { transform: scale(1.03); border-color: #ef4444; }
+        .thumbnail-img { width: 100%; height: 170px; object-fit: cover; }
+        #ad-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 1000; justify-content: center; align-items: center; text-align: center; }
+        .logo-img { height: 40px; width: 40px; object-fit: contain; }
+    </style>
+</head>
+<body>
 
-        // አንተ የላክኸው ትክክለኛው የ Firebase መረጃ
+    <nav class="bg-slate-900 p-4 border-b border-red-900/30 sticky top-0 z-50 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <img src="https://raw.githubusercontent.com/exnessdawit-oss/habesh-xxx-vid/main/1000019134.jpg" alt="Logo" class="logo-img">
+                <h1 class="text-2xl font-black text-white tracking-tighter">HABESHA <span class="text-red-600 font-light italic text-lg">PREMIUM</span></h1>
+            </div>
+            <input type="text" placeholder="ቪዲዮ ፈልግ..." class="bg-slate-800 border border-slate-700 rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-600 w-40 md:w-72 transition-all">
+        </div>
+    </nav>
+
+    <div class="container mx-auto p-4 lg:p-8">
+        
+        <div id="player-container" class="hidden mb-10 bg-black rounded-xl overflow-hidden shadow-[0_0_50px_-12px_rgba(239,68,68,0.3)] relative">
+            <video id="main-video" controls class="w-full max-h-[600px]"></video>
+            <div id="ad-overlay" class="flex-col px-6">
+                <div class="animate-pulse text-red-500 mb-4 text-xl font-bold">የሚከፈልበት ማስታወቂያ</div>
+                <div class="bg-white p-10 text-black rounded-2xl font-black text-4xl shadow-2xl shadow-red-600/20">
+                    ADSTERRA SPACE<br>
+                    <span class="text-base font-medium text-slate-500">ማስታወቂያው በ 5 ሰከንድ ውስጥ ይጠፋል</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-slate-800/50 backdrop-blur-md p-6 rounded-2xl mb-10 border border-slate-700 shadow-xl">
+            <h3 class="text-xl font-bold mb-5 flex items-center gap-2 text-red-500">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                አዲስ ቪዲዮ አስተዳድር
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <input type="text" id="title" placeholder="የቪዲዮ ርዕስ" class="bg-slate-900 border border-slate-700 p-4 rounded-xl text-white focus:ring-2 focus:ring-red-600 outline-none">
+                <input type="text" id="thumb" placeholder="የፎቶ (Thumbnail) URL" class="bg-slate-900 border border-slate-700 p-4 rounded-xl text-white focus:ring-2 focus:ring-red-600 outline-none">
+                <input type="text" id="url" placeholder="የቪዲዮ (MP4) URL" class="bg-slate-900 border border-slate-700 p-4 rounded-xl text-white focus:ring-2 focus:ring-red-600 outline-none">
+                <button onclick="addVideo()" class="bg-red-600 hover:bg-red-700 text-white font-black py-4 rounded-xl transition transform active:scale-95 shadow-lg shadow-red-900/20">ቪዲዮውን አክል</button>
+            </div>
+        </div>
+
+        <div class="flex items-center gap-3 mb-8">
+            <div class="h-8 w-1 bg-red-600 rounded-full"></div>
+            <h2 class="text-2xl font-black uppercase tracking-widest">Featured Content</h2>
+        </div>
+        
+        <div id="video-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"></div>
+    </div>
+
+    <script>
         const firebaseConfig = {
-            apiKey: "AIzaSyAa0AlJrexC9S-YuA-seeUt_oO0ZOhMRwc",
+            apiKey: "AIzaSyAa0AlJrexC9S-YuA-seeUt_oO0ZOhmRwc",
             authDomain: "habesha-xxx-video.firebaseapp.com",
+            databaseURL: "https://habesha-xxx-video-default-rtdb.firebaseio.com/",
             projectId: "habesha-xxx-video",
             storageBucket: "habesha-xxx-video.firebasestorage.app",
             messagingSenderId: "841201015331",
             appId: "1:841201015331:web:08594d00eb793f6eaf2f96"
         };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
 
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        const vidsCol = collection(db, "videos");
-
-        // ቪዲዮ ለመጨመር
-        window.addVideo = async function() {
-            const title = document.getElementById('vTitle').value;
-            const url = document.getElementById('vUrl').value;
-            if(!title || !url) return alert("እባክህ ርዕስ እና ሊንክ ሙላ!");
-            
-            try {
-                await addDoc(vidsCol, { title, url, createdAt: Date.now() });
-                alert("✅ ቪዲዮው በትክክል ተጨምሯል!");
-                document.getElementById('vTitle').value = '';
-                document.getElementById('vUrl').value = '';
-            } catch (e) {
-                alert("ስህተት ተከስቷል፦ " + e.message);
+        function addVideo() {
+            const title = document.getElementById('title').value;
+            const thumb = document.getElementById('thumb').value || "https://via.placeholder.com/600x400/1e293b/ef4444?text=Habesha+Premium";
+            const url = document.getElementById('url').value;
+            if(title && url) {
+                db.ref('videos').push({ title, thumb, url });
+                alert("ቪዲዮው ከሎጎው ጋር በተቀናጀ መልኩ ተጨምሯል!");
+                location.reload();
             }
-        };
+        }
 
-        // ቪዲዮዎችን ከዳታቤዝ አምጥቶ ለማሳየት
-        const q = query(vidsCol, orderBy("createdAt", "desc"));
-        onSnapshot(q, (snapshot) => {
-            const grid = document.getElementById('videoGrid');
-            grid.innerHTML = '';
-            snapshot.forEach(d => {
-                const v = d.data();
-                grid.innerHTML += `
-                <div class="card">
-                    <div class="thumb" onclick="playV('${v.url}')">🎬</div>
-                    <div class="info">
-                        <h4>${v.title}</h4>
-                        <button class="play-btn" onclick="playV('${v.url}')">▶ አጫውት</button>
+        db.ref('videos').on('value', (snapshot) => {
+            const list = document.getElementById('video-list');
+            list.innerHTML = '';
+            snapshot.forEach((child) => {
+                const data = child.val();
+                list.innerHTML += `
+                    <div class="video-card cursor-pointer group shadow-2xl" onclick="playVideo('${data.url}')">
+                        <div class="relative overflow-hidden">
+                            <img src="${data.thumb}" class="thumbnail-img group-hover:scale-110 transition duration-500">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent opacity-60"></div>
+                            <div class="absolute bottom-4 left-4 right-4">
+                                <div class="text-sm font-bold text-white line-clamp-2 drop-shadow-md">${data.title}</div>
+                            </div>
+                            <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 bg-red-600/20 backdrop-blur-[2px]">
+                                <div class="bg-red-600 p-4 rounded-full shadow-xl">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>`;
+                `;
             });
         });
 
-        window.playV = (url) => {
-            document.getElementById('player').style.display = 'block';
-            const v = document.getElementById('mainV');
-            v.src = url;
-            v.play();
-        };
-    </script>
-    <style>
-        body { font-family: sans-serif; background: #0b0f19; color: white; padding: 15px; margin: 0; }
-        .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
-        .card { background: #1e293b; border-radius: 8px; padding: 10px; text-align: center; }
-        .thumb { font-size: 40px; cursor: pointer; background: #334155; padding: 20px; border-radius: 5px; }
-        .play-btn { background: #2563eb; color: white; border: none; padding: 8px; width: 100%; border-radius: 4px; cursor: pointer; }
-        #player { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:black; z-index: 1000; }
-        video { width: 100%; height: 80%; }
-        .admin { margin-top: 30px; background: #1e293b; padding: 15px; border-radius: 8px; border: 1px solid #334155; }
-        input { width: 95%; padding: 10px; margin: 5px 0; border-radius: 4px; border: none; }
-    </style>
-</head>
-<body>
-    <h2 style="text-align: center;">Habesha Video Player</h2>
-    
-    <div class="video-grid" id="videoGrid"></div>
+        let shownAds = new Set();
+        function playVideo(url) {
+            const container = document.getElementById('player-container');
+            const video = document.getElementById('main-video');
+            const ad = document.getElementById('ad-overlay');
+            container.classList.remove('hidden');
+            video.src = url;
+            shownAds.clear();
+            video.play();
+            window.scrollTo({top: 0, behavior: 'smooth'});
 
-    <div class="admin">
-        <h3>አዲስ ቪዲዮ ጨምር</h3>
-        <input type="text" id="vTitle" placeholder="የርዕስ ስም">
-        <input type="text" id="vUrl" placeholder="የቪዲዮ MP4 ሊንክ">
-        <button class="play-btn" onclick="addVideo()" style="background: #10b981;">ቪዲዮ አክል</button>
-    </div>
+            video.ontimeupdate = function() {
+                const duration = video.duration;
+                const currentTime = video.currentTime;
+                const percentage = (currentTime / duration) * 100;
+                const durationMin = duration / 60;
 
-    <div id="player">
-        <button onclick="document.getElementById('player').style.display='none'; document.getElementById('mainV').pause();" 
-                style="color:white; background:red; border:none; padding:10px; width:100%; font-weight:bold;">ዝጋ (X)</button>
-        <video id="mainV" controls></video>
-    </div>
-</body>
-</html>
+                if (durationMin >= 0.5 && durationMin <= 2) triggerAd(percentage >= 1, "1%_ad");
+                else if (durationMin > 2 && durationMin <= 8) {
+                    triggerAd(percentage >= 15, "15%_ad");
+                    triggerAd(percentage >= 50, "50%_ad");
+                }
+                else if (durationMin > 8) {
+                    triggerAd(currentTime >= 1, "start_ad");
+                    triggerAd(percentage >= 25, "25%_ad");
+                    triggerAd(percentage >= 50, "50%_ad");
+                }
+            };
+
+            function triggerAd(condition, adKey) {
+                if (condition && !shownAds.has(adKey)) {
+                    shownAds.add(adKey);
+                    showAdBox();
+                }
+            }
+
+            function showAdBox() {
+                ad.style.display = 'flex'; video
