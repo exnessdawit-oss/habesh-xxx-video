@@ -9,7 +9,6 @@
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 
-<!-- FONT -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
@@ -30,6 +29,7 @@
 
 body{
     font-family:'Poppins',sans-serif;
+
     background:
     linear-gradient(
     135deg,
@@ -44,8 +44,11 @@ body{
 
 header{
     background:rgba(10,15,25,0.85);
+
     backdrop-filter:blur(12px);
+
     padding:18px;
+
     border-bottom:1px solid rgba(139,92,246,0.3);
 
     display:flex;
@@ -57,14 +60,36 @@ header{
     z-index:100;
 }
 
+/* LOGO */
+
 .logo{
-    font-size:30px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    font-size:24px;
     font-weight:700;
 }
 
 .logo span{
     color:#8b5cf6;
 }
+
+.site-logo{
+    width:50px;
+    height:50px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    border:2px solid #8b5cf6;
+
+    box-shadow:
+    0 0 20px rgba(139,92,246,0.5);
+}
+
+/* BUTTONS */
 
 .top-buttons{
     display:flex;
@@ -77,14 +102,15 @@ button{
     transition:0.3s;
 }
 
-/* BUTTONS */
-
 .login-btn,
 .search-btn{
     background:#1f2937;
     color:white;
+
     padding:12px 18px;
+
     border-radius:12px;
+
     font-weight:600;
 }
 
@@ -102,22 +128,31 @@ button{
 
 .search-box input{
     width:100%;
-    padding:16px;
+
+    padding:15px;
+
     border:none;
+
     border-radius:14px;
+
     background:#111827;
+
     border:1px solid #374151;
+
     color:white;
-    font-size:15px;
+
+    font-size:14px;
 }
 
-/* ADMIN PANEL */
+/* ADMIN */
 
 .admin-section{
     background:rgba(17,24,39,0.85);
+
     backdrop-filter:blur(10px);
 
     margin:20px;
+
     padding:20px;
 
     border-radius:20px;
@@ -134,13 +169,17 @@ button{
 
 input{
     width:100%;
+
     padding:14px;
+
     margin:10px 0;
 
     border:none;
+
     border-radius:12px;
 
     background:#1f2937;
+
     color:white;
 }
 
@@ -148,7 +187,8 @@ input{
 
 .upload-btn{
     width:100%;
-    padding:15px;
+
+    padding:14px;
 
     border-radius:14px;
 
@@ -158,21 +198,24 @@ input{
     #ec4899);
 
     color:white;
+
     font-weight:700;
 }
 
-/* VIDEO GRID */
+/* GRID */
 
 .grid{
     display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+
+    grid-template-columns:
+    repeat(auto-fill,minmax(300px,1fr));
 
     gap:20px;
 
     padding:20px;
 }
 
-/* VIDEO CARD */
+/* CARD */
 
 .video-card{
     background:rgba(17,24,39,0.85);
@@ -193,8 +236,11 @@ input{
 
 .video-card:hover{
     transform:translateY(-8px);
+
     border-color:#8b5cf6;
 }
+
+/* VIDEO */
 
 video{
     width:100%;
@@ -209,6 +255,7 @@ video{
 .video-title{
     font-size:18px;
     font-weight:600;
+
     margin-bottom:12px;
 }
 
@@ -232,10 +279,11 @@ video{
     font-weight:700;
 }
 
-/* DELETE BUTTON */
+/* DELETE */
 
 .del-btn{
     position:absolute;
+
     top:10px;
     right:10px;
 
@@ -252,20 +300,24 @@ video{
 
 .video-actions{
     display:flex;
+
     gap:10px;
+
     margin-top:15px;
 }
 
 .action-btn{
     flex:1;
 
-    padding:12px;
+    padding:10px;
 
     background:#1f2937;
 
     color:white;
 
     border-radius:12px;
+
+    font-size:13px;
 
     font-weight:600;
 }
@@ -286,25 +338,39 @@ video{
 /* VIEWS */
 
 .views{
-    margin-top:12px;
+    margin-top:10px;
+
     color:#9ca3af;
-    font-size:14px;
+
+    font-size:13px;
 }
 
 /* COMMENT */
 
 .comment-box{
-    margin-top:15px;
+    margin-top:12px;
+}
+
+.comment-box input{
+    padding:10px;
+
+    font-size:13px;
+
+    height:42px;
+
+    border-radius:10px;
 }
 
 .comment-btn{
     width:100%;
 
-    margin-top:10px;
+    margin-top:8px;
 
-    padding:12px;
+    padding:10px;
 
-    border-radius:12px;
+    border-radius:10px;
+
+    font-size:14px;
 
     background:linear-gradient(
     45deg,
@@ -319,11 +385,13 @@ video{
 .comment-item{
     background:#1f2937;
 
-    padding:12px;
+    padding:8px 10px;
 
-    border-radius:12px;
+    border-radius:10px;
 
     margin-top:8px;
+
+    font-size:13px;
 }
 
 /* FOOTER */
@@ -337,7 +405,8 @@ footer{
 
     background:#0f172a;
 
-    border-top:1px solid rgba(255,255,255,0.08);
+    border-top:
+    1px solid rgba(255,255,255,0.08);
 
     color:#94a3b8;
 }
@@ -387,7 +456,14 @@ footer{
 <header>
 
     <div class="logo">
-        HABESHA <span>PREMIUM</span>
+
+        <!-- YOUR LOGO -->
+        <img
+        src="1000019134.jpg"
+        class="site-logo">
+
+        <span>HABESHA PREMIUM</span>
+
     </div>
 
     <div class="top-buttons">
@@ -420,7 +496,7 @@ footer{
 
 </div>
 
-<!-- ADMIN PANEL -->
+<!-- ADMIN -->
 
 <div id="adminPanel" class="admin-section">
 
@@ -465,7 +541,7 @@ footer{
     Loading Videos...
 </div>
 
-<!-- VIDEO GRID -->
+<!-- VIDEOS -->
 
 <div class="grid" id="videoGrid"></div>
 
@@ -509,6 +585,7 @@ function adminLogin(){
         alert("Welcome Admin!");
 
     }else{
+
         alert("Wrong Password!");
     }
 }
@@ -568,6 +645,7 @@ function addVideo(){
         });
 
     }else{
+
         alert("Fill All Inputs!");
     }
 }
@@ -583,6 +661,7 @@ function deleteVideo(id){
         db.ref("videos/" + id).remove()
 
         .then(()=>{
+
             alert("Deleted!");
         });
     }
@@ -608,11 +687,13 @@ function searchVideos(){
         .toLowerCase();
 
         if(title.includes(value)){
+
             card.style.display = "block";
+
         }else{
+
             card.style.display = "none";
         }
-
     });
 }
 
@@ -620,20 +701,25 @@ function searchVideos(){
 
 function likeVideo(id){
 
-    const likeRef = db.ref("likes/" + id);
+    const likeRef =
+    db.ref("likes/" + id);
 
     likeRef.transaction((likes)=>{
+
         return (likes || 0) + 1;
     });
 }
 
 function loadLikes(id){
 
-    db.ref("likes/" + id).on("value",(snap)=>{
+    db.ref("likes/" + id)
+    .on("value",(snap)=>{
 
-        const likes = snap.val() || 0;
+        const likes =
+        snap.val() || 0;
 
-        document.getElementById("like-" + id)
+        document.getElementById(
+        "like-" + id)
         .innerText = likes;
     });
 }
@@ -642,20 +728,25 @@ function loadLikes(id){
 
 function addView(id){
 
-    const viewRef = db.ref("views/" + id);
+    const viewRef =
+    db.ref("views/" + id);
 
     viewRef.transaction((views)=>{
+
         return (views || 0) + 1;
     });
 }
 
 function loadViews(id){
 
-    db.ref("views/" + id).on("value",(snap)=>{
+    db.ref("views/" + id)
+    .on("value",(snap)=>{
 
-        const views = snap.val() || 0;
+        const views =
+        snap.val() || 0;
 
-        document.getElementById("view-" + id)
+        document.getElementById(
+        "view-" + id)
         .innerText = views;
     });
 }
@@ -681,13 +772,15 @@ function downloadVideo(url){
 function addComment(videoId){
 
     const input =
-    document.getElementById("commentInput-" + videoId);
+    document.getElementById(
+    "commentInput-" + videoId);
 
     const text = input.value;
 
     if(text.trim() === "") return;
 
-    db.ref("comments/" + videoId).push({
+    db.ref("comments/" + videoId)
+    .push({
 
         text:text,
         createdAt:Date.now()
@@ -703,7 +796,8 @@ function loadComments(videoId){
     .on("value",(snapshot)=>{
 
         const container =
-        document.getElementById("comments-" + videoId);
+        document.getElementById(
+        "comments-" + videoId);
 
         container.innerHTML = "";
 
@@ -729,7 +823,8 @@ function renderVideos(){
     document.getElementById("loader")
     .style.display = "block";
 
-    db.ref("videos").on("value",(snapshot)=>{
+    db.ref("videos")
+    .on("value",(snapshot)=>{
 
         const grid =
         document.getElementById("videoGrid");
@@ -756,8 +851,11 @@ function renderVideos(){
                 </button>
                 ` : ''}
 
+                <!-- VIDEO -->
+
                 <video
                 controls
+                preload="none"
                 poster="${data.thumbnail}"
                 onclick="addView('${key}')">
 
@@ -776,6 +874,8 @@ function renderVideos(){
                     <span class="badge">
                         PREMIUM
                     </span>
+
+                    <!-- ACTIONS -->
 
                     <div class="video-actions">
 
@@ -808,6 +908,8 @@ function renderVideos(){
 
                     </div>
 
+                    <!-- VIEWS -->
+
                     <div class="views">
 
                         👁️
@@ -817,6 +919,8 @@ function renderVideos(){
                         Views
 
                     </div>
+
+                    <!-- COMMENT -->
 
                     <div class="comment-box">
 
@@ -833,7 +937,9 @@ function renderVideos(){
 
                         </button>
 
-                        <div id="comments-${key}"></div>
+                        <div
+                        id="comments-${key}">
+                        </div>
 
                     </div>
 
@@ -846,7 +952,9 @@ function renderVideos(){
             setTimeout(()=>{
 
                 loadLikes(key);
+
                 loadViews(key);
+
                 loadComments(key);
 
             },300);
