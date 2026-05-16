@@ -1,458 +1,883 @@
-<!-- =========================
-HABESHA PREMIUM FULL UPGRADE
-========================= -->
-
-<!-- ADD INSIDE <head> -->
-
-<meta name="theme-color" content="#ff256b">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HABESHA PREMIUM</title>
 
 <link rel="manifest" href="manifest.json">
-
-<link rel="apple-touch-icon" href="https://i.ibb.co/nMTFY1w8/IMG-20260515-123744-362.jpg">
+<meta name="theme-color" content="#ff0066">
 
 <style>
 
-html{
-scroll-behavior:smooth;
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
 }
 
 body{
+background:#070012;
+color:white;
 overflow-x:hidden;
 }
 
-/* LOADER */
-
-#startup-loader{
-position:fixed;
+header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px;
+background:#12001f;
+position:sticky;
 top:0;
-left:0;
-width:100%;
-height:100%;
-background:#050010;
+z-index:999;
+border-bottom:1px solid #2a0045;
+}
+
+.logo{
 display:flex;
 align-items:center;
-justify-content:center;
-flex-direction:column;
-z-index:999999;
+gap:10px;
 }
 
-#startup-loader img{
-width:110px;
-height:110px;
+.logo img{
+width:55px;
+height:55px;
 border-radius:50%;
-animation:spinLogo 2s infinite linear;
-box-shadow:0 0 30px #ff256b;
 }
 
-@keyframes spinLogo{
-100%{
-transform:rotate(360deg);
-}
-}
-
-#startup-loader h1{
-margin-top:20px;
-color:white;
+.logo h1{
 font-size:28px;
+background:linear-gradient(to right,#fff,#ff0066);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
 }
 
-/* TELEGRAM BUTTON */
+.top-buttons{
+display:flex;
+gap:10px;
+}
 
-.telegram-btn{
+.btn{
+padding:12px 16px;
+border:none;
+border-radius:14px;
+background:linear-gradient(45deg,#ff0066,#ff7700);
+color:white;
+font-weight:bold;
+cursor:pointer;
+}
+
+.loader{
+position:fixed;
+inset:0;
+background:#05000f;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+z-index:99999;
+}
+
+.loader img{
+width:120px;
+height:120px;
+border-radius:50%;
+animation:spin 2s linear infinite;
+}
+
+@keyframes spin{
+0%{transform:rotate(0deg)}
+100%{transform:rotate(360deg)}
+}
+
+.section-buttons{
+display:flex;
+gap:10px;
+padding:15px;
+}
+
+.section-buttons button{
+flex:1;
+padding:15px;
+border:none;
+border-radius:18px;
+background:linear-gradient(45deg,#ff0066,#7b2cff);
+color:white;
+font-size:18px;
+font-weight:bold;
+}
+
+.counter{
+padding:10px 15px;
+font-size:15px;
+color:#00ff99;
+}
+
+.trending-title{
+padding:10px 15px;
+font-size:22px;
+font-weight:bold;
+color:#ff3d88;
+}
+
+.video-container{
+padding:15px;
+display:grid;
+gap:25px;
+}
+
+.video-card{
+background:#140022;
+border-radius:20px;
+overflow:hidden;
+position:relative;
+box-shadow:0 0 20px rgba(255,0,100,.2);
+}
+
+.video-thumb{
+position:relative;
+}
+
+.video-thumb video{
+width:100%;
+height:260px;
+object-fit:cover;
+background:black;
+}
+
+.premium-badge{
+position:absolute;
+top:10px;
+left:10px;
+background:#ff2f7d;
+padding:8px 14px;
+border-radius:12px;
+font-size:14px;
+font-weight:bold;
+z-index:10;
+}
+
+.views-badge{
+position:absolute;
+top:10px;
+right:10px;
+background:red;
+padding:8px 12px;
+border-radius:12px;
+font-weight:bold;
+}
+
+.video-info{
+padding:15px;
+}
+
+.video-title{
+font-size:22px;
+margin-bottom:15px;
+font-weight:bold;
+}
+
+.actions{
+display:grid;
+grid-template-columns:1fr 1fr 1fr;
+gap:10px;
+}
+
+.action-btn{
+background:#250040;
+padding:14px;
+text-align:center;
+border-radius:15px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.comments-btn{
+margin-top:10px;
+background:#250040;
+padding:14px;
+text-align:center;
+border-radius:15px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.comment{
+font-size:12px;
+padding:8px;
+border-radius:10px;
+background:#1c0030;
+margin-top:6px;
+line-height:1.4;
+}
+
+.comment-input{
+padding:10px;
+font-size:13px;
+border-radius:12px;
+width:100%;
+border:none;
+background:#1c0030;
+color:white;
+margin-top:10px;
+}
+
+.telegram-float{
 position:fixed;
 bottom:20px;
 right:20px;
-background:#229ED9;
-padding:14px 18px;
-border-radius:50px;
-color:white;
-font-weight:bold;
-z-index:9999;
-text-decoration:none;
-box-shadow:0 0 20px rgba(0,0,0,.5);
-}
-
-/* ONLINE */
-
-#online-users{
-position:fixed;
-top:85px;
-right:10px;
-background:red;
-padding:8px 14px;
-border-radius:30px;
-font-size:12px;
-font-weight:bold;
-z-index:999;
-animation:pulse 1s infinite;
-}
-
-/* AGE POPUP */
-
-#age-popup{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:black;
+width:65px;
+height:65px;
+border-radius:50%;
+background:#0088cc;
 display:flex;
-align-items:center;
 justify-content:center;
-z-index:999999;
-}
-
-.age-box{
-background:#120021;
-padding:30px;
-border-radius:20px;
-text-align:center;
-max-width:320px;
+align-items:center;
+font-size:35px;
+text-decoration:none;
 color:white;
+z-index:9999;
+box-shadow:0 0 20px rgba(0,136,204,.5);
 }
 
-.age-box button{
+.vip-popup{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.9);
+display:none;
+justify-content:center;
+align-items:center;
+z-index:99999;
+}
+
+.vip-box{
+background:#13001f;
+padding:25px;
+border-radius:25px;
+width:90%;
+max-width:500px;
+line-height:2;
+}
+
+.vip-box h2{
+color:#ff2f7d;
+margin-bottom:15px;
+}
+
+.vip-box a{
+display:block;
 margin-top:20px;
-padding:12px 25px;
-border:none;
-border-radius:12px;
-background:#ff256b;
+background:#0088cc;
+padding:15px;
+text-align:center;
+border-radius:15px;
 color:white;
+text-decoration:none;
 font-weight:bold;
 }
 
-/* SKELETON */
+.admin-panel{
+padding:15px;
+display:none;
+}
+
+.admin-box{
+background:#13001f;
+padding:20px;
+border-radius:20px;
+}
+
+.admin-box input{
+width:100%;
+padding:18px;
+margin-top:12px;
+background:#24003d;
+border:none;
+color:white;
+border-radius:15px;
+font-size:16px;
+}
+
+.upload-btn{
+margin-top:15px;
+width:100%;
+padding:18px;
+font-size:20px;
+font-weight:bold;
+background:#ff2f7d;
+color:white;
+border:none;
+border-radius:18px;
+}
 
 .skeleton{
-height:320px;
+height:300px;
 border-radius:20px;
-background:linear-gradient(
-90deg,
-#1b1238 25%,
-#2a1f55 50%,
-#1b1238 75%
-);
+background:linear-gradient(90deg,#150026,#260044,#150026);
 background-size:200% 100%;
 animation:skeleton 1.2s infinite;
 }
 
 @keyframes skeleton{
-0%{
-background-position:200% 0;
-}
-100%{
-background-position:-200% 0;
-}
+0%{background-position:200% 0}
+100%{background-position:-200% 0}
 }
 
-/* VIDEO */
-
-video{
-width:100%;
-background:black;
-border-radius:18px 18px 0 0;
-}
-
-/* PREMIUM LOCK */
-
-.locked{
-filter:blur(8px);
-pointer-events:none;
-user-select:none;
-}
-
-.unlock-btn{
-position:absolute;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
-background:#ff256b;
-padding:12px 20px;
-border-radius:30px;
-font-weight:bold;
-z-index:50;
-}
-
-/* HEART */
-
-.big-heart{
-position:absolute;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
-font-size:80px;
-opacity:0;
-pointer-events:none;
-animation:heartPop .8s ease;
-}
-
-@keyframes heartPop{
-0%{
-opacity:0;
-transform:translate(-50%,-50%) scale(.5);
-}
-50%{
-opacity:1;
-transform:translate(-50%,-50%) scale(1.3);
-}
-100%{
-opacity:0;
-transform:translate(-50%,-50%) scale(1);
-}
+footer{
+text-align:center;
+padding:40px 20px;
+color:#888;
 }
 
 </style>
+</head>
+<body>
 
-<!-- BODY START -->
+<div class="loader" id="loader">
+<img src="https://i.ibb.co/nMTFY1w8/IMG-20260515-123744-362.jpg">
+<h2 style="margin-top:20px;color:#ff2f7d">
+HABESHA PREMIUM
+</h2>
+</div>
 
-<div id="startup-loader">
+<div class="vip-popup" id="vipPopup">
+<div class="vip-box">
+
+<h2>💍 PREMIUM 💎</h2>
+
+<p>
+
+ሰላም እንኳን ወደ premium (VIP) በሰላም መጣህ
+
+<br><br>
+
+የ1 ወር vip video 500 ብር
+<br>
+የ3 ወር vip video 1200 ብር
+<br>
+የ6 ወር vip video 2500 ብር
+<br>
+የ1 አመት vip video 4000 ብር
+
+</p>
+
+<a href="https://t.me/Habeshapremiumvideo" target="_blank">
+PAY WITH TELEGRAM
+</a>
+
+</div>
+</div>
+
+<header>
+
+<div class="logo">
 <img src="https://i.ibb.co/nMTFY1w8/IMG-20260515-123744-362.jpg">
 <h1>HABESHA PREMIUM</h1>
 </div>
 
-<div id="age-popup">
+<div class="top-buttons">
 
-<div class="age-box">
+<button class="btn" onclick="showXXX()">
+🔥 XXX 🍑
+</button>
 
-<h1>🔞 18+</h1>
+<button class="btn" onclick="openVIP()">
+💍 PREMIUM 💎
+</button>
 
-<p>
-This website contains adult content.
-</p>
+<button class="btn" onclick="showAdmin()">
+ADMIN
+</button>
 
-<button onclick="enterSite()">
-I AM 18+
+<button class="btn" onclick="enableAdminLikes()">
+ADMIN MODE
 </button>
 
 </div>
 
-</div>
+</header>
 
-<div id="online-users">
+<div class="counter" id="onlineCounter">
 245 users online
 </div>
 
-<a class="telegram-btn"
+<div class="trending-title">
+🔥 TRENDING VIDEOS
+</div>
+
+<div class="admin-panel" id="adminPanel">
+
+<div class="admin-box">
+
+<input type="password" id="adminPassword" placeholder="Admin Password">
+
+<input type="text" id="videoTitle" placeholder="Video Title">
+
+<input type="text" id="videoUrl" placeholder="Dropbox MP4 Link">
+
+<button class="upload-btn" onclick="uploadVideo()">
+UPLOAD VIDEO
+</button>
+
+</div>
+</div>
+
+<div class="video-container" id="videos">
+
+<div class="skeleton"></div>
+<div class="skeleton"></div>
+
+</div>
+
+<a class="telegram-float"
 href="https://t.me/Habeshapremiumvideo"
 target="_blank">
-📩 Telegram
+✈
 </a>
 
-<!-- VIDEO TAG -->
+<footer>
+© 2026 HABESHA PREMIUM
+</footer>
 
-<video
-controls
-playsinline
-preload="metadata"
-controlsList="nodownload"
-disablePictureInPicture
-poster="https://i.ibb.co/nMTFY1w8/IMG-20260515-123744-362.jpg"
-oncontextmenu="return false;"
->
-<source src="${video.url}" type="video/mp4">
-</video>
+<script async type="application/javascript"
+src="https://a.magsrv.com/ad-provider.js">
+</script>
 
-<!-- JAVASCRIPT -->
+<ins class="eas6a97888e2"
+data-zoneid="5927772">
+</ins>
+
+<script>
+(AdProvider = window.AdProvider || []).push({"serve": {}});
+</script>
 
 <script>
 
-/* STARTUP */
+const ADMIN_PASSWORD = "dawit12345";
 
-window.addEventListener("load",()=>{
+let adminMode = false;
+
+const defaultVideos = [
+
+{
+title:"Sample Video 🔥",
+url:"https://www.w3schools.com/html/mov_bbb.mp4",
+views:15,
+likes:4
+}
+
+];
+
+let videos =
+JSON.parse(localStorage.getItem("videos"))
+|| defaultVideos;
+
+function enableAdminLikes(){
+
+const pass = prompt("Enter Admin Password");
+
+if(pass === ADMIN_PASSWORD){
+
+adminMode = true;
+
+alert("Admin Mode Enabled ✅");
+
+}else{
+
+alert("Wrong Password ❌");
+
+}
+
+}
 
 setTimeout(()=>{
-document.getElementById("startup-loader").style.display="none";
+
+document.getElementById("loader").style.display="none";
+
 },2500);
 
-});
+function openVIP(){
 
-/* AGE */
+document.getElementById("vipPopup").style.display="flex";
 
-function enterSite(){
-document.getElementById("age-popup").style.display="none";
 }
 
-/* ONLINE USERS */
+window.onclick=function(e){
 
-setInterval(()=>{
+if(e.target==
+document.getElementById("vipPopup")){
 
-document.getElementById("online-users").innerHTML=
-Math.floor(Math.random()*300+120)
-+" users online";
+document.getElementById("vipPopup").style.display="none";
 
-},3000);
+}
 
-/* BLOCK INSPECT */
+}
 
-document.addEventListener("contextmenu",
-e=>e.preventDefault()
+function showAdmin(){
+
+document.getElementById("adminPanel").style.display="block";
+
+window.scrollTo(0,0);
+
+}
+
+function uploadVideo(){
+
+const pass =
+document.getElementById("adminPassword").value;
+
+const title =
+document.getElementById("videoTitle").value;
+
+const url =
+document.getElementById("videoUrl").value;
+
+if(pass !== ADMIN_PASSWORD){
+
+alert("Wrong Password ❌");
+
+return;
+
+}
+
+if(!title || !url){
+
+alert("Fill all fields");
+
+return;
+
+}
+
+let fixedUrl = url;
+
+if(url.includes("dropbox.com")
+&& !url.includes("raw=1")){
+
+fixedUrl =
+url.replace("dl=0","raw=1")
+.replace("dl=1","raw=1");
+
+}
+
+videos.unshift({
+
+title:title,
+url:fixedUrl,
+views:1,
+likes:0
+
+});
+
+localStorage.setItem(
+"videos",
+JSON.stringify(videos)
 );
 
-document.onkeydown=function(e){
+alert("Upload Success ✅");
 
-if(
-e.keyCode==123 ||
-(e.ctrlKey && e.shiftKey && e.keyCode==73) ||
-(e.ctrlKey && e.keyCode==85)
-){
-return false;
-}
+renderVideos();
 
 }
 
-/* FULLSCREEN */
+function renderVideos(){
 
-document.addEventListener("click",function(e){
+const container =
+document.getElementById("videos");
 
-if(e.target.tagName==="VIDEO"){
+container.innerHTML="";
 
-if(e.target.requestFullscreen){
-e.target.requestFullscreen();
-}
+videos.sort((a,b)=>b.views-a.views);
+
+videos.forEach((video,index)=>{
+
+const card=document.createElement("div");
+
+card.className="video-card";
+
+card.innerHTML=`
+
+<div class="video-thumb">
+
+<div class="premium-badge">
+PREMIUM
+</div>
+
+<div class="views-badge">
+👁 ${video.views}
+</div>
+
+<video
+controls
+controlsList="nodownload"
+preload="metadata"
+poster="https://i.ibb.co/nMTFY1w8/IMG-20260515-123744-362.jpg">
+
+<source src="${video.url}" type="video/mp4">
+
+</video>
+
+</div>
+
+<div class="video-info">
+
+<div class="video-title">
+${video.title}
+</div>
+
+<div class="actions">
+
+<div class="action-btn">
+👁 ${video.views}
+</div>
+
+<div class="action-btn"
+onclick="likeVideo(${index})">
+
+❤️ ${video.likes}
+
+</div>
+
+<div class="action-btn"
+onclick="shareVideo('${video.url}')">
+
+🔗 SHARE
+
+</div>
+
+</div>
+
+<div class="comments-btn"
+onclick="favoriteVideo(${index})">
+
+⭐ SAVE FAVORITE
+
+</div>
+
+<div class="comments-btn"
+onclick="editTitle(${index})">
+
+✏ EDIT TITLE
+
+</div>
+
+<div class="comments-btn"
+onclick="deleteVideo(${index})">
+
+🗑 DELETE VIDEO
+
+</div>
+
+</div>
+
+`;
+
+container.appendChild(card);
+
+const vid=card.querySelector("video");
+
+vid.addEventListener("play",()=>{
+
+video.views++;
+
+localStorage.setItem(
+"videos",
+JSON.stringify(videos)
+);
+
+});
+
+vid.addEventListener("dblclick",()=>{
+
+likeVideo(index);
+
+});
+
+vid.addEventListener("click",()=>{
+
+if(vid.requestFullscreen){
+
+vid.requestFullscreen();
 
 }
 
 });
 
-/* DOUBLE TAP LIKE */
-
-document.addEventListener("dblclick",function(e){
-
-if(e.target.tagName==="VIDEO"){
-
-let heart=document.createElement("div");
-
-heart.innerHTML="❤️";
-
-heart.className="big-heart";
-
-e.target.parentElement.appendChild(heart);
-
-setTimeout(()=>{
-heart.remove();
-},800);
+});
 
 }
 
-});
+function likeVideo(i){
 
-/* TELEGRAM SHARE */
+let likedVideos =
+JSON.parse(localStorage.getItem("likedVideos"))
+|| {};
 
-function shareToTelegram(title,url){
+if(!adminMode){
+
+if(likedVideos[i] >= 2){
+
+alert("Maximum likes reached ❤️");
+
+return;
+
+}
+
+likedVideos[i] =
+(likedVideos[i] || 0) + 1;
+
+localStorage.setItem(
+"likedVideos",
+JSON.stringify(likedVideos)
+);
+
+}
+
+videos[i].likes++;
+
+localStorage.setItem(
+"videos",
+JSON.stringify(videos)
+);
+
+renderVideos();
+
+}
+
+function shareVideo(url){
 
 window.open(
-"https://t.me/share/url?url="
-+encodeURIComponent(url)
-+"&text="
-+encodeURIComponent(title),
-"_blank"
+`https://t.me/share/url?url=${url}`,
+'_blank'
 );
 
 }
 
-/* FAVORITES */
+function favoriteVideo(i){
 
-function saveFavorite(id){
-
-let favs=
+let favs =
 JSON.parse(localStorage.getItem("favorites"))
 || [];
 
-if(!favs.includes(id)){
-favs.push(id);
-}
+favs.push(videos[i]);
 
 localStorage.setItem(
 "favorites",
 JSON.stringify(favs)
 );
 
-alert("Saved ❤️");
+alert("Saved to favorites ⭐");
 
 }
 
-/* TRENDING */
+function deleteVideo(i){
 
-allVideos.sort(
-(a,b)=>(b.views||0)-(a.views||0)
+const pass = prompt("Admin Password");
+
+if(pass !== ADMIN_PASSWORD){
+
+alert("Wrong Password ❌");
+
+return;
+
+}
+
+videos.splice(i,1);
+
+localStorage.setItem(
+"videos",
+JSON.stringify(videos)
 );
 
-/* VIEW ANIMATION */
-
-function animateViews(element,start,end){
-
-let current=start;
-
-let interval=setInterval(()=>{
-
-current++;
-
-element.innerHTML="👁️ "+current;
-
-if(current>=end){
-clearInterval(interval);
-}
-
-},30);
+renderVideos();
 
 }
 
-/* ADMIN DELETE */
+function editTitle(i){
 
-function deleteVideo(id){
+const pass = prompt("Admin Password");
 
-if(confirm("Delete video?")){
+if(pass !== ADMIN_PASSWORD){
 
-database.ref("videos/"+id).remove();
+alert("Wrong Password ❌");
+
+return;
 
 }
 
-}
-
-/* ADMIN EDIT */
-
-function editVideo(id,currentTitle){
-
-let newTitle=
-prompt("Edit title",currentTitle);
+const newTitle = prompt("New Title");
 
 if(newTitle){
 
-database.ref("videos/"+id)
-.update({
-title:newTitle
+videos[i].title = newTitle;
+
+localStorage.setItem(
+"videos",
+JSON.stringify(videos)
+);
+
+renderVideos();
+
+}
+
+}
+
+function showXXX(){
+
+window.scrollTo({
+top:500,
+behavior:'smooth'
 });
 
 }
 
-}
+setInterval(()=>{
 
-/* VIP POPUP */
+const num =
+Math.floor(Math.random()*500)+100;
 
-function openVIP(){
+document.getElementById("onlineCounter")
+.innerText = `${num} users online`;
 
-alert(`
-ሰላም እንኳን ወደ premium VIP በሰላም መጣህ
+},4000);
 
-የ1 ወር vip 500 ብር
-የ3 ወር vip 1200 ብር
-የ6 ወር vip 2500 ብር
-የ1 አመት vip 4000 ብር
-`);
+renderVideos();
 
-window.open(
-"https://t.me/Habeshapremiumvideo",
-"_blank"
+document.addEventListener(
+'contextmenu',
+e=>e.preventDefault()
 );
 
+document.onkeydown=function(e){
+
+if(e.keyCode==123){
+
+return false;
+
 }
 
-/* PWA INSTALL */
+if(e.ctrlKey &&
+e.shiftKey &&
+e.keyCode==73){
+
+return false;
+
+}
+
+if(e.ctrlKey &&
+e.keyCode==85){
+
+return false;
+
+}
+
+}
 
 let deferredPrompt;
 
 window.addEventListener(
-"beforeinstallprompt",
+'beforeinstallprompt',
 (e)=>{
 
 e.preventDefault();
@@ -461,7 +886,9 @@ deferredPrompt=e;
 
 setTimeout(()=>{
 
-if(confirm("Install HABESHA PREMIUM App?")){
+if(confirm(
+'Install HABESHA PREMIUM app?'
+)){
 
 deferredPrompt.prompt();
 
@@ -471,49 +898,7 @@ deferredPrompt.prompt();
 
 });
 
-/* LAZY LOADING */
-
-document.querySelectorAll("video").forEach(v=>{
-
-v.setAttribute("loading","lazy");
-
-});
-
-/* DOWNLOAD BLOCK */
-
-document.querySelectorAll("video")
-.forEach(video=>{
-
-video.addEventListener(
-"contextmenu",
-e=>e.preventDefault()
-);
-
-});
-
-/* SMOOTH SCROLL */
-
-window.scrollTo({
-top:0,
-behavior:"smooth"
-});
-
 </script>
 
-<!-- MANIFEST.JSON -->
-
-{
-"name":"HABESHA PREMIUM",
-"short_name":"PREMIUM",
-"start_url":"./",
-"display":"standalone",
-"background_color":"#000000",
-"theme_color":"#ff256b",
-"icons":[
-{
-"src":"https://i.ibb.co/nMTFY1w8/IMG-20260515-123744-362.jpg",
-"sizes":"192x192",
-"type":"image/png"
-}
-]
-}
+</body>
+</html>
