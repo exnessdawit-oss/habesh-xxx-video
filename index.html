@@ -18,7 +18,6 @@
     --dark:#070b14;
     --card:#111827;
     --text:#ffffff;
-    --green:#22c55e;
 }
 
 *{
@@ -33,11 +32,11 @@ body{
     background:
     linear-gradient(
     135deg,
-    #070b14 0%,
-    #111827 50%,
-    #1e293b 100%);
+    #070b14,
+    #111827,
+    #1e293b);
 
-    color:var(--text);
+    color:white;
 }
 
 /* HEADER */
@@ -45,11 +44,7 @@ body{
 header{
     background:rgba(10,15,25,0.9);
 
-    backdrop-filter:blur(12px);
-
-    padding:18px;
-
-    border-bottom:1px solid rgba(139,92,246,0.3);
+    padding:15px;
 
     display:flex;
     justify-content:space-between;
@@ -58,16 +53,16 @@ header{
     position:sticky;
     top:0;
     z-index:100;
-}
 
-/* LOGO */
+    border-bottom:1px solid rgba(255,255,255,0.08);
+}
 
 .logo{
     display:flex;
     align-items:center;
     gap:10px;
 
-    font-size:24px;
+    font-size:20px;
     font-weight:700;
 }
 
@@ -76,25 +71,19 @@ header{
 }
 
 .site-logo{
-
-    width:50px;
-    height:50px;
+    width:45px;
+    height:45px;
 
     border-radius:50%;
 
     object-fit:cover;
 
     border:2px solid #8b5cf6;
-
-    box-shadow:
-    0 0 15px rgba(139,92,246,0.5);
 }
-
-/* BUTTONS */
 
 .top-buttons{
     display:flex;
-    gap:10px;
+    gap:8px;
 }
 
 button{
@@ -106,101 +95,83 @@ button{
 .login-btn,
 .search-btn{
     background:#1f2937;
+
     color:white;
 
-    padding:12px 18px;
+    padding:10px 14px;
 
-    border-radius:12px;
+    border-radius:10px;
 
-    font-weight:600;
-}
-
-.login-btn:hover,
-.search-btn:hover{
-    background:#8b5cf6;
-    transform:scale(1.05);
+    font-size:13px;
 }
 
 /* SEARCH */
 
 .search-box{
-    padding:20px;
+    padding:15px;
 }
 
 .search-box input{
     width:100%;
 
-    padding:15px;
+    padding:13px;
 
     border:none;
 
-    border-radius:14px;
+    border-radius:12px;
 
     background:#111827;
 
-    border:1px solid #374151;
-
     color:white;
-
-    font-size:14px;
 }
 
 /* ADMIN */
 
 .admin-section{
-    background:rgba(17,24,39,0.85);
+    background:#111827;
 
-    backdrop-filter:blur(10px);
+    margin:15px;
 
-    margin:20px;
+    padding:15px;
 
-    padding:20px;
-
-    border-radius:20px;
-
-    border:1px solid rgba(255,255,255,0.08);
+    border-radius:15px;
 
     display:none;
 }
 
 .admin-section h3{
-    margin-bottom:15px;
+    margin-bottom:12px;
     color:#8b5cf6;
 }
 
 input{
     width:100%;
 
-    padding:14px;
+    padding:12px;
 
-    margin:10px 0;
+    margin:8px 0;
 
     border:none;
 
-    border-radius:12px;
+    border-radius:10px;
 
     background:#1f2937;
 
     color:white;
 }
 
-/* UPLOAD */
-
 .upload-btn{
     width:100%;
 
-    padding:14px;
+    padding:12px;
 
-    border-radius:14px;
+    border-radius:10px;
 
-    background:linear-gradient(
-    45deg,
-    #8b5cf6,
-    #ec4899);
+    background:#8b5cf6;
 
     color:white;
 
-    font-weight:700;
+    font-weight:bold;
 }
 
 /* GRID */
@@ -209,39 +180,30 @@ input{
     display:grid;
 
     grid-template-columns:
-    repeat(auto-fill,minmax(300px,1fr));
+    repeat(auto-fill,minmax(240px,1fr));
 
-    gap:20px;
+    gap:15px;
 
-    padding:20px;
+    padding:15px;
 }
 
-/* CARD */
+/* VIDEO CARD */
 
 .video-card{
-    background:rgba(17,24,39,0.85);
+    background:#111827;
 
-    backdrop-filter:blur(10px);
-
-    border-radius:20px;
+    border-radius:16px;
 
     overflow:hidden;
 
-    border:1px solid rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.06);
 
     transition:0.3s;
-
-    box-shadow:
-    0 10px 30px rgba(0,0,0,0.4);
 }
 
 .video-card:hover{
-    transform:translateY(-8px);
-
-    border-color:#8b5cf6;
+    transform:translateY(-5px);
 }
-
-/* VIDEO */
 
 video{
     width:100%;
@@ -250,14 +212,14 @@ video{
 }
 
 .video-info{
-    padding:16px;
+    padding:12px;
 }
 
 .video-title{
-    font-size:18px;
+    font-size:14px;
     font-weight:600;
 
-    margin-bottom:12px;
+    margin-bottom:8px;
 }
 
 /* BADGE */
@@ -265,19 +227,17 @@ video{
 .badge{
     display:inline-block;
 
-    background:linear-gradient(
-    45deg,
-    #8b5cf6,
-    #ec4899);
+    background:#8b5cf6;
 
     color:white;
 
-    padding:6px 14px;
+    padding:4px 10px;
 
-    border-radius:50px;
+    border-radius:20px;
 
-    font-size:11px;
-    font-weight:700;
+    font-size:10px;
+
+    font-weight:bold;
 }
 
 /* DELETE */
@@ -285,16 +245,18 @@ video{
 .del-btn{
     position:absolute;
 
-    top:10px;
-    right:10px;
+    top:8px;
+    right:8px;
 
     background:red;
 
     color:white;
 
-    padding:8px 14px;
+    padding:6px 10px;
 
-    border-radius:10px;
+    border-radius:8px;
+
+    font-size:11px;
 }
 
 /* ACTIONS */
@@ -302,48 +264,38 @@ video{
 .video-actions{
     display:flex;
 
-    gap:10px;
+    gap:6px;
 
-    margin-top:15px;
+    margin-top:10px;
 }
 
 .action-btn{
     flex:1;
 
-    padding:10px;
+    padding:8px;
 
     background:#1f2937;
 
     color:white;
 
-    border-radius:12px;
+    border-radius:10px;
 
-    font-size:13px;
-
-    font-weight:600;
-}
-
-.action-btn:hover{
-    background:#8b5cf6;
+    font-size:11px;
 }
 
 .download-btn{
-    background:linear-gradient(
-    45deg,
-    #22c55e,
-    #16a34a);
-
-    color:white;
+    background:#22c55e;
+    color:black;
 }
 
 /* VIEWS */
 
 .views{
-    margin-top:10px;
+    margin-top:8px;
+
+    font-size:11px;
 
     color:#9ca3af;
-
-    font-size:13px;
 }
 
 /* COMMENT */
@@ -354,48 +306,66 @@ video{
 
 .comment-box input{
 
-    height:40px;
+    height:35px;
 
-    padding:8px 10px;
+    padding:6px 10px;
 
-    font-size:13px;
+    font-size:12px;
 
-    border-radius:10px;
+    border-radius:8px;
 }
 
 .comment-btn{
 
     width:100%;
 
-    margin-top:8px;
+    margin-top:6px;
 
-    padding:9px;
+    padding:8px;
 
-    font-size:13px;
+    font-size:12px;
 
-    border-radius:10px;
+    border-radius:8px;
 
-    background:linear-gradient(
-    45deg,
-    #8b5cf6,
-    #ec4899);
+    background:#8b5cf6;
 
     color:white;
+}
 
-    font-weight:600;
+.comments-container{
+    display:none;
+
+    margin-top:8px;
 }
 
 .comment-item{
 
     background:#1f2937;
 
-    padding:7px 10px;
+    padding:6px 8px;
 
-    font-size:12px;
+    font-size:11px;
 
     border-radius:8px;
 
-    margin-top:7px;
+    margin-top:5px;
+}
+
+.show-comments-btn{
+
+    width:100%;
+
+    margin-top:6px;
+
+    padding:7px;
+
+    border-radius:8px;
+
+    background:#374151;
+
+    color:white;
+
+    font-size:11px;
 }
 
 /* FOOTER */
@@ -403,24 +373,13 @@ video{
 footer{
     text-align:center;
 
-    padding:30px;
+    padding:25px;
 
-    margin-top:30px;
-
-    background:#0f172a;
-
-    border-top:
-    1px solid rgba(255,255,255,0.08);
+    margin-top:20px;
 
     color:#94a3b8;
-}
 
-/* LOADER */
-
-.loader{
-    text-align:center;
-    padding:30px;
-    display:none;
+    font-size:12px;
 }
 
 /* MOBILE */
@@ -429,27 +388,12 @@ footer{
 
     header{
         flex-direction:column;
-        gap:12px;
+        gap:10px;
     }
 
     .grid{
         grid-template-columns:1fr;
     }
-}
-
-/* SCROLLBAR */
-
-::-webkit-scrollbar{
-    width:8px;
-}
-
-::-webkit-scrollbar-thumb{
-    background:#8b5cf6;
-    border-radius:20px;
-}
-
-::-webkit-scrollbar-track{
-    background:#111827;
 }
 
 </style>
@@ -528,20 +472,6 @@ footer{
 
     </button>
 
-    <button
-    onclick="adminLogout()"
-    style="margin-top:15px;background:none;color:red;">
-
-        Logout
-
-    </button>
-
-</div>
-
-<!-- LOADER -->
-
-<div class="loader" id="loader">
-    Loading Videos...
 </div>
 
 <!-- VIDEOS -->
@@ -557,7 +487,7 @@ footer{
 /* FIREBASE */
 
 const firebaseConfig = {
-    databaseURL:"https://habesha-xxx-video-default-rtdb.firebaseio.com/"
+databaseURL:"https://habesha-xxx-video-default-rtdb.firebaseio.com/"
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -574,392 +504,323 @@ const MY_PASSWORD = "1234";
 
 function adminLogin(){
 
-    const pass = prompt("Enter Admin Password");
+const pass = prompt("Enter Admin Password");
 
-    if(pass === MY_PASSWORD){
+if(pass === MY_PASSWORD){
 
-        isAdmin = true;
+isAdmin = true;
 
-        document.getElementById("adminPanel")
-        .style.display = "block";
+document.getElementById("adminPanel")
+.style.display = "block";
 
-        renderVideos();
+renderVideos();
 
-        alert("Welcome Admin!");
+alert("Welcome Admin!");
 
-    }else{
+}else{
 
-        alert("Wrong Password!");
-    }
+alert("Wrong Password!");
 }
-
-/* LOGOUT */
-
-function adminLogout(){
-
-    isAdmin = false;
-
-    document.getElementById("adminPanel")
-    .style.display = "none";
-
-    renderVideos();
 }
 
 /* ADD VIDEO */
 
 function addVideo(){
 
-    if(!isAdmin){
-        return alert("Login First!");
-    }
+if(!isAdmin){
+return alert("Login First!");
+}
 
-    const title =
-    document.getElementById("vTitle").value;
+const title =
+document.getElementById("vTitle").value;
 
-    const thumb =
-    document.getElementById("vThumb").value;
+const thumb =
+document.getElementById("vThumb").value;
 
-    let url =
-    document.getElementById("vUrl").value;
+let url =
+document.getElementById("vUrl").value;
 
-    if(url.includes("dropbox.com")){
-        url = url.replace("dl=0","raw=1");
-    }
+if(url.includes("dropbox.com")){
+url = url.replace("dl=0","raw=1");
+}
 
-    if(title && thumb && url){
+if(title && thumb && url){
 
-        db.ref("videos").push({
+db.ref("videos").push({
 
-            title:title,
-            thumbnail:thumb,
-            videoUrl:url,
-            createdAt:Date.now()
+title:title,
+thumbnail:thumb,
+videoUrl:url,
+createdAt:Date.now()
 
-        })
+})
 
-        .then(()=>{
+.then(()=>{
 
-            alert("Video Uploaded!");
+alert("Uploaded!");
 
-            document.getElementById("vTitle").value = "";
-            document.getElementById("vThumb").value = "";
-            document.getElementById("vUrl").value = "";
+document.getElementById("vTitle").value = "";
+document.getElementById("vThumb").value = "";
+document.getElementById("vUrl").value = "";
 
-        });
-
-    }else{
-
-        alert("Fill All Inputs!");
-    }
+});
+}
 }
 
 /* DELETE */
 
 function deleteVideo(id){
 
-    if(!isAdmin) return;
+if(confirm("Delete Video?")){
 
-    if(confirm("Delete This Video?")){
-
-        db.ref("videos/" + id).remove()
-
-        .then(()=>{
-
-            alert("Deleted!");
-        });
-    }
+db.ref("videos/" + id).remove();
+}
 }
 
 /* SEARCH */
 
 function searchVideos(){
 
-    const value =
-    document.getElementById("searchInput")
-    .value
-    .toLowerCase();
+const value =
+document.getElementById("searchInput")
+.value
+.toLowerCase();
 
-    const cards =
-    document.querySelectorAll(".video-card");
+const cards =
+document.querySelectorAll(".video-card");
 
-    cards.forEach(card=>{
+cards.forEach(card=>{
 
-        const title =
-        card.querySelector(".video-title")
-        .innerText
-        .toLowerCase();
+const title =
+card.querySelector(".video-title")
+.innerText
+.toLowerCase();
 
-        if(title.includes(value)){
+if(title.includes(value)){
 
-            card.style.display = "block";
+card.style.display = "block";
 
-        }else{
+}else{
 
-            card.style.display = "none";
-        }
-    });
+card.style.display = "none";
+}
+});
 }
 
 /* LIKE */
 
 function likeVideo(id){
 
-    const likeRef =
-    db.ref("likes/" + id);
+const likeRef =
+db.ref("likes/" + id);
 
-    likeRef.transaction((likes)=>{
+likeRef.transaction((likes)=>{
 
-        return (likes || 0) + 1;
-    });
+return (likes || 0) + 1;
+});
 }
 
 function loadLikes(id){
 
-    db.ref("likes/" + id)
-    .on("value",(snap)=>{
+db.ref("likes/" + id)
+.on("value",(snap)=>{
 
-        const likes =
-        snap.val() || 0;
+document.getElementById(
+"like-" + id)
+.innerText =
+snap.val() || 0;
 
-        document.getElementById(
-        "like-" + id)
-        .innerText = likes;
-    });
-}
-
-/* VIEWS */
-
-function addView(id){
-
-    const viewRef =
-    db.ref("views/" + id);
-
-    viewRef.transaction((views)=>{
-
-        return (views || 0) + 1;
-    });
-}
-
-function loadViews(id){
-
-    db.ref("views/" + id)
-    .on("value",(snap)=>{
-
-        const views =
-        snap.val() || 0;
-
-        document.getElementById(
-        "view-" + id)
-        .innerText = views;
-    });
-}
-
-/* SHARE */
-
-function shareVideo(url){
-
-    navigator.clipboard.writeText(url);
-
-    alert("Link Copied!");
-}
-
-/* DOWNLOAD */
-
-function downloadVideo(url){
-
-    window.open(url,"_blank");
+});
 }
 
 /* COMMENTS */
 
 function addComment(videoId){
 
-    const input =
-    document.getElementById(
-    "commentInput-" + videoId);
+const input =
+document.getElementById(
+"commentInput-" + videoId);
 
-    const text = input.value;
+const text = input.value;
 
-    if(text.trim() === "") return;
+if(text.trim() === "") return;
 
-    db.ref("comments/" + videoId)
-    .push({
+db.ref("comments/" + videoId)
+.push({
 
-        text:text,
-        createdAt:Date.now()
+text:text
 
-    });
+});
 
-    input.value = "";
+input.value = "";
+}
+
+/* SHOW COMMENTS */
+
+function toggleComments(id){
+
+const box =
+document.getElementById(
+"comments-" + id);
+
+if(box.style.display === "block"){
+
+box.style.display = "none";
+
+}else{
+
+box.style.display = "block";
+}
 }
 
 function loadComments(videoId){
 
-    db.ref("comments/" + videoId)
-    .on("value",(snapshot)=>{
+db.ref("comments/" + videoId)
+.on("value",(snapshot)=>{
 
-        const container =
-        document.getElementById(
-        "comments-" + videoId);
+const container =
+document.getElementById(
+"comments-" + videoId);
 
-        container.innerHTML = "";
+container.innerHTML = "";
 
-        snapshot.forEach((child)=>{
+snapshot.forEach((child)=>{
 
-            const data = child.val();
+const data = child.val();
 
-            container.innerHTML += `
+container.innerHTML += `
 
-            <div class="comment-item">
-                💬 ${data.text}
-            </div>
+<div class="comment-item">
+💬 ${data.text}
+</div>
 
-            `;
-        });
-    });
+`;
+
+});
+});
 }
 
 /* RENDER */
 
 function renderVideos(){
 
-    document.getElementById("loader")
-    .style.display = "block";
+db.ref("videos")
+.on("value",(snapshot)=>{
 
-    db.ref("videos")
-    .on("value",(snapshot)=>{
+const grid =
+document.getElementById("videoGrid");
 
-        const grid =
-        document.getElementById("videoGrid");
+grid.innerHTML = "";
 
-        grid.innerHTML = "";
+snapshot.forEach((child)=>{
 
-        snapshot.forEach((child)=>{
+const data = child.val();
 
-            const data = child.val();
+const key = child.key;
 
-            const key = child.key;
+grid.innerHTML += `
 
-            grid.innerHTML += `
+<div class="video-card">
 
-            <div class="video-card">
+${isAdmin ? `
+<button
+class="del-btn"
+onclick="deleteVideo('${key}')">
+Delete
+</button>
+` : ''}
 
-                ${isAdmin ? `
-                <button
-                class="del-btn"
-                onclick="deleteVideo('${key}')">
+<video
+controls
+preload="none"
+poster="${data.thumbnail}">
 
-                    Delete
+<source
+src="${data.videoUrl}"
+type="video/mp4">
 
-                </button>
-                ` : ''}
+</video>
 
-                <video
-                controls
-                preload="none"
-                poster="${data.thumbnail}"
-                onclick="addView('${key}')">
+<div class="video-info">
 
-                    <source
-                    src="${data.videoUrl}"
-                    type="video/mp4">
+<div class="video-title">
+${data.title}
+</div>
 
-                </video>
+<span class="badge">
+PREMIUM
+</span>
 
-                <div class="video-info">
+<div class="video-actions">
 
-                    <div class="video-title">
-                        ${data.title}
-                    </div>
+<button
+onclick="likeVideo('${key}')"
+class="action-btn">
 
-                    <span class="badge">
-                        PREMIUM
-                    </span>
+❤️
+<span id="like-${key}">
+0
+</span>
 
-                    <div class="video-actions">
+</button>
 
-                        <button
-                        onclick="likeVideo('${key}')"
-                        class="action-btn">
+<button
+onclick="window.open('${data.videoUrl}')"
+class="action-btn download-btn">
 
-                            ❤️
-                            <span id="like-${key}">
-                                0
-                            </span>
+📥 Download
 
-                        </button>
+</button>
 
-                        <button
-                        onclick="shareVideo('${data.videoUrl}')"
-                        class="action-btn">
+</div>
 
-                            📤 Share
+<div class="comment-box">
 
-                        </button>
+<input
+type="text"
+id="commentInput-${key}"
+placeholder="Comment...">
 
-                        <button
-                        onclick="downloadVideo('${data.videoUrl}')"
-                        class="action-btn download-btn">
+<button
+class="comment-btn"
+onclick="addComment('${key}')">
 
-                            📥 Download
+💬 Comment
 
-                        </button>
+</button>
 
-                    </div>
+<button
+class="show-comments-btn"
+onclick="toggleComments('${key}')">
 
-                    <div class="views">
+📄 Show Comments
 
-                        👁️
-                        <span id="view-${key}">
-                            0
-                        </span>
-                        Views
+</button>
 
-                    </div>
+<div
+class="comments-container"
+id="comments-${key}">
+</div>
 
-                    <div class="comment-box">
+</div>
 
-                        <input
-                        type="text"
-                        id="commentInput-${key}"
-                        placeholder="Write Comment...">
+</div>
 
-                        <button
-                        class="comment-btn"
-                        onclick="addComment('${key}')">
+</div>
 
-                            💬 Comment
+`;
 
-                        </button>
+setTimeout(()=>{
 
-                        <div
-                        id="comments-${key}">
-                        </div>
+loadLikes(key);
 
-                    </div>
+loadComments(key);
 
-                </div>
+},300);
 
-            </div>
+});
 
-            `;
-
-            setTimeout(()=>{
-
-                loadLikes(key);
-
-                loadViews(key);
-
-                loadComments(key);
-
-            },300);
-
-        });
-
-        document.getElementById("loader")
-        .style.display = "none";
-
-    });
+});
 }
 
 /* START */
