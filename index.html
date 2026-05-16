@@ -7,12 +7,8 @@
 
 <title>HABESHA PREMIUM</title>
 
-<!-- FIREBASE -->
-
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-
-<!-- FONT -->
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
@@ -84,7 +80,7 @@ header{
     border:2px solid var(--primary);
 }
 
-/* TOP BUTTONS */
+/* BUTTONS */
 
 .top-buttons{
     display:flex;
@@ -109,11 +105,6 @@ button{
     border-radius:10px;
 
     font-size:13px;
-}
-
-.login-btn:hover,
-.search-btn:hover{
-    opacity:0.8;
 }
 
 /* SEARCH */
@@ -230,10 +221,6 @@ input{
 
 /* VIDEO */
 
-.video-wrapper{
-    position:relative;
-}
-
 video{
 
     width:100%;
@@ -241,61 +228,6 @@ video{
     aspect-ratio:16/9;
 
     background:black;
-}
-
-/* CUSTOM PLAY BUTTON */
-
-.custom-play{
-
-    position:absolute;
-
-    top:50%;
-    left:50%;
-
-    transform:translate(-50%,-50%);
-
-    width:75px;
-    height:75px;
-
-    border-radius:50%;
-
-    background:rgba(139,92,246,0.35);
-
-    backdrop-filter:blur(4px);
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    pointer-events:none;
-
-    border:2px solid rgba(255,255,255,0.2);
-
-    transition:0.3s;
-}
-
-/* TRIANGLE */
-
-.custom-play::before{
-
-    content:'';
-
-    width:0;
-    height:0;
-
-    border-top:14px solid transparent;
-    border-bottom:14px solid transparent;
-
-    border-left:22px solid white;
-
-    margin-left:5px;
-}
-
-/* PLAY ሲደረግ HIDE */
-
-.video-wrapper video:playing + .custom-play{
-    opacity:0;
 }
 
 /* VIDEO INFO */
@@ -949,8 +881,6 @@ Delete
 
 ` : ''}
 
-<div class="video-wrapper">
-
 <video
 controls
 preload="none"
@@ -962,10 +892,6 @@ src="${data.videoUrl}"
 type="video/mp4">
 
 </video>
-
-<div class="custom-play"></div>
-
-</div>
 
 <div class="video-info">
 
