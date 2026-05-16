@@ -3,13 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>HABESHA PREMIUM</title>
 
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
+
 :root{
     --primary:#8b5cf6;
     --dark:#070b14;
@@ -18,360 +21,951 @@
     --green:#22c55e;
 }
 
-*{ margin:0; padding:0; box-sizing:border-box; }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
 body{
     font-family:'Poppins',sans-serif;
-    background: linear-gradient(135deg, #070b14 0%, #111827 40%, #1e293b 100%);
+
+    background:
+    linear-gradient(
+    135deg,
+    #070b14 0%,
+    #111827 50%,
+    #1e293b 100%);
+
     color:var(--text);
 }
 
 /* HEADER */
+
 header{
-    background:rgba(10,15,25,0.85);
+    background:rgba(10,15,25,0.9);
+
     backdrop-filter:blur(12px);
+
     padding:18px;
+
     border-bottom:1px solid rgba(139,92,246,0.3);
+
     display:flex;
     justify-content:space-between;
     align-items:center;
+
     position:sticky;
     top:0;
     z-index:100;
 }
 
-.logo{ display:flex; align-items:center; gap:12px; font-size:24px; font-weight:700; }
-.logo span{ color:#8b5cf6; }
+/* LOGO */
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    font-size:24px;
+    font-weight:700;
+}
+
+.logo span{
+    color:#8b5cf6;
+}
+
 .site-logo{
-    width:50px; height:50px; border-radius:50%; object-fit:cover;
-    border:2px solid #8b5cf6; box-shadow:0 0 20px rgba(139,92,246,0.5);
+
+    width:50px;
+    height:50px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    border:2px solid #8b5cf6;
+
+    box-shadow:
+    0 0 15px rgba(139,92,246,0.5);
 }
 
 /* BUTTONS */
-.top-buttons{ display:flex; gap:10px; }
-button{ border:none; cursor:pointer; transition:0.3s; }
-.login-btn, .search-btn{
-    background:#1f2937; color:white; padding:12px 18px; border-radius:12px; font-weight:600;
+
+.top-buttons{
+    display:flex;
+    gap:10px;
 }
-.login-btn:hover, .search-btn:hover{ background:#8b5cf6; transform:scale(1.05); }
+
+button{
+    border:none;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.login-btn,
+.search-btn{
+    background:#1f2937;
+    color:white;
+
+    padding:12px 18px;
+
+    border-radius:12px;
+
+    font-weight:600;
+}
+
+.login-btn:hover,
+.search-btn:hover{
+    background:#8b5cf6;
+    transform:scale(1.05);
+}
 
 /* SEARCH */
-.search-box{ padding:20px; }
+
+.search-box{
+    padding:20px;
+}
+
 .search-box input{
-    width:100%; padding:15px; border-radius:14px; background:#111827;
-    border:1px solid #374151; color:white; font-size:14px;
+    width:100%;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:#111827;
+
+    border:1px solid #374151;
+
+    color:white;
+
+    font-size:14px;
 }
 
 /* ADMIN */
+
 .admin-section{
-    background:rgba(17,24,39,0.85); backdrop-filter:blur(10px); margin:20px;
-    padding:20px; border-radius:20px; border:1px solid rgba(255,255,255,0.08); display:none;
+    background:rgba(17,24,39,0.85);
+
+    backdrop-filter:blur(10px);
+
+    margin:20px;
+
+    padding:20px;
+
+    border-radius:20px;
+
+    border:1px solid rgba(255,255,255,0.08);
+
+    display:none;
 }
-.admin-section h3{ margin-bottom:15px; color:#8b5cf6; }
-input{ width:100%; padding:14px; margin:10px 0; border:none; border-radius:12px; background:#1f2937; color:white; }
+
+.admin-section h3{
+    margin-bottom:15px;
+    color:#8b5cf6;
+}
+
+input{
+    width:100%;
+
+    padding:14px;
+
+    margin:10px 0;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#1f2937;
+
+    color:white;
+}
+
+/* UPLOAD */
+
 .upload-btn{
-    width:100%; padding:14px; border-radius:14px;
-    background:linear-gradient(45deg, #8b5cf6, #ec4899); color:white; font-weight:700;
+    width:100%;
+
+    padding:14px;
+
+    border-radius:14px;
+
+    background:linear-gradient(
+    45deg,
+    #8b5cf6,
+    #ec4899);
+
+    color:white;
+
+    font-weight:700;
 }
 
 /* GRID */
+
 .grid{
-    display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:20px; padding:20px;
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fill,minmax(300px,1fr));
+
+    gap:20px;
+
+    padding:20px;
 }
 
 /* CARD */
+
 .video-card{
-    background:rgba(17,24,39,0.85); backdrop-filter:blur(10px); border-radius:20px;
-    overflow:hidden; border:1px solid rgba(255,255,255,0.08); transition:0.3s;
-    box-shadow:0 10px 30px rgba(0,0,0,0.4); position:relative;
+    background:rgba(17,24,39,0.85);
+
+    backdrop-filter:blur(10px);
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    border:1px solid rgba(255,255,255,0.08);
+
+    transition:0.3s;
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,0.4);
 }
-.video-card:hover{ transform:translateY(-8px); border-color:#8b5cf6; }
+
+.video-card:hover{
+    transform:translateY(-8px);
+
+    border-color:#8b5cf6;
+}
 
 /* VIDEO */
-video{ width:100%; aspect-ratio:16/9; background:black; }
-.video-info{ padding:16px; }
-.video-title{ font-size:18px; font-weight:600; margin-bottom:12px; }
 
-/* BADGE & BUTTONS */
+video{
+    width:100%;
+    aspect-ratio:16/9;
+    background:black;
+}
+
+.video-info{
+    padding:16px;
+}
+
+.video-title{
+    font-size:18px;
+    font-weight:600;
+
+    margin-bottom:12px;
+}
+
+/* BADGE */
+
 .badge{
-    display:inline-block; background:linear-gradient(45deg, #8b5cf6, #ec4899);
-    color:white; padding:6px 14px; border-radius:50px; font-size:11px; font-weight:700;
-}
-.del-btn{ position:absolute; top:10px; right:10px; background:red; color:white; padding:8px 14px; border-radius:10px; z-index: 10; }
-.video-actions{ display:flex; gap:10px; margin-top:15px; flex-wrap:wrap; }
-.action-btn{
-    flex:1; padding:10px; background:#1f2937; color:white; border-radius:12px; font-size:13px; font-weight:600;
-}
-.action-btn:hover{ background:#8b5cf6; }
-.download-btn{ background:linear-gradient(45deg, #22c55e, #16a34a); color:white; }
+    display:inline-block;
 
-/* VIEWS & COMMENTS */
-.views{ margin-top:10px; color:#9ca3af; font-size:13px; }
-.comment-section-wrapper { display: none; margin-top: 15px; border-top: 1px solid #374151; padding-top: 10px; }
-.comment-box input{ padding:10px; font-size:13px; height:42px; border-radius:10px; margin-bottom: 8px; }
-.comment-btn{
-    width:100%; padding:10px; border-radius:10px; font-size:14px;
-    background:linear-gradient(45deg, #8b5cf6, #ec4899); color:white; font-weight:600;
+    background:linear-gradient(
+    45deg,
+    #8b5cf6,
+    #ec4899);
+
+    color:white;
+
+    padding:6px 14px;
+
+    border-radius:50px;
+
+    font-size:11px;
+    font-weight:700;
 }
-.comment-item{ background:#1f2937; padding:8px 10px; border-radius:10px; margin-top:8px; font-size:13px; }
+
+/* DELETE */
+
+.del-btn{
+    position:absolute;
+
+    top:10px;
+    right:10px;
+
+    background:red;
+
+    color:white;
+
+    padding:8px 14px;
+
+    border-radius:10px;
+}
+
+/* ACTIONS */
+
+.video-actions{
+    display:flex;
+
+    gap:10px;
+
+    margin-top:15px;
+}
+
+.action-btn{
+    flex:1;
+
+    padding:10px;
+
+    background:#1f2937;
+
+    color:white;
+
+    border-radius:12px;
+
+    font-size:13px;
+
+    font-weight:600;
+}
+
+.action-btn:hover{
+    background:#8b5cf6;
+}
+
+.download-btn{
+    background:linear-gradient(
+    45deg,
+    #22c55e,
+    #16a34a);
+
+    color:white;
+}
+
+/* VIEWS */
+
+.views{
+    margin-top:10px;
+
+    color:#9ca3af;
+
+    font-size:13px;
+}
+
+/* COMMENT */
+
+.comment-box{
+    margin-top:10px;
+}
+
+.comment-box input{
+
+    height:40px;
+
+    padding:8px 10px;
+
+    font-size:13px;
+
+    border-radius:10px;
+}
+
+.comment-btn{
+
+    width:100%;
+
+    margin-top:8px;
+
+    padding:9px;
+
+    font-size:13px;
+
+    border-radius:10px;
+
+    background:linear-gradient(
+    45deg,
+    #8b5cf6,
+    #ec4899);
+
+    color:white;
+
+    font-weight:600;
+}
+
+.comment-item{
+
+    background:#1f2937;
+
+    padding:7px 10px;
+
+    font-size:12px;
+
+    border-radius:8px;
+
+    margin-top:7px;
+}
 
 /* FOOTER */
-footer{ text-align:center; padding:30px; margin-top:30px; background:#0f172a; border-top:1px solid rgba(255,255,255,0.08); color:#94a3b8; }
 
-/* SKELETON LOADER (TEMPLATE PREVIEW) */
-.skeleton { background: #1f2937; animation: pulse 1.5s infinite ease-in-out; border-radius: 10px; }
-@keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
-.skeleton-card { background: rgba(17,24,39,0.85); border-radius: 20px; padding: 16px; min-height: 280px; border:1px solid rgba(255,255,255,0.05); }
-.skeleton-img { height: 180px; margin-bottom: 15px; border-radius: 12px; width: 100%; }
-.skeleton-text { height: 20px; margin-bottom: 10px; width: 80%; }
-.skeleton-btn-group { display: flex; gap: 10px; margin-top: 20px; }
-.skeleton-btn { height: 35px; flex: 1; }
+footer{
+    text-align:center;
+
+    padding:30px;
+
+    margin-top:30px;
+
+    background:#0f172a;
+
+    border-top:
+    1px solid rgba(255,255,255,0.08);
+
+    color:#94a3b8;
+}
+
+/* LOADER */
+
+.loader{
+    text-align:center;
+    padding:30px;
+    display:none;
+}
 
 /* MOBILE */
-@media(max-width:768px){ header{ flex-direction:column; gap:12px; } .grid{ grid-template-columns:1fr; } }
-::-webkit-scrollbar{ width:8px; }
-::-webkit-scrollbar-thumb{ background:#8b5cf6; border-radius:20px; }
-::-webkit-scrollbar-track{ background:#111827; }
+
+@media(max-width:768px){
+
+    header{
+        flex-direction:column;
+        gap:12px;
+    }
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+}
+
+/* SCROLLBAR */
+
+::-webkit-scrollbar{
+    width:8px;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#8b5cf6;
+    border-radius:20px;
+}
+
+::-webkit-scrollbar-track{
+    background:#111827;
+}
+
 </style>
 </head>
+
 <body>
 
 <header>
+
     <div class="logo">
-        <img src="1000019134.jpg" class="site-logo" alt="Logo">
-        <span>HABESHA PREMIUM</span>
+
+        <img
+        src="1000019134.jpg"
+        class="site-logo">
+
+        HABESHA <span>PREMIUM</span>
+
     </div>
+
     <div class="top-buttons">
-        <button class="search-btn">🔍 Search</button>
-        <button class="login-btn" onclick="adminLogin()">Admin Login</button>
+
+        <button class="search-btn">
+            🔍 Search
+        </button>
+
+        <button
+        class="login-btn"
+        onclick="adminLogin()">
+
+            Admin Login
+
+        </button>
+
     </div>
+
 </header>
 
 <!-- SEARCH -->
+
 <div class="search-box">
-    <input type="text" id="searchInput" placeholder="ቪዲዮ ፈልግ..." onkeyup="searchVideos()">
+
+    <input
+    type="text"
+    id="searchInput"
+    placeholder="ቪዲዮ ፈልግ..."
+    onkeyup="searchVideos()">
+
 </div>
 
 <!-- ADMIN -->
+
 <div id="adminPanel" class="admin-section">
+
     <h3>🎬 Upload Video</h3>
-    <input type="text" id="vTitle" placeholder="Video Title">
-    <input type="text" id="vThumb" placeholder="Thumbnail Link">
-    <input type="text" id="vUrl" placeholder="Video URL">
-    <button class="upload-btn" onclick="addVideo()">➕ Upload Video</button>
-    <button onclick="adminLogout()" style="margin-top:15px;background:none;color:red;">Logout</button>
+
+    <input
+    type="text"
+    id="vTitle"
+    placeholder="Video Title">
+
+    <input
+    type="text"
+    id="vThumb"
+    placeholder="Thumbnail Link">
+
+    <input
+    type="text"
+    id="vUrl"
+    placeholder="Video URL">
+
+    <button
+    class="upload-btn"
+    onclick="addVideo()">
+
+        ➕ Upload Video
+
+    </button>
+
+    <button
+    onclick="adminLogout()"
+    style="margin-top:15px;background:none;color:red;">
+
+        Logout
+
+    </button>
+
 </div>
 
-<!-- SKELETON LOADER (TEMPLATE PREVIEW) -->
-<div class="grid" id="loaderGrid">
-    <!-- 3 የውሸት (Skeleton) ካርዶች ዳታው እስኪመጣ ይታያሉ -->
-    <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton skeleton-text"></div><div class="skeleton skeleton-text" style="width: 50%;"></div><div class="skeleton-btn-group"><div class="skeleton skeleton-btn"></div><div class="skeleton skeleton-btn"></div></div></div>
-    <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton skeleton-text"></div><div class="skeleton skeleton-text" style="width: 50%;"></div><div class="skeleton-btn-group"><div class="skeleton skeleton-btn"></div><div class="skeleton skeleton-btn"></div></div></div>
-    <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton skeleton-text"></div><div class="skeleton skeleton-text" style="width: 50%;"></div><div class="skeleton-btn-group"><div class="skeleton skeleton-btn"></div><div class="skeleton skeleton-btn"></div></div></div>
+<!-- LOADER -->
+
+<div class="loader" id="loader">
+    Loading Videos...
 </div>
 
-<!-- VIDEOS GRID -->
-<div class="grid" id="videoGrid" style="display: none;"></div>
+<!-- VIDEOS -->
+
+<div class="grid" id="videoGrid"></div>
 
 <footer>
     © 2026 HABESHA PREMIUM
 </footer>
 
 <script>
-/* FIREBASE CONFIG */
-// ማሳሰቢያ፡ ወደፊት መተግበሪያውን ሙሉ ለሙሉ ስታስረክብ የFirebase አፒ (API) ቁልፎችህን ማሟላት እንዳትረሳ።
+
+/* FIREBASE */
+
 const firebaseConfig = {
-    databaseURL: "https://habesha-xxx-video-default-rtdb.firebaseio.com/"
+    databaseURL:"https://habesha-xxx-video-default-rtdb.firebaseio.com/"
 };
+
 firebase.initializeApp(firebaseConfig);
+
 const db = firebase.database();
 
-/* ADMIN (ደህንነቱ የተጠበቀ አይደለም - ለወደፊት በFirebase Auth መቀየር ይመከራል) */
+/* ADMIN */
+
 let isAdmin = false;
+
 const MY_PASSWORD = "1234";
 
+/* LOGIN */
+
 function adminLogin(){
+
     const pass = prompt("Enter Admin Password");
+
     if(pass === MY_PASSWORD){
+
         isAdmin = true;
-        document.getElementById("adminPanel").style.display = "block";
+
+        document.getElementById("adminPanel")
+        .style.display = "block";
+
         renderVideos();
+
         alert("Welcome Admin!");
+
     }else{
+
         alert("Wrong Password!");
     }
 }
 
+/* LOGOUT */
+
 function adminLogout(){
+
     isAdmin = false;
-    document.getElementById("adminPanel").style.display = "none";
+
+    document.getElementById("adminPanel")
+    .style.display = "none";
+
     renderVideos();
 }
 
 /* ADD VIDEO */
+
 function addVideo(){
-    if(!isAdmin) return alert("Login First!");
-    const title = document.getElementById("vTitle").value;
-    const thumb = document.getElementById("vThumb").value;
-    let url = document.getElementById("vUrl").value;
+
+    if(!isAdmin){
+        return alert("Login First!");
+    }
+
+    const title =
+    document.getElementById("vTitle").value;
+
+    const thumb =
+    document.getElementById("vThumb").value;
+
+    let url =
+    document.getElementById("vUrl").value;
 
     if(url.includes("dropbox.com")){
         url = url.replace("dl=0","raw=1");
     }
 
     if(title && thumb && url){
+
         db.ref("videos").push({
-            title: title,
-            thumbnail: thumb,
-            videoUrl: url,
-            createdAt: Date.now()
-        }).then(() => {
+
+            title:title,
+            thumbnail:thumb,
+            videoUrl:url,
+            createdAt:Date.now()
+
+        })
+
+        .then(()=>{
+
             alert("Video Uploaded!");
+
             document.getElementById("vTitle").value = "";
             document.getElementById("vThumb").value = "";
             document.getElementById("vUrl").value = "";
+
         });
+
     }else{
+
         alert("Fill All Inputs!");
     }
 }
 
+/* DELETE */
+
 function deleteVideo(id){
+
     if(!isAdmin) return;
+
     if(confirm("Delete This Video?")){
-        db.ref("videos/" + id).remove().then(() => alert("Deleted!"));
+
+        db.ref("videos/" + id).remove()
+
+        .then(()=>{
+
+            alert("Deleted!");
+        });
     }
 }
 
 /* SEARCH */
+
 function searchVideos(){
-    const value = document.getElementById("searchInput").value.toLowerCase();
-    const cards = document.querySelectorAll(".video-card");
-    cards.forEach(card => {
-        const title = card.querySelector(".video-title").innerText.toLowerCase();
-        card.style.display = title.includes(value) ? "block" : "none";
+
+    const value =
+    document.getElementById("searchInput")
+    .value
+    .toLowerCase();
+
+    const cards =
+    document.querySelectorAll(".video-card");
+
+    cards.forEach(card=>{
+
+        const title =
+        card.querySelector(".video-title")
+        .innerText
+        .toLowerCase();
+
+        if(title.includes(value)){
+
+            card.style.display = "block";
+
+        }else{
+
+            card.style.display = "none";
+        }
     });
 }
 
-/* LIKES & VIEWS */
+/* LIKE */
+
 function likeVideo(id){
-    db.ref("likes/" + id).transaction(likes => (likes || 0) + 1);
-}
-function loadLikes(id){
-    db.ref("likes/" + id).on("value", snap => {
-        document.getElementById("like-" + id).innerText = snap.val() || 0;
+
+    const likeRef =
+    db.ref("likes/" + id);
+
+    likeRef.transaction((likes)=>{
+
+        return (likes || 0) + 1;
     });
 }
+
+function loadLikes(id){
+
+    db.ref("likes/" + id)
+    .on("value",(snap)=>{
+
+        const likes =
+        snap.val() || 0;
+
+        document.getElementById(
+        "like-" + id)
+        .innerText = likes;
+    });
+}
+
+/* VIEWS */
 
 function addView(id){
-    db.ref("views/" + id).transaction(views => (views || 0) + 1);
-}
-function loadViews(id){
-    db.ref("views/" + id).on("value", snap => {
-        document.getElementById("view-" + id).innerText = snap.val() || 0;
+
+    const viewRef =
+    db.ref("views/" + id);
+
+    viewRef.transaction((views)=>{
+
+        return (views || 0) + 1;
     });
 }
 
-/* SHARE & DOWNLOAD */
+function loadViews(id){
+
+    db.ref("views/" + id)
+    .on("value",(snap)=>{
+
+        const views =
+        snap.val() || 0;
+
+        document.getElementById(
+        "view-" + id)
+        .innerText = views;
+    });
+}
+
+/* SHARE */
+
 function shareVideo(url){
+
     navigator.clipboard.writeText(url);
+
     alert("Link Copied!");
 }
+
+/* DOWNLOAD */
+
 function downloadVideo(url){
+
     window.open(url,"_blank");
 }
 
-/* COMMENTS (Toggle, Add, Load) */
-function toggleComments(id) {
-    const box = document.getElementById("comment-section-" + id);
-    box.style.display = (box.style.display === "none" || box.style.display === "") ? "block" : "none";
-}
+/* COMMENTS */
 
 function addComment(videoId){
-    const input = document.getElementById("commentInput-" + videoId);
+
+    const input =
+    document.getElementById(
+    "commentInput-" + videoId);
+
     const text = input.value;
+
     if(text.trim() === "") return;
-    db.ref("comments/" + videoId).push({
-        text: text,
-        createdAt: Date.now()
+
+    db.ref("comments/" + videoId)
+    .push({
+
+        text:text,
+        createdAt:Date.now()
+
     });
+
     input.value = "";
 }
 
 function loadComments(videoId){
-    db.ref("comments/" + videoId).on("value", snapshot => {
-        const container = document.getElementById("comments-" + videoId);
+
+    db.ref("comments/" + videoId)
+    .on("value",(snapshot)=>{
+
+        const container =
+        document.getElementById(
+        "comments-" + videoId);
+
         container.innerHTML = "";
-        snapshot.forEach(child => {
-            container.innerHTML += `<div class="comment-item">💬 ${child.val().text}</div>`;
+
+        snapshot.forEach((child)=>{
+
+            const data = child.val();
+
+            container.innerHTML += `
+
+            <div class="comment-item">
+                💬 ${data.text}
+            </div>
+
+            `;
         });
     });
 }
 
-/* RENDER VIDEOS */
-function renderVideos(){
-    // ዳታ እስኪመጣ ስኬሌተን እናሳያለን
-    document.getElementById("loaderGrid").style.display = "grid";
-    document.getElementById("videoGrid").style.display = "none";
+/* RENDER */
 
-    db.ref("videos").on("value", snapshot => {
-        const grid = document.getElementById("videoGrid");
+function renderVideos(){
+
+    document.getElementById("loader")
+    .style.display = "block";
+
+    db.ref("videos")
+    .on("value",(snapshot)=>{
+
+        const grid =
+        document.getElementById("videoGrid");
+
         grid.innerHTML = "";
 
-        // ዳታ ከመጣ በኋላ ስኬሌተኑን እናጠፋዋለን
-        document.getElementById("loaderGrid").style.display = "none";
-        grid.style.display = "grid";
+        snapshot.forEach((child)=>{
 
-        snapshot.forEach(child => {
             const data = child.val();
+
             const key = child.key;
 
             grid.innerHTML += `
+
             <div class="video-card">
-                ${isAdmin ? `<button class="del-btn" onclick="deleteVideo('${key}')">Delete</button>` : ''}
-                
-                <!-- VIDEO (ቪው የሚቆጥረው ፕሌይ ሲደረግ ነው) -->
-                <video controls preload="none" poster="${data.thumbnail}" onplay="addView('${key}')">
-                    <source src="${data.videoUrl}" type="video/mp4">
+
+                ${isAdmin ? `
+                <button
+                class="del-btn"
+                onclick="deleteVideo('${key}')">
+
+                    Delete
+
+                </button>
+                ` : ''}
+
+                <video
+                controls
+                preload="none"
+                poster="${data.thumbnail}"
+                onclick="addView('${key}')">
+
+                    <source
+                    src="${data.videoUrl}"
+                    type="video/mp4">
+
                 </video>
 
                 <div class="video-info">
-                    <div class="video-title">${data.title}</div>
-                    <span class="badge">PREMIUM</span>
 
-                    <!-- ACTIONS -->
+                    <div class="video-title">
+                        ${data.title}
+                    </div>
+
+                    <span class="badge">
+                        PREMIUM
+                    </span>
+
                     <div class="video-actions">
-                        <button onclick="likeVideo('${key}')" class="action-btn">❤️ <span id="like-${key}">0</span></button>
-                        <button onclick="shareVideo('${data.videoUrl}')" class="action-btn">📤 Share</button>
-                        <button onclick="downloadVideo('${data.videoUrl}')" class="action-btn download-btn">📥 Download</button>
-                        <button onclick="toggleComments('${key}')" class="action-btn" style="background:#4b5563;">💬 ኮሜንት</button>
+
+                        <button
+                        onclick="likeVideo('${key}')"
+                        class="action-btn">
+
+                            ❤️
+                            <span id="like-${key}">
+                                0
+                            </span>
+
+                        </button>
+
+                        <button
+                        onclick="shareVideo('${data.videoUrl}')"
+                        class="action-btn">
+
+                            📤 Share
+
+                        </button>
+
+                        <button
+                        onclick="downloadVideo('${data.videoUrl}')"
+                        class="action-btn download-btn">
+
+                            📥 Download
+
+                        </button>
+
                     </div>
 
-                    <div class="views">👁️ <span id="view-${key}">0</span> Views</div>
+                    <div class="views">
 
-                    <!-- HIDDEN COMMENT SECTION -->
-                    <div class="comment-section-wrapper" id="comment-section-${key}">
-                        <div class="comment-box">
-                            <input type="text" id="commentInput-${key}" placeholder="Write Comment...">
-                            <button class="comment-btn" onclick="addComment('${key}')">Post Comment</button>
-                            <div id="comments-${key}"></div>
+                        👁️
+                        <span id="view-${key}">
+                            0
+                        </span>
+                        Views
+
+                    </div>
+
+                    <div class="comment-box">
+
+                        <input
+                        type="text"
+                        id="commentInput-${key}"
+                        placeholder="Write Comment...">
+
+                        <button
+                        class="comment-btn"
+                        onclick="addComment('${key}')">
+
+                            💬 Comment
+
+                        </button>
+
+                        <div
+                        id="comments-${key}">
                         </div>
-                    </div>
-                </div>
-            </div>`;
 
-            // ዳይናሚክ የሆኑትን ክፍሎች ሎድ ማድረግ
-            setTimeout(() => {
+                    </div>
+
+                </div>
+
+            </div>
+
+            `;
+
+            setTimeout(()=>{
+
                 loadLikes(key);
+
                 loadViews(key);
+
                 loadComments(key);
-            }, 100);
+
+            },300);
+
         });
+
+        document.getElementById("loader")
+        .style.display = "none";
+
     });
 }
 
 /* START */
+
 renderVideos();
+
 </script>
 
 </body>
