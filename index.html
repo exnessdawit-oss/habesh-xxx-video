@@ -58,8 +58,8 @@ header{
 }
 
 .site-logo{
-    width:45px;
-    height:45px;
+    width:50px;
+    height:50px;
 
     border-radius:50%;
     object-fit:cover;
@@ -100,7 +100,6 @@ button{
 
 .search-box input{
     width:100%;
-
     padding:13px;
 
     border:none;
@@ -194,10 +193,46 @@ input{
     transform:translateY(-5px);
 }
 
+/* VIDEO */
+
+.video-wrapper{
+    position:relative;
+}
+
 video{
     width:100%;
     aspect-ratio:16/9;
     background:black;
+}
+
+.custom-play{
+
+    position:absolute;
+
+    top:50%;
+    left:50%;
+
+    transform:translate(-50%,-50%);
+
+    width:70px;
+    height:70px;
+
+    border-radius:50%;
+
+    background:rgba(139,92,246,0.9);
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    font-size:28px;
+
+    color:white;
+
+    pointer-events:none;
+
+    box-shadow:0 0 25px rgba(139,92,246,0.8);
 }
 
 .video-info{
@@ -391,7 +426,7 @@ footer{
 <div class="logo">
 
 <img
-src="1000019134.jpg"
+src="https://i.ibb.co/9H4bcJmz/IMG-20260515-123744-362.jpg"
 class="site-logo">
 
 HABESHA <span>PREMIUM</span>
@@ -596,8 +631,6 @@ card.style.display = "none";
 
 function likeVideo(id){
 
-/* ADMIN unlimited likes */
-
 if(isAdmin){
 
 const likeRef =
@@ -611,8 +644,6 @@ return (likes || 1000) + 1;
 
 return;
 }
-
-/* NORMAL USER one like only */
 
 const likedVideos =
 JSON.parse(
@@ -665,8 +696,6 @@ likes ? likes : 1000;
 
 function addView(id){
 
-/* ADMIN unlimited */
-
 if(isAdmin){
 
 const viewRef =
@@ -680,8 +709,6 @@ return (views || 1000) + 1;
 
 return;
 }
-
-/* USER one view */
 
 const viewedVideos =
 JSON.parse(
@@ -825,6 +852,8 @@ Delete
 </button>
 ` : ''}
 
+<div class="video-wrapper">
+
 <video
 controls
 preload="none"
@@ -836,6 +865,12 @@ src="${data.videoUrl}"
 type="video/mp4">
 
 </video>
+
+<div class="custom-play">
+▶
+</div>
+
+</div>
 
 <div class="video-info">
 
