@@ -50,7 +50,7 @@ border-radius:50%;
 }
 
 .logo h1{
-font-size:28px;
+font-size:24px;
 background:linear-gradient(to right,#fff,#ff0066);
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
@@ -70,6 +70,7 @@ background:linear-gradient(45deg,#ff0066,#ff7700);
 color:white;
 font-weight:bold;
 cursor:pointer;
+font-size:14px;
 }
 
 .loader{
@@ -118,7 +119,6 @@ gap:25px;
 background:#140022;
 border-radius:20px;
 overflow:hidden;
-position:relative;
 box-shadow:0 0 20px rgba(255,0,100,.2);
 }
 
@@ -160,7 +160,7 @@ padding:15px;
 }
 
 .video-title{
-font-size:22px;
+font-size:20px;
 margin-bottom:15px;
 font-weight:bold;
 }
@@ -216,13 +216,14 @@ display:none;
 justify-content:center;
 align-items:center;
 z-index:99999;
+padding:20px;
 }
 
 .vip-box{
 background:#13001f;
 padding:25px;
 border-radius:25px;
-width:90%;
+width:100%;
 max-width:500px;
 line-height:2;
 }
@@ -255,17 +256,7 @@ padding:20px;
 border-radius:20px;
 }
 
-.admin-box input{
-width:100%;
-padding:18px;
-margin-top:12px;
-background:#24003d;
-border:none;
-color:white;
-border-radius:15px;
-font-size:16px;
-}
-
+.admin-box input,
 .admin-box select{
 width:100%;
 padding:18px;
@@ -287,6 +278,7 @@ background:#ff2f7d;
 color:white;
 border:none;
 border-radius:18px;
+cursor:pointer;
 }
 
 .skeleton{
@@ -306,7 +298,6 @@ animation:skeleton 1.2s infinite;
 padding:15px;
 display:flex;
 justify-content:center;
-align-items:center;
 }
 
 footer{
@@ -319,30 +310,37 @@ color:#888;
 </head>
 <body>
 
+<!-- LOADER -->
+
 <div class="loader" id="loader">
+
 <img src="https://i.ibb.co/nMTFY1w8/IMG-20260515-123744-362.jpg">
+
 <h2 style="margin-top:20px;color:#ff2f7d">
 HABESHA PREMIUM
 </h2>
+
 </div>
 
+<!-- VIP POPUP -->
+
 <div class="vip-popup" id="vipPopup">
+
 <div class="vip-box">
 
 <h2>💍 PREMIUM 💎</h2>
 
 <p>
 
-ሰላም እንኳን ወደ premium (VIP) በሰላም መጣህ
-
-<br><br>
-
 የ1 ወር vip video 500 ብር
 <br>
+
 የ3 ወር vip video 1200 ብር
 <br>
+
 የ6 ወር vip video 2500 ብር
 <br>
+
 የ1 አመት vip video 4000 ብር
 
 </p>
@@ -352,18 +350,23 @@ PAY WITH TELEGRAM
 </a>
 
 </div>
+
 </div>
+
+<!-- HEADER -->
 
 <header>
 
 <div class="logo">
+
 <img src="https://i.ibb.co/nMTFY1w8/IMG-20260515-123744-362.jpg">
+
 <h1>HABESHA PREMIUM</h1>
+
 </div>
 
 <div class="top-buttons">
 
-<!-- XXX + PREMIUM ጎን ለጎን -->
 <button class="btn" onclick="showXXX()">
 🔥 XXX 🍑
 </button>
@@ -372,7 +375,6 @@ PAY WITH TELEGRAM
 💍 PREMIUM 💎
 </button>
 
-<!-- ADMIN button ተወግዷል -->
 <button class="btn" onclick="enableAdminMode()">
 ADMIN MODE
 </button>
@@ -380,6 +382,8 @@ ADMIN MODE
 </div>
 
 </header>
+
+<!-- ONLINE -->
 
 <div class="counter" id="onlineCounter">
 245 users online
@@ -389,7 +393,8 @@ ADMIN MODE
 🔥 TRENDING VIDEOS
 </div>
 
-<!-- ADS CODE -->
+<!-- ADS -->
+
 <div class="ads-box">
 
 <script async type="application/javascript"
@@ -403,6 +408,8 @@ data-zoneid="5927772"></ins>
 </script>
 
 </div>
+
+<!-- ADMIN PANEL -->
 
 <div class="admin-panel" id="adminPanel">
 
@@ -420,7 +427,6 @@ placeholder="Video Title">
 id="videoUrl"
 placeholder="Dropbox MP4 Link">
 
-<!-- TEMPLATE SELECT -->
 <select id="templateSelect">
 
 <option value="https://i.ibb.co/nMTFY1w8/IMG-20260515-123744-362.jpg">
@@ -442,7 +448,10 @@ UPLOAD VIDEO
 </button>
 
 </div>
+
 </div>
+
+<!-- VIDEOS -->
 
 <div class="video-container" id="videos">
 
@@ -450,6 +459,8 @@ UPLOAD VIDEO
 <div class="skeleton"></div>
 
 </div>
+
+<!-- TELEGRAM -->
 
 <a class="telegram-float"
 href="https://t.me/Habeshapremiumvideo"
@@ -479,9 +490,7 @@ poster:"https://i.ibb.co/nMTFY1w8/IMG-20260515-123744-362.jpg"
 
 ];
 
-let videos =
-JSON.parse(localStorage.getItem("videos"))
-|| defaultVideos;
+let videos = JSON.parse(localStorage.getItem("videos")) || defaultVideos;
 
 function enableAdminMode(){
 
@@ -493,7 +502,7 @@ adminMode = true;
 
 alert("Admin Mode Enabled ✅");
 
-document.getElementById("adminPanel").style.display="block";
+document.getElementById("adminPanel").style.display = "block";
 
 window.scrollTo(0,0);
 
@@ -507,22 +516,21 @@ alert("Wrong Password ❌");
 
 setTimeout(()=>{
 
-document.getElementById("loader").style.display="none";
+document.getElementById("loader").style.display = "none";
 
 },2500);
 
 function openVIP(){
 
-document.getElementById("vipPopup").style.display="flex";
+document.getElementById("vipPopup").style.display = "flex";
 
 }
 
-window.onclick=function(e){
+window.onclick = function(e){
 
-if(e.target==
-document.getElementById("vipPopup")){
+if(e.target == document.getElementById("vipPopup")){
 
-document.getElementById("vipPopup").style.display="none";
+document.getElementById("vipPopup").style.display = "none";
 
 }
 
@@ -530,17 +538,13 @@ document.getElementById("vipPopup").style.display="none";
 
 function uploadVideo(){
 
-const pass =
-document.getElementById("adminPassword").value;
+const pass = document.getElementById("adminPassword").value;
 
-const title =
-document.getElementById("videoTitle").value;
+const title = document.getElementById("videoTitle").value;
 
-const url =
-document.getElementById("videoUrl").value;
+const url = document.getElementById("videoUrl").value;
 
-const selectedPoster =
-document.getElementById("templateSelect").value;
+const poster = document.getElementById("templateSelect").value;
 
 if(pass !== ADMIN_PASSWORD){
 
@@ -560,12 +564,9 @@ return;
 
 let fixedUrl = url;
 
-if(url.includes("dropbox.com")
-&& !url.includes("raw=1")){
+if(url.includes("dropbox.com")){
 
-fixedUrl =
-url.replace("dl=0","raw=1")
-.replace("dl=1","raw=1");
+fixedUrl = url.replace("dl=0","raw=1");
 
 }
 
@@ -575,14 +576,11 @@ title:title,
 url:fixedUrl,
 views:1,
 likes:0,
-poster:selectedPoster
+poster:poster
 
 });
 
-localStorage.setItem(
-"videos",
-JSON.stringify(videos)
-);
+localStorage.setItem("videos", JSON.stringify(videos));
 
 alert("Upload Success ✅");
 
@@ -592,20 +590,19 @@ renderVideos();
 
 function renderVideos(){
 
-const container =
-document.getElementById("videos");
+const container = document.getElementById("videos");
 
-container.innerHTML="";
+container.innerHTML = "";
 
 videos.sort((a,b)=>b.views-a.views);
 
 videos.forEach((video,index)=>{
 
-const card=document.createElement("div");
+const card = document.createElement("div");
 
-card.className="video-card";
+card.className = "video-card";
 
-card.innerHTML=`
+card.innerHTML = `
 
 <div class="video-thumb">
 
@@ -620,7 +617,6 @@ PREMIUM
 <video
 controls
 controlsList="nodownload"
-preload="metadata"
 poster="${video.poster}">
 
 <source src="${video.url}" type="video/mp4">
@@ -643,39 +639,29 @@ ${video.title}
 
 <div class="action-btn"
 onclick="likeVideo(${index})">
-
 ❤️ ${video.likes}
-
 </div>
 
 <div class="action-btn"
 onclick="shareVideo('${video.url}')">
-
 🔗 SHARE
-
 </div>
 
 </div>
 
 <div class="comments-btn"
 onclick="favoriteVideo(${index})">
-
 ⭐ SAVE FAVORITE
-
 </div>
 
 <div class="comments-btn"
 onclick="editTitle(${index})">
-
 ✏ EDIT TITLE
-
 </div>
 
 <div class="comments-btn"
 onclick="deleteVideo(${index})">
-
 🗑 DELETE VIDEO
-
 </div>
 
 </div>
@@ -684,32 +670,19 @@ onclick="deleteVideo(${index})">
 
 container.appendChild(card);
 
-const vid=card.querySelector("video");
+const vid = card.querySelector("video");
 
 vid.addEventListener("play",()=>{
 
 video.views++;
 
-localStorage.setItem(
-"videos",
-JSON.stringify(videos)
-);
+localStorage.setItem("videos", JSON.stringify(videos));
 
 });
 
 vid.addEventListener("dblclick",()=>{
 
 likeVideo(index);
-
-});
-
-vid.addEventListener("click",()=>{
-
-if(vid.requestFullscreen){
-
-vid.requestFullscreen();
-
-}
 
 });
 
@@ -720,8 +693,7 @@ vid.requestFullscreen();
 function likeVideo(i){
 
 let likedVideos =
-JSON.parse(localStorage.getItem("likedVideos"))
-|| {};
+JSON.parse(localStorage.getItem("likedVideos")) || {};
 
 if(!adminMode){
 
@@ -733,8 +705,7 @@ return;
 
 }
 
-likedVideos[i] =
-(likedVideos[i] || 0) + 1;
+likedVideos[i] = (likedVideos[i] || 0) + 1;
 
 localStorage.setItem(
 "likedVideos",
@@ -745,10 +716,7 @@ JSON.stringify(likedVideos)
 
 videos[i].likes++;
 
-localStorage.setItem(
-"videos",
-JSON.stringify(videos)
-);
+localStorage.setItem("videos", JSON.stringify(videos));
 
 renderVideos();
 
@@ -766,8 +734,7 @@ window.open(
 function favoriteVideo(i){
 
 let favs =
-JSON.parse(localStorage.getItem("favorites"))
-|| [];
+JSON.parse(localStorage.getItem("favorites")) || [];
 
 favs.push(videos[i]);
 
@@ -823,7 +790,7 @@ videos[i].title = newTitle;
 
 localStorage.setItem(
 "videos",
-JSON.stringify(videos")
+JSON.stringify(videos)
 );
 
 renderVideos();
@@ -843,8 +810,7 @@ behavior:'smooth'
 
 setInterval(()=>{
 
-const num =
-Math.floor(Math.random()*500)+100;
+const num = Math.floor(Math.random()*500)+100;
 
 document.getElementById("onlineCounter")
 .innerText = `${num} users online`;
@@ -857,55 +823,6 @@ document.addEventListener(
 'contextmenu',
 e=>e.preventDefault()
 );
-
-document.onkeydown=function(e){
-
-if(e.keyCode==123){
-
-return false;
-
-}
-
-if(e.ctrlKey &&
-e.shiftKey &&
-e.keyCode==73){
-
-return false;
-
-}
-
-if(e.ctrlKey &&
-e.keyCode==85){
-
-return false;
-
-}
-
-}
-
-let deferredPrompt;
-
-window.addEventListener(
-'beforeinstallprompt',
-(e)=>{
-
-e.preventDefault();
-
-deferredPrompt=e;
-
-setTimeout(()=>{
-
-if(confirm(
-'Install HABESHA PREMIUM app?'
-)){
-
-deferredPrompt.prompt();
-
-}
-
-},5000);
-
-});
 
 </script>
 
