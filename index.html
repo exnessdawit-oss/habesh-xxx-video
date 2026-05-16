@@ -52,7 +52,7 @@
         .comment-box { width: 100%; margin-top: 6px; padding: 8px; background: var(--primary); color: white; border-radius: 8px; font-size: 11px; font-weight: bold; cursor: pointer; text-align: center; }
         .show-comments-btn { width: 100%; margin-top: 10px; padding: 5px; border-radius: 6px; background: #1a1337; color: #8a81a6; font-size: 11px; font-weight: 600; text-align: center; cursor: pointer; }
         .comments-container { display: none; margin-top: 8px; }
-        .comment { bg-color: #1a1337; padding: 8px; border-radius: 8px; margin-top: 6px; font-size: 11px; color: #ccc; border-left: 3px solid var(--primary); }
+        .comment { background: #1a1337; padding: 8px; border-radius: 8px; margin-top: 6px; font-size: 11px; color: #ccc; border-left: 3px solid var(--primary); }
         footer { text-align: center; padding: 25px; color: #8a81a6; font-size: 12px; }
         @media (max-width: 768px) { header { flex-direction: column; gap: 10px; } .grid { grid-template-columns: 1fr; } }
     </style>
@@ -95,8 +95,181 @@
     </footer>
 
     <script>
-        // የ Firebase ኮድህ እና ቀሪው የጃቫስክሪፕትህ ክፍል እዚህ ይቀጥላል...
-        // (ይህንን ሴቭ ስታደርገው ሳይትህ ላይ ማስታወቂያው ወዲያው መታየት ይጀምራል!)
+        const firebaseConfig = {
+            databaseURL: "https://habesh-xxx-video-default-rtdb.firebaseio.com/"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        const videoGrid = document.getElementById('video-grid');
+        const mainLoader = document.getElementById('main-loader');
+        const adminToggle = document.getElementById('admin-toggle');
+        const adminPanel = document.getElementById('admin-panel');
+        const uploadBtn = document.getElementById('upload-btn');
+        const searchInput = document.getElementById('search-input');
+        const themeToggle = document.getElementById('theme-toggle');
+
+        let allVideos = [];
+
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('light');
+        });
+
+        adminToggle.addEventListener('click', () => {
+            adminPanel.style.display = adminPanel.style.display === 'block' ? 'none' : 'block';
+        });
+
+        uploadBtn.addEventListener('click', () => {
+            const title = document.getElementById('video-title').value;
+            const url = document.getElementById('video-url').value;
+            const pass = document.getElementById('admin-pass').value;
+
+            if(pass !== "dawit123") {
+                alert("የተሳሳተ ፓስወርድ ነው!");
+                return;
+            }
+            if(!title || !url) {
+                alert("እባክዎ ሁሉንም ቦታዎች ይሙሉ!");
+                return;
+            }
+
+            const newVideoRef = database.ref('videos').push();
+            newVideoRef.set({
+                title: title,
+                url: url,
+                views: 0,
+                watching: Math.floor(Math.random() * 40) + 10
+            }).then(() => {
+                alert("ቪዲዮው በትክክል ተጭኗል!");
+                adminPanel.style.display = 'none';
+                document.getElementById('video-title').value = '';
+                document.getElementById('video-url').value = '';
+            });
+        });
+
+        function loadVideos() {
+            mainLoader.style.display = 'block';
+            database.ref('videos').on('value', (snapshot) => {
+                videoGrid.innerHTML = '';
+                allVideos = [];
+                const data = snapshot.val();
+                mainLoader.style.display = 'none';
+
+                if(data) {
+                    for(let key in data) {
+                        allVideos.push({id: key, ...data[key]});
+                    }
+                    displayVideos(allVideos);
+                }
+            });
+        }
+
+        function displayVideos(videos) {
+            videoGrid.innerHTML = '';
+            videos.reverse().forEach(video => {
+                const card = document.createElement('div');
+                card.className = 'video-card';
+                card.innerHTML = `
+                    <div class="trending">PREMIUM</div>
+                    <div class="watching">🔴 ${video.watching || Math.floor(Math.random() * 40) + 10} ማየት ላይ</div>
+                    <video controls preload="none" poster="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=500">
+                        <source src="${video.url}" type="video/mp4">
+                    </video>
+                    <div class="video-info">
+                        <div class="video-title">${video.title}</div>
+                        <div class="video-actions">
+                            <div class="action-btn views">👁️ ${video.views || 0} እይታዎች</div>
+                            <div class="action-btn" onclick="shareVideo('${video.id}')">🔗 ሊንክ ቅዳ</div>
+                        </div>
+                        <div class="show-comments-btn" onclick="toggleComments('${video.id}')">አስተያየቶች</div>
+                        <div class="comments-container" id="comments-${video.id}">
+                            <div class="comments-list" id="list-${video.id}"></div>
+                            <div class="comment-input">
+                                <input type="text" id="input-${video.id}" placeholder="አስተያየት ይጻፉ...">
+                                <div class="comment-box" onclick="addComment('${video.id}')">ላክ</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                videoGrid.appendChild(card);
+                
+                const videoElement = card.querySelector('video');
+                videoElement.addEventListener('play', () => {
+                    database.ref('videos/' + video.id + '/views').transaction((currentViews) => {
+                        return (currentViews || 0) + 1;
+                    });
+                }, { once: true });
+            });
+        }
+
+        window.shareVideo = function(id) {
+            const shareUrl = window.location.origin + '?v=' + id;
+            navigator.clipboard.writeText(shareUrl).then(() => {
+                alert("የቪዲዮው ሊንክ ተገልብጧል!");
+            });
+        }
+
+        window.toggleComments = function(id) {
+            const container = document.getElementById(`comments-${id}`);
+            if(container.style.display === 'block') {
+                container.style.display = 'none';
+            } else {
+                container.style.display = 'block';
+                loadComments(id);
+            }
+        }
+
+        function loadComments(id) {
+            const list = document.getElementById(`list-${id}`);
+            database.ref(`comments/${id}`).on('value', (snapshot) => {
+                list.innerHTML = '';
+                const data = snapshot.val();
+                if(data) {
+                    for(let key in data) {
+                        const div = document.createElement('div');
+                        div.className = 'comment';
+                        div.innerText = data[key].text;
+                        list.appendChild(div);
+                    }
+                } else {
+                    list.innerHTML = '<div style="font-size:11px;color:#aaa;padding:5px;">የመጀመሪያውን አስተያየት ይጻፉ!</div>';
+                }
+            });
+        }
+
+        window.addComment = function(id) {
+            const input = document.getElementById(`input-${id}`);
+            const text = input.value.trim();
+            if(!text) return;
+
+            database.ref(`comments/${id}`).push({
+                text: text,
+                timestamp: Date.now()
+            }).then(() => {
+                input.value = '';
+            });
+        }
+
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            const filtered = allVideos.filter(video => video.title.toLowerCase().includes(query));
+            displayVideos(filtered);
+        });
+
+        window.onload = function() {
+            loadVideos();
+            const urlParams = new URLSearchParams(window.location.search);
+            const videoId = urlParams.get('v');
+            if(videoId) {
+                setTimeout(() => {
+                    const targetCommentBox = document.getElementById(`comments-${videoId}`);
+                    if(targetCommentBox) {
+                        targetCommentBox.scrollIntoView({ behavior: 'smooth' });
+                        toggleComments(videoId);
+                    }
+                }, 1500);
+            }
+        }
     </script>
 </body>
 </html>
