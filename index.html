@@ -41,7 +41,7 @@ header{
     justify-content:space-between;
     align-items:center;
     padding:15px;
-    background:rgba(17,13,38,0.85);
+    background:rgba(17,13,38,0.88);
     backdrop-filter:blur(12px);
     border-bottom:1px solid rgba(255,255,255,0.05);
 }
@@ -85,6 +85,10 @@ button{
     font-weight:600;
 }
 
+.theme-btn{
+    background:var(--primary);
+}
+
 /* SEARCH */
 
 .search-box{
@@ -95,8 +99,8 @@ button{
 .search-box span{
     position:absolute;
     left:28px;
-    top:29px;
-    color:#999;
+    top:28px;
+    color:#888;
 }
 
 .search-box input{
@@ -119,7 +123,7 @@ button{
 }
 
 .categories button{
-    min-width:170px;
+    min-width:180px;
     padding:13px 18px;
     border-radius:18px;
     font-size:14px;
@@ -129,13 +133,21 @@ button{
     box-shadow:0 6px 20px rgba(255,51,102,0.35);
 }
 
+/* ADS */
+
+.ads-box{
+    padding:10px 15px 15px;
+    display:flex;
+    justify-content:center;
+}
+
 /* ADMIN */
 
 .admin-section{
     display:none;
     margin:15px;
     padding:15px;
-    border-radius:20px;
+    border-radius:22px;
     background:#17112d;
 }
 
@@ -355,7 +367,7 @@ video{
 /* FOOTER */
 
 footer{
-    padding:30px 20px 100px;
+    padding:30px 20px 80px;
     text-align:center;
     color:#888;
 }
@@ -424,6 +436,20 @@ placeholder="ፈልግ...">
 <button id="premium-btn">
 💍 PREMIUM 💎
 </button>
+
+</div>
+
+<!-- ADS -->
+
+<div class="ads-box">
+
+<script async type="application/javascript" src="https://a.magsrv.com/ad-provider.js"></script>
+
+<ins class="eas6a97888e2" data-zoneid="5927772"></ins>
+
+<script>
+(AdProvider = window.AdProvider || []).push({"serve": {}});
+</script>
 
 </div>
 
@@ -557,18 +583,29 @@ document.getElementById("premium-popup");
 
 let allVideos = [];
 
-/* ADMIN PANEL */
+/* ADMIN LOGIN */
 
 adminToggle.onclick = ()=>{
+
+const password =
+prompt("Enter Admin Password");
+
+if(password === "dawit12345"){
 
 adminPanel.style.display =
 adminPanel.style.display === "block"
 ? "none"
 : "block";
 
+}else{
+
+alert("Wrong Password");
+
+}
+
 };
 
-/* PREMIUM POPUP */
+/* PREMIUM */
 
 premiumBtn.onclick = ()=>{
 
@@ -598,7 +635,7 @@ const pass =
 document.getElementById("admin-pass")
 .value.trim();
 
-if(pass !== "dawit123"){
+if(pass !== "dawit12345"){
 
 alert("Wrong Password");
 
@@ -692,7 +729,7 @@ displayVideos(allVideos);
 
 }
 
-/* DISPLAY */
+/* DISPLAY VIDEOS */
 
 function displayVideos(videos){
 
