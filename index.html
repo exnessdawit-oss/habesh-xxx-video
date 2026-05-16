@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="am">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -15,8 +16,6 @@
 
 :root{
     --primary:#ff3366;
-    --dark:#0f0c20;
-    --card:#17112d;
 }
 
 *{
@@ -32,22 +31,19 @@ body{
     min-height:100vh;
 }
 
-body.light{
-    background:#f2f2f2;
-    color:#111;
-}
+/* HEADER */
 
 header{
     position:sticky;
     top:0;
-    z-index:100;
+    z-index:1000;
     display:flex;
     justify-content:space-between;
     align-items:center;
     padding:15px;
-    background:rgba(17,13,38,0.8);
+    background:rgba(17,13,38,0.85);
     backdrop-filter:blur(12px);
-    border-bottom:1px solid rgba(255,255,255,0.08);
+    border-bottom:1px solid rgba(255,255,255,0.05);
 }
 
 .logo{
@@ -63,8 +59,8 @@ header{
 }
 
 .logo img{
-    width:40px;
-    height:40px;
+    width:42px;
+    height:42px;
     border-radius:50%;
     object-fit:cover;
     border:2px solid var(--primary);
@@ -84,15 +80,12 @@ button{
 .admin-btn{
     padding:10px 14px;
     border-radius:12px;
-    background:#251d48;
+    background:#241b46;
     color:white;
     font-weight:600;
 }
 
-.theme-btn{
-    background:var(--primary);
-    color:white;
-}
+/* SEARCH */
 
 .search-box{
     padding:15px;
@@ -102,9 +95,8 @@ button{
 .search-box span{
     position:absolute;
     left:28px;
-    top:28px;
-    font-size:14px;
-    color:#aaa;
+    top:29px;
+    color:#999;
 }
 
 .search-box input{
@@ -117,13 +109,34 @@ button{
     font-size:14px;
 }
 
+/* CATEGORY */
+
+.categories{
+    display:flex;
+    gap:12px;
+    overflow-x:auto;
+    padding:0 15px 15px;
+}
+
+.categories button{
+    min-width:170px;
+    padding:13px 18px;
+    border-radius:18px;
+    font-size:14px;
+    font-weight:700;
+    color:white;
+    background:linear-gradient(135deg,#ff3366,#7b2ff7);
+    box-shadow:0 6px 20px rgba(255,51,102,0.35);
+}
+
+/* ADMIN */
+
 .admin-section{
     display:none;
     margin:15px;
     padding:15px;
-    border-radius:16px;
-    background:rgba(23,17,45,0.9);
-    backdrop-filter:blur(10px);
+    border-radius:20px;
+    background:#17112d;
 }
 
 .admin-section h3{
@@ -136,7 +149,7 @@ button{
     padding:12px;
     margin:8px 0;
     border:none;
-    border-radius:10px;
+    border-radius:12px;
     background:#241b46;
     color:white;
 }
@@ -145,26 +158,13 @@ button{
     width:100%;
     padding:12px;
     margin-top:10px;
-    border-radius:10px;
+    border-radius:12px;
     background:var(--primary);
     color:white;
     font-weight:bold;
 }
 
-.categories{
-    display:flex;
-    gap:10px;
-    overflow-x:auto;
-    padding:0 15px 10px;
-}
-
-.categories button{
-    padding:8px 14px;
-    border-radius:30px;
-    background:#241b46;
-    color:white;
-    white-space:nowrap;
-}
+/* VIDEOS */
 
 .grid{
     display:grid;
@@ -175,10 +175,9 @@ button{
 
 .video-card{
     position:relative;
-    border-radius:20px;
+    border-radius:22px;
     overflow:hidden;
-    background:rgba(23,17,45,0.9);
-    backdrop-filter:blur(12px);
+    background:#17112d;
     transition:0.3s;
 }
 
@@ -186,35 +185,13 @@ button{
     transform:translateY(-4px);
 }
 
-video{
-    width:100%;
-    aspect-ratio:16/9;
-    background:black;
-}
-
-.play-icon{
-    position:absolute;
-    top:35%;
-    left:50%;
-    transform:translate(-50%,-50%);
-    width:75px;
-    height:75px;
-    border-radius:50%;
-    background:rgba(0,0,0,0.5);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:40px;
-    pointer-events:none;
-}
-
 .trending{
     position:absolute;
     top:10px;
     left:10px;
+    background:#ff3366;
     padding:5px 10px;
     border-radius:8px;
-    background:#ff3366;
     font-size:11px;
     font-weight:bold;
     z-index:10;
@@ -229,6 +206,28 @@ video{
     border-radius:8px;
     font-size:11px;
     z-index:10;
+}
+
+.play-icon{
+    position:absolute;
+    top:35%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:75px;
+    height:75px;
+    border-radius:50%;
+    background:rgba(0,0,0,0.45);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:40px;
+    pointer-events:none;
+}
+
+video{
+    width:100%;
+    aspect-ratio:16/9;
+    background:black;
 }
 
 .video-info{
@@ -256,6 +255,8 @@ video{
     font-size:12px;
     cursor:pointer;
 }
+
+/* COMMENTS */
 
 .comments-container{
     display:none;
@@ -286,56 +287,80 @@ video{
     border-radius:10px;
     background:var(--primary);
     text-align:center;
-    font-size:13px;
     font-weight:bold;
     cursor:pointer;
 }
 
-.skeleton{
-    height:260px;
-    border-radius:18px;
-    background:linear-gradient(
-        90deg,
-        #1b1435 25%,
-        #241b46 50%,
-        #1b1435 75%
-    );
-    background-size:400% 100%;
-    animation:loading 1.2s infinite;
-}
+/* PREMIUM POPUP */
 
-@keyframes loading{
-    0%{
-        background-position:100% 0;
-    }
-    100%{
-        background-position:-100% 0;
-    }
-}
-
-.bottom-nav{
+.premium-popup{
     position:fixed;
-    bottom:0;
+    top:0;
     left:0;
     width:100%;
-    background:#120d26;
-    display:flex;
-    justify-content:space-around;
-    padding:12px;
-    z-index:999;
-    border-top:1px solid rgba(255,255,255,0.08);
+    height:100%;
+    background:rgba(0,0,0,0.85);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:9999;
+    padding:20px;
 }
 
-.bottom-nav div{
+.premium-box{
+    width:100%;
+    max-width:420px;
+    background:#17112d;
+    border-radius:25px;
+    padding:25px;
     text-align:center;
-    font-size:12px;
 }
+
+.premium-box h2{
+    color:#ff3366;
+    margin-bottom:15px;
+}
+
+.premium-box p{
+    margin-bottom:12px;
+    line-height:1.7;
+}
+
+.vip-price{
+    margin-top:10px;
+    padding:12px;
+    border-radius:14px;
+    background:#241b46;
+    font-size:14px;
+    font-weight:600;
+}
+
+.telegram-btn{
+    display:block;
+    margin-top:20px;
+    padding:14px;
+    border-radius:14px;
+    background:#229ED9;
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.close-popup{
+    margin-top:15px;
+    color:#aaa;
+    cursor:pointer;
+}
+
+/* FOOTER */
 
 footer{
     padding:30px 20px 100px;
     text-align:center;
     color:#888;
 }
+
+/* MOBILE */
 
 @media(max-width:768px){
 
@@ -357,50 +382,132 @@ footer{
 <header>
 
 <div class="logo">
-<img src="https://i.ibb.co/5R4bcJz/IMG-20260312-113744-302.jpg">
+<img src="https://i.ibb.co/nMTFY1w8/IMG-20260515-123744-362.jpg">
 HABESHA <span>PREMIUM</span>
 </div>
 
 <div class="buttons">
-<button class="theme-btn" id="theme-toggle">Theme</button>
-<button class="admin-btn" id="admin-toggle">Admin</button>
+
+<button class="theme-btn">
+🔥 VIP
+</button>
+
+<button class="admin-btn" id="admin-toggle">
+ADMIN
+</button>
+
 </div>
 
 </header>
 
+<!-- SEARCH -->
+
 <div class="search-box">
+
 <span>🔍</span>
-<input type="text" id="search-input" placeholder="ፈልግ...">
+
+<input
+type="text"
+id="search-input"
+placeholder="ፈልግ...">
+
 </div>
 
+<!-- CATEGORY -->
+
 <div class="categories">
-<button>🔥 Trending</button>
-<button>🎬 Movies</button>
-<button>📺 Shorts</button>
-<button>💎 Premium</button>
-<button>😂 Funny</button>
-<button>🎵 Music</button>
+
+<button id="xxx-btn">
+🔥 XXX 🍑
+</button>
+
+<button id="premium-btn">
+💍 PREMIUM 💎
+</button>
+
 </div>
+
+<!-- ADMIN -->
 
 <div class="admin-section" id="admin-panel">
 
 <h3>አዲስ ቪዲዮ ጫን</h3>
 
-<input type="text" id="video-title" placeholder="የቪዲዮ ርዕስ">
+<input
+type="text"
+id="video-title"
+placeholder="የቪዲዮ ርዕስ">
 
-<input type="text" id="video-url" placeholder="MP4 Link">
+<input
+type="text"
+id="video-url"
+placeholder="MP4 LINK">
 
-<input type="password" id="admin-pass" placeholder="Admin Password">
+<input
+type="password"
+id="admin-pass"
+placeholder="ADMIN PASSWORD">
 
-<button id="upload-btn">UPLOAD VIDEO</button>
+<button id="upload-btn">
+UPLOAD VIDEO
+</button>
 
 </div>
 
-<div class="grid" id="video-grid">
+<!-- VIDEOS -->
 
-<div class="skeleton"></div>
-<div class="skeleton"></div>
-<div class="skeleton"></div>
+<div class="grid" id="video-grid"></div>
+
+<!-- PREMIUM POPUP -->
+
+<div class="premium-popup" id="premium-popup">
+
+<div class="premium-box">
+
+<h2>💍 PREMIUM VIP 💎</h2>
+
+<p>
+ሰላም እንኳን ወደ premium (VIP) በሰላም መጣህ
+</p>
+
+<p>
+እባክዎ ይምረጡ
+</p>
+
+<div class="vip-price">
+የ1 ወር VIP VIDEO — 500 ብር
+</div>
+
+<div class="vip-price">
+የ3 ወር VIP VIDEO — 1200 ብር
+</div>
+
+<div class="vip-price">
+የ6 ወር VIP VIDEO — 2500 ብር
+</div>
+
+<div class="vip-price">
+የ1 አመት VIP VIDEO — 4000 ብር
+</div>
+
+<a
+href="https://t.me/Habeshapremiumvideo"
+target="_blank"
+class="telegram-btn">
+
+💬 ለመክፈል Telegram ይክፈቱ
+
+</a>
+
+<div
+class="close-popup"
+onclick="closePremium()">
+
+✖ CLOSE
+
+</div>
+
+</div>
 
 </div>
 
@@ -408,391 +515,490 @@ HABESHA <span>PREMIUM</span>
 © 2026 HABESHA PREMIUM
 </footer>
 
-<div class="bottom-nav">
-<div>🏠<br>Home</div>
-<div>🔥<br>Trending</div>
-<div>➕<br>Upload</div>
-<div>👤<br>Profile</div>
-</div>
-
 <script>
 
+/* FIREBASE */
+
 const firebaseConfig = {
-    databaseURL:"https://YOUR-FIREBASE-URL.firebaseio.com/"
+
+databaseURL:
+"https://YOUR-FIREBASE-URL.firebaseio.com/"
+
 };
 
 firebase.initializeApp(firebaseConfig);
 
 const database = firebase.database();
 
-const videoGrid = document.getElementById("video-grid");
-const adminPanel = document.getElementById("admin-panel");
-const adminToggle = document.getElementById("admin-toggle");
-const uploadBtn = document.getElementById("upload-btn");
-const themeToggle = document.getElementById("theme-toggle");
-const searchInput = document.getElementById("search-input");
+/* ELEMENTS */
+
+const videoGrid =
+document.getElementById("video-grid");
+
+const adminToggle =
+document.getElementById("admin-toggle");
+
+const adminPanel =
+document.getElementById("admin-panel");
+
+const uploadBtn =
+document.getElementById("upload-btn");
+
+const searchInput =
+document.getElementById("search-input");
+
+const premiumBtn =
+document.getElementById("premium-btn");
+
+const premiumPopup =
+document.getElementById("premium-popup");
+
+/* DATA */
 
 let allVideos = [];
 
-if(localStorage.getItem("theme") === "light"){
-    document.body.classList.add("light");
+/* ADMIN PANEL */
+
+adminToggle.onclick = ()=>{
+
+adminPanel.style.display =
+adminPanel.style.display === "block"
+? "none"
+: "block";
+
+};
+
+/* PREMIUM POPUP */
+
+premiumBtn.onclick = ()=>{
+
+premiumPopup.style.display = "flex";
+
+};
+
+function closePremium(){
+
+premiumPopup.style.display = "none";
+
 }
 
-themeToggle.onclick = () => {
+/* UPLOAD */
 
-    document.body.classList.toggle("light");
+uploadBtn.onclick = ()=>{
 
-    if(document.body.classList.contains("light")){
-        localStorage.setItem("theme","light");
-    }else{
-        localStorage.setItem("theme","dark");
-    }
+const title =
+document.getElementById("video-title")
+.value.trim();
+
+const url =
+document.getElementById("video-url")
+.value.trim();
+
+const pass =
+document.getElementById("admin-pass")
+.value.trim();
+
+if(pass !== "dawit123"){
+
+alert("Wrong Password");
+
+return;
+
+}
+
+if(!title || !url){
+
+alert("Fill All Fields");
+
+return;
+
+}
+
+uploadBtn.innerText = "Uploading...";
+
+database.ref("videos").push({
+
+title:title,
+url:url,
+views:0,
+likes:0,
+watching:
+Math.floor(Math.random()*100)+1,
+createdAt:Date.now()
+
+}).then(()=>{
+
+alert("Uploaded Successfully");
+
+document.getElementById(
+"video-title"
+).value = "";
+
+document.getElementById(
+"video-url"
+).value = "";
+
+document.getElementById(
+"admin-pass"
+).value = "";
+
+uploadBtn.innerText =
+"UPLOAD VIDEO";
+
+});
+
 };
 
-adminToggle.onclick = () => {
-
-    adminPanel.style.display =
-    adminPanel.style.display === "block"
-    ? "none"
-    : "block";
-};
-
-uploadBtn.onclick = () => {
-
-    const title =
-    document.getElementById("video-title").value.trim();
-
-    const url =
-    document.getElementById("video-url").value.trim();
-
-    const pass =
-    document.getElementById("admin-pass").value.trim();
-
-    if(pass !== "dawit123"){
-        alert("Wrong Password");
-        return;
-    }
-
-    if(!title || !url){
-        alert("Fill All Fields");
-        return;
-    }
-
-    uploadBtn.innerText = "Uploading...";
-
-    database.ref("videos").push({
-
-        title:title,
-        url:url,
-        views:0,
-        likes:0,
-        watching:Math.floor(Math.random()*100)+1,
-        createdAt:Date.now()
-
-    }).then(()=>{
-
-        alert("Uploaded Successfully");
-
-        document.getElementById("video-title").value = "";
-        document.getElementById("video-url").value = "";
-        document.getElementById("admin-pass").value = "";
-
-        uploadBtn.innerText = "UPLOAD VIDEO";
-
-    });
-};
+/* LOAD VIDEOS */
 
 function loadVideos(){
 
-    database.ref("videos").on("value",(snapshot)=>{
+database.ref("videos")
+.on("value",(snapshot)=>{
 
-        videoGrid.innerHTML = "";
+videoGrid.innerHTML = "";
 
-        allVideos = [];
+allVideos = [];
 
-        const data = snapshot.val();
+const data = snapshot.val();
 
-        if(!data){
+if(!data){
 
-            videoGrid.innerHTML =
-            "<h2>No Videos</h2>";
+videoGrid.innerHTML =
+"<h2>No Videos</h2>";
 
-            return;
-        }
+return;
 
-        for(let key in data){
-
-            allVideos.push({
-                id:key,
-                ...data[key]
-            });
-        }
-
-        allVideos.sort((a,b)=>b.createdAt-a.createdAt);
-
-        displayVideos(allVideos);
-    });
 }
+
+for(let key in data){
+
+allVideos.push({
+
+id:key,
+...data[key]
+
+});
+
+}
+
+allVideos.sort(
+(a,b)=>b.createdAt-a.createdAt
+);
+
+displayVideos(allVideos);
+
+});
+
+}
+
+/* DISPLAY */
 
 function displayVideos(videos){
 
-    videoGrid.innerHTML = "";
+videoGrid.innerHTML = "";
 
-    videos.forEach((video,index)=>{
+videos.forEach((video)=>{
 
-        const card = document.createElement("div");
+const card =
+document.createElement("div");
 
-        card.className = "video-card";
+card.className = "video-card";
 
-        card.innerHTML = `
+card.innerHTML = `
 
-        <div class="trending">PREMIUM</div>
+<div class="trending">
+PREMIUM
+</div>
 
-        <div class="watching">
-        🔴 ${video.watching || 1} watching
-        </div>
+<div class="watching">
+🔴 ${video.watching || 1} watching
+</div>
 
-        <div class="play-icon">▶</div>
+<div class="play-icon">
+▶
+</div>
 
-        <video controls playsinline preload="metadata">
+<video
+controls
+playsinline
+preload="metadata">
 
-        <source src="${video.url}" type="video/mp4">
+<source
+src="${video.url}"
+type="video/mp4">
 
-        </video>
+</video>
 
-        <div class="video-info">
+<div class="video-info">
 
-        <div class="video-title">
-        ${video.title}
-        </div>
+<div class="video-title">
+${video.title}
+</div>
 
-        <div class="video-actions">
+<div class="video-actions">
 
-        <div class="action-btn">
-        👁 ${video.views || 0}
-        </div>
+<div class="action-btn">
+👁 ${video.views || 0}
+</div>
 
-        <div class="action-btn"
-        onclick="likeVideo('${video.id}')">
+<div
+class="action-btn"
+onclick="likeVideo('${video.id}')">
 
-        ❤️ ${video.likes || 0}
+❤️ ${video.likes || 0}
 
-        </div>
+</div>
 
-        <div class="action-btn"
-        onclick="shareVideo('${video.id}')">
+<div
+class="action-btn"
+onclick="shareVideo('${video.id}')">
 
-        🔗 Share
+🔗 SHARE
 
-        </div>
+</div>
 
-        </div>
+</div>
 
-        <div class="action-btn"
-        style="margin-top:10px;"
-        onclick="toggleComments('${video.id}')">
+<div
+class="action-btn"
+style="margin-top:10px;"
+onclick="toggleComments('${video.id}')">
 
-        💬 Comments
+💬 COMMENTS
 
-        </div>
+</div>
 
-        <div class="comments-container"
-        id="comments-${video.id}">
+<div
+class="comments-container"
+id="comments-${video.id}">
 
-        <div id="list-${video.id}"></div>
+<div id="list-${video.id}"></div>
 
-        <div class="comment-input">
+<div class="comment-input">
 
-        <input type="text"
-        id="input-${video.id}"
-        placeholder="Write comment...">
+<input
+type="text"
+id="input-${video.id}"
+placeholder="Write comment...">
 
-        <div class="comment-box"
-        onclick="addComment('${video.id}')">
+<div
+class="comment-box"
+onclick="addComment('${video.id}')">
 
-        Send
+SEND
 
-        </div>
+</div>
 
-        </div>
+</div>
 
-        </div>
+</div>
 
-        </div>
-        `;
+</div>
+`;
 
-        videoGrid.appendChild(card);
+videoGrid.appendChild(card);
 
-        const videoElement =
-        card.querySelector("video");
+/* VIEWS */
 
-        videoElement.addEventListener("play",()=>{
+const videoElement =
+card.querySelector("video");
 
-            database.ref(
-            "videos/" + video.id + "/views"
-            ).transaction((views)=>{
+videoElement.addEventListener(
+"play",
+()=>{
 
-                return (views || 0) + 1;
+database.ref(
+"videos/" +
+video.id +
+"/views"
 
-            });
+).transaction((views)=>{
 
-        },{ once:true });
+return (views || 0) + 1;
 
-        setInterval(()=>{
+});
 
-            const watching =
-            card.querySelector(".watching");
+},
+{ once:true }
+);
 
-            const random =
-            Math.floor(Math.random()*100)+1;
+/* LIVE WATCHING */
 
-            watching.innerHTML =
-            `🔴 ${random} watching`;
+setInterval(()=>{
 
-        },5000);
+const watching =
+card.querySelector(".watching");
 
-        if((index + 1) % 4 === 0){
+const random =
+Math.floor(Math.random()*100)+1;
 
-            const ad = document.createElement("div");
+watching.innerHTML =
+`🔴 ${random} watching`;
 
-            ad.innerHTML = `
-            <div style="
-            background:#241b46;
-            border-radius:18px;
-            padding:30px;
-            text-align:center;
-            font-size:18px;
-            font-weight:bold;
-            ">
-            ADVERTISEMENT
-            </div>
-            `;
+},5000);
 
-            videoGrid.appendChild(ad);
-        }
-    });
+});
+
 }
+
+/* LIKE */
 
 window.likeVideo = function(id){
 
-    database.ref(
-    "videos/" + id + "/likes"
-    ).transaction((likes)=>{
+database.ref(
+"videos/" + id + "/likes"
+).transaction((likes)=>{
 
-        return (likes || 0) + 1;
+return (likes || 0) + 1;
 
-    });
+});
+
 };
+
+/* SHARE */
 
 window.shareVideo = function(id){
 
-    const link =
-    window.location.origin +
-    window.location.pathname +
-    "?v=" + id;
+const link =
+window.location.origin +
+window.location.pathname +
+"?v=" + id;
 
-    navigator.clipboard.writeText(link)
-    .then(()=>{
+navigator.clipboard
+.writeText(link)
+.then(()=>{
 
-        alert("Link Copied");
+alert("Link Copied");
 
-    });
+});
+
 };
+
+/* COMMENTS */
 
 window.toggleComments = function(id){
 
-    const container =
-    document.getElementById(`comments-${id}`);
+const container =
+document.getElementById(
+`comments-${id}`
+);
 
-    if(container.style.display === "block"){
+if(container.style.display
+=== "block"){
 
-        container.style.display = "none";
+container.style.display = "none";
 
-    }else{
+}else{
 
-        container.style.display = "block";
+container.style.display = "block";
 
-        loadComments(id);
-    }
+loadComments(id);
+
+}
+
 };
 
 function loadComments(id){
 
-    const list =
-    document.getElementById(`list-${id}`);
+const list =
+document.getElementById(
+`list-${id}`
+);
 
-    database.ref(`comments/${id}`)
-    .on("value",(snapshot)=>{
+database.ref(`comments/${id}`)
+.on("value",(snapshot)=>{
 
-        list.innerHTML = "";
+list.innerHTML = "";
 
-        const data = snapshot.val();
+const data = snapshot.val();
 
-        if(!data){
+if(!data){
 
-            list.innerHTML =
-            "<p>No comments yet</p>";
+list.innerHTML =
+"<p>No comments yet</p>";
 
-            return;
-        }
+return;
 
-        for(let key in data){
-
-            const div =
-            document.createElement("div");
-
-            div.className = "comment";
-
-            div.innerText = data[key].text;
-
-            list.appendChild(div);
-        }
-    });
 }
+
+for(let key in data){
+
+const div =
+document.createElement("div");
+
+div.className = "comment";
+
+div.innerText =
+data[key].text;
+
+list.appendChild(div);
+
+}
+
+});
+
+}
+
+/* ADD COMMENT */
 
 window.addComment = function(id){
 
-    const input =
-    document.getElementById(`input-${id}`);
+const input =
+document.getElementById(
+`input-${id}`
+);
 
-    const text = input.value.trim();
+const text =
+input.value.trim();
 
-    if(!text){
-        return;
-    }
+if(!text){
+return;
+}
 
-    database.ref(`comments/${id}`).push({
+database.ref(
+`comments/${id}`
+).push({
 
-        text:text,
-        timestamp:Date.now()
+text:text,
+timestamp:Date.now()
 
-    }).then(()=>{
+}).then(()=>{
 
-        input.value = "";
+input.value = "";
 
-    });
+});
+
 };
 
-searchInput.addEventListener("input",(e)=>{
+/* SEARCH */
 
-    const query =
-    e.target.value.toLowerCase();
+searchInput.addEventListener(
+"input",
+(e)=>{
 
-    const filtered =
-    allVideos.filter(video=>
+const query =
+e.target.value.toLowerCase();
 
-        video.title
-        .toLowerCase()
-        .includes(query)
+const filtered =
+allVideos.filter(video=>
 
-    );
+video.title
+.toLowerCase()
+.includes(query)
 
-    displayVideos(filtered);
+);
+
+displayVideos(filtered);
+
 });
+
+/* START */
 
 window.onload = ()=>{
 
-    loadVideos();
+loadVideos();
+
 };
 
 </script>
