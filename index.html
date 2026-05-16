@@ -23,6 +23,8 @@ color:white;
 overflow-x:hidden;
 }
 
+/* HEADER */
+
 header{
 display:flex;
 justify-content:space-between;
@@ -71,7 +73,14 @@ color:white;
 font-weight:bold;
 cursor:pointer;
 font-size:14px;
+transition:.3s;
 }
+
+.btn:hover{
+transform:scale(1.05);
+}
+
+/* LOADER */
 
 .loader{
 position:fixed;
@@ -96,11 +105,15 @@ animation:spin 2s linear infinite;
 100%{transform:rotate(360deg)}
 }
 
+/* ONLINE */
+
 .counter{
 padding:10px 15px;
 font-size:15px;
 color:#00ff99;
 }
+
+/* TITLE */
 
 .trending-title{
 padding:10px 15px;
@@ -108,6 +121,18 @@ font-size:22px;
 font-weight:bold;
 color:#ff3d88;
 }
+
+/* ADS */
+
+.ads-box{
+display:flex;
+justify-content:center;
+align-items:center;
+padding:10px;
+margin-bottom:10px;
+}
+
+/* VIDEOS */
 
 .video-container{
 padding:15px;
@@ -120,6 +145,18 @@ background:#140022;
 border-radius:20px;
 overflow:hidden;
 box-shadow:0 0 20px rgba(255,0,100,.2);
+animation:fade .4s ease;
+}
+
+@keyframes fade{
+from{
+opacity:0;
+transform:translateY(20px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
 }
 
 .video-thumb{
@@ -163,6 +200,7 @@ padding:15px;
 font-size:20px;
 margin-bottom:15px;
 font-weight:bold;
+line-height:1.4;
 }
 
 .actions{
@@ -178,6 +216,11 @@ text-align:center;
 border-radius:15px;
 font-weight:bold;
 cursor:pointer;
+transition:.3s;
+}
+
+.action-btn:hover{
+background:#3b0061;
 }
 
 .comments-btn{
@@ -188,7 +231,14 @@ text-align:center;
 border-radius:15px;
 font-weight:bold;
 cursor:pointer;
+transition:.3s;
 }
+
+.comments-btn:hover{
+background:#3b0061;
+}
+
+/* FLOAT */
 
 .telegram-float{
 position:fixed;
@@ -207,6 +257,8 @@ color:white;
 z-index:9999;
 box-shadow:0 0 20px rgba(0,136,204,.5);
 }
+
+/* VIP */
 
 .vip-popup{
 position:fixed;
@@ -245,6 +297,8 @@ text-decoration:none;
 font-weight:bold;
 }
 
+/* ADMIN */
+
 .admin-panel{
 padding:15px;
 display:none;
@@ -281,6 +335,8 @@ border-radius:18px;
 cursor:pointer;
 }
 
+/* SKELETON */
+
 .skeleton{
 height:300px;
 border-radius:20px;
@@ -292,12 +348,6 @@ animation:skeleton 1.2s infinite;
 @keyframes skeleton{
 0%{background-position:200% 0}
 100%{background-position:-200% 0}
-}
-
-.ads-box{
-padding:15px;
-display:flex;
-justify-content:center;
 }
 
 footer{
@@ -322,7 +372,7 @@ HABESHA PREMIUM
 
 </div>
 
-<!-- VIP POPUP -->
+<!-- VIP -->
 
 <div class="vip-popup" id="vipPopup">
 
@@ -332,16 +382,16 @@ HABESHA PREMIUM
 
 <p>
 
-የ1 ወር vip video 500 ብር
+የ1 ወር VIP 500 ብር
 <br>
 
-የ3 ወር vip video 1200 ብር
+የ3 ወር VIP 1200 ብር
 <br>
 
-የ6 ወር vip video 2500 ብር
+የ6 ወር VIP 2500 ብር
 <br>
 
-የ1 አመት vip video 4000 ብር
+የ1 አመት VIP 4000 ብር
 
 </p>
 
@@ -388,6 +438,8 @@ ADMIN MODE
 <div class="counter" id="onlineCounter">
 245 users online
 </div>
+
+<!-- TITLE -->
 
 <div class="trending-title">
 🔥 TRENDING VIDEOS
@@ -490,7 +542,11 @@ poster:"https://i.ibb.co/nMTFY1w8/IMG-20260515-123744-362.jpg"
 
 ];
 
-let videos = JSON.parse(localStorage.getItem("videos")) || defaultVideos;
+let videos =
+JSON.parse(localStorage.getItem("videos"))
+|| defaultVideos;
+
+/* ADMIN */
 
 function enableAdminMode(){
 
@@ -514,11 +570,15 @@ alert("Wrong Password ❌");
 
 }
 
+/* LOADER */
+
 setTimeout(()=>{
 
 document.getElementById("loader").style.display = "none";
 
 },2500);
+
+/* VIP */
 
 function openVIP(){
 
@@ -528,7 +588,8 @@ document.getElementById("vipPopup").style.display = "flex";
 
 window.onclick = function(e){
 
-if(e.target == document.getElementById("vipPopup")){
+if(e.target ==
+document.getElementById("vipPopup")){
 
 document.getElementById("vipPopup").style.display = "none";
 
@@ -536,15 +597,21 @@ document.getElementById("vipPopup").style.display = "none";
 
 }
 
+/* UPLOAD */
+
 function uploadVideo(){
 
-const pass = document.getElementById("adminPassword").value;
+const pass =
+document.getElementById("adminPassword").value;
 
-const title = document.getElementById("videoTitle").value;
+const title =
+document.getElementById("videoTitle").value;
 
-const url = document.getElementById("videoUrl").value;
+const url =
+document.getElementById("videoUrl").value;
 
-const poster = document.getElementById("templateSelect").value;
+const poster =
+document.getElementById("templateSelect").value;
 
 if(pass !== ADMIN_PASSWORD){
 
@@ -566,7 +633,9 @@ let fixedUrl = url;
 
 if(url.includes("dropbox.com")){
 
-fixedUrl = url.replace("dl=0","raw=1");
+fixedUrl =
+url.replace("dl=0","raw=1")
+.replace("dl=1","raw=1");
 
 }
 
@@ -580,7 +649,10 @@ poster:poster
 
 });
 
-localStorage.setItem("videos", JSON.stringify(videos));
+localStorage.setItem(
+"videos",
+JSON.stringify(videos)
+);
 
 alert("Upload Success ✅");
 
@@ -588,9 +660,12 @@ renderVideos();
 
 }
 
+/* RENDER */
+
 function renderVideos(){
 
-const container = document.getElementById("videos");
+const container =
+document.getElementById("videos");
 
 container.innerHTML = "";
 
@@ -598,7 +673,8 @@ videos.sort((a,b)=>b.views-a.views);
 
 videos.forEach((video,index)=>{
 
-const card = document.createElement("div");
+const card =
+document.createElement("div");
 
 card.className = "video-card";
 
@@ -639,29 +715,39 @@ ${video.title}
 
 <div class="action-btn"
 onclick="likeVideo(${index})">
+
 ❤️ ${video.likes}
+
 </div>
 
 <div class="action-btn"
 onclick="shareVideo('${video.url}')">
+
 🔗 SHARE
+
 </div>
 
 </div>
 
 <div class="comments-btn"
 onclick="favoriteVideo(${index})">
+
 ⭐ SAVE FAVORITE
+
 </div>
 
 <div class="comments-btn"
 onclick="editTitle(${index})">
+
 ✏ EDIT TITLE
+
 </div>
 
 <div class="comments-btn"
 onclick="deleteVideo(${index})">
+
 🗑 DELETE VIDEO
+
 </div>
 
 </div>
@@ -670,13 +756,17 @@ onclick="deleteVideo(${index})">
 
 container.appendChild(card);
 
-const vid = card.querySelector("video");
+const vid =
+card.querySelector("video");
 
 vid.addEventListener("play",()=>{
 
 video.views++;
 
-localStorage.setItem("videos", JSON.stringify(videos));
+localStorage.setItem(
+"videos",
+JSON.stringify(videos)
+);
 
 });
 
@@ -690,10 +780,13 @@ likeVideo(index);
 
 }
 
+/* LIKE */
+
 function likeVideo(i){
 
 let likedVideos =
-JSON.parse(localStorage.getItem("likedVideos")) || {};
+JSON.parse(localStorage.getItem("likedVideos"))
+|| {};
 
 if(!adminMode){
 
@@ -705,7 +798,8 @@ return;
 
 }
 
-likedVideos[i] = (likedVideos[i] || 0) + 1;
+likedVideos[i] =
+(likedVideos[i] || 0) + 1;
 
 localStorage.setItem(
 "likedVideos",
@@ -716,11 +810,16 @@ JSON.stringify(likedVideos)
 
 videos[i].likes++;
 
-localStorage.setItem("videos", JSON.stringify(videos));
+localStorage.setItem(
+"videos",
+JSON.stringify(videos)
+);
 
 renderVideos();
 
 }
+
+/* SHARE */
 
 function shareVideo(url){
 
@@ -731,10 +830,13 @@ window.open(
 
 }
 
+/* FAVORITE */
+
 function favoriteVideo(i){
 
 let favs =
-JSON.parse(localStorage.getItem("favorites")) || [];
+JSON.parse(localStorage.getItem("favorites"))
+|| [];
 
 favs.push(videos[i]);
 
@@ -746,6 +848,8 @@ JSON.stringify(favs)
 alert("Saved to favorites ⭐");
 
 }
+
+/* DELETE */
 
 function deleteVideo(i){
 
@@ -769,6 +873,8 @@ JSON.stringify(videos)
 renderVideos();
 
 }
+
+/* EDIT */
 
 function editTitle(i){
 
@@ -799,6 +905,8 @@ renderVideos();
 
 }
 
+/* XXX */
+
 function showXXX(){
 
 window.scrollTo({
@@ -808,16 +916,24 @@ behavior:'smooth'
 
 }
 
+/* ONLINE */
+
 setInterval(()=>{
 
-const num = Math.floor(Math.random()*500)+100;
+const num =
+Math.floor(Math.random()*500)+100;
 
 document.getElementById("onlineCounter")
-.innerText = `${num} users online`;
+.innerText =
+`${num} users online`;
 
 },4000);
 
+/* START */
+
 renderVideos();
+
+/* BLOCK */
 
 document.addEventListener(
 'contextmenu',
