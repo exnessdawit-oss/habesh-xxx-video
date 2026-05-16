@@ -1,122 +1,740 @@
 <!DOCTYPE html>
 <html lang="am">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="6a97888e-site-verification" content="33cfab89caddf6484a68db664b8a49de">
-    
-    <title>HABESHA PREMIUM</title>
-    
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        :root { --primary: #ff4757; --bg-dark: #0a0a0a; --card-bg: #1a1a1a; --text: #f1f2f6; }
-        body { font-family: sans-serif; background-image: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%); color: var(--text); margin: 0; padding: 0; }
-        header { background: var(--card-bg); padding: 15px; border-bottom: 2px solid var(--primary); text-align: center; }
-        .admin-section { background: var(--card-bg); padding: 20px; margin: 20px; border-radius: 10px; border: 1px solid #333; display: none; }
-        input { width: 100%; padding: 12px; margin: 8px 0; border-radius: 5px; border: 1px solid #444; background: #222; color: white; box-sizing: border-box; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; padding: 20px; }
-        .video-card { background: var(--card-bg); border-radius: 10px; overflow: hidden; position: relative; border: 1px solid #333; transition: 0.3s; }
-        .video-card:hover { transform: translateY(-5px); border-color: var(--primary); }
-        video { width: 100%; aspect-ratio: 16/9; background: #000; }
-        .del-btn { position: absolute; top: 10px; right: 10px; background: rgba(255, 71, 87, 0.9); color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; }
-        .login-btn { background: #333; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; float: right; margin: 10px; }
-    </style>
+<title>HABESHA PREMIUM</title>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+<style>
+
+:root{
+    --primary:#ff4757;
+    --dark:#0a0a0a;
+    --card:#1a1a1a;
+    --text:#f1f2f6;
+    --green:#2ed573;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:sans-serif;
+    background:linear-gradient(135deg,#0a0a0a,#1a1a1a);
+    color:var(--text);
+}
+
+header{
+    background:rgba(20,20,20,0.95);
+    padding:15px 20px;
+    border-bottom:2px solid var(--primary);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+
+.logo{
+    font-size:24px;
+    font-weight:bold;
+}
+
+.logo span{
+    color:var(--primary);
+}
+
+.top-buttons{
+    display:flex;
+    gap:10px;
+}
+
+button{
+    cursor:pointer;
+    border:none;
+    border-radius:6px;
+}
+
+.login-btn,
+.search-btn{
+    background:#333;
+    color:white;
+    padding:10px 15px;
+}
+
+.search-box{
+    padding:20px;
+}
+
+.search-box input{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:8px;
+    background:#222;
+    color:white;
+}
+
+.admin-section{
+    background:var(--card);
+    margin:20px;
+    padding:20px;
+    border-radius:12px;
+    border:1px solid #333;
+    display:none;
+}
+
+.admin-section h3{
+    margin-bottom:15px;
+    color:var(--primary);
+}
+
+input{
+    width:100%;
+    padding:12px;
+    margin:8px 0;
+    border-radius:6px;
+    border:1px solid #444;
+    background:#222;
+    color:white;
+}
+
+.upload-btn{
+    background:var(--primary);
+    color:white;
+    width:100%;
+    padding:14px;
+    font-weight:bold;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:15px;
+    padding:20px;
+}
+
+.stat-card{
+    background:var(--card);
+    padding:20px;
+    border-radius:12px;
+    text-align:center;
+    border:1px solid #333;
+}
+
+.stat-card h2{
+    color:var(--primary);
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+    gap:20px;
+    padding:20px;
+}
+
+.video-card{
+    background:var(--card);
+    border-radius:12px;
+    overflow:hidden;
+    position:relative;
+    border:1px solid #333;
+    transition:0.3s;
+}
+
+.video-card:hover{
+    transform:translateY(-5px);
+    border-color:var(--primary);
+}
+
+video{
+    width:100%;
+    aspect-ratio:16/9;
+    background:black;
+}
+
+.video-info{
+    padding:15px;
+}
+
+.video-title{
+    font-size:16px;
+    margin-bottom:10px;
+}
+
+.badge{
+    display:inline-block;
+    background:var(--green);
+    color:black;
+    padding:4px 10px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.del-btn{
+    position:absolute;
+    top:10px;
+    right:10px;
+    background:red;
+    color:white;
+    padding:8px 14px;
+}
+
+.video-actions{
+    display:flex;
+    gap:10px;
+    margin-top:15px;
+}
+
+.action-btn{
+    flex:1;
+    padding:10px;
+    background:#222;
+    color:white;
+}
+
+.download-btn{
+    background:#2ed573;
+    color:black;
+    font-weight:bold;
+}
+
+.views{
+    margin-top:10px;
+    color:#aaa;
+    font-size:13px;
+}
+
+.comment-box{
+    margin-top:15px;
+}
+
+.comment-btn{
+    margin-top:10px;
+    width:100%;
+    padding:10px;
+    background:#ff4757;
+    color:white;
+}
+
+.comment-item{
+    background:#222;
+    padding:8px;
+    border-radius:6px;
+    margin-top:5px;
+}
+
+footer{
+    text-align:center;
+    padding:30px;
+    border-top:1px solid #333;
+    margin-top:30px;
+    color:#aaa;
+}
+
+.loader{
+    text-align:center;
+    padding:30px;
+    display:none;
+}
+
+@media(max-width:768px){
+
+    header{
+        flex-direction:column;
+        gap:10px;
+    }
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+}
+
+</style>
 </head>
+
 <body>
 
 <header>
-    <div style="font-weight: bold; font-size: 24px;">HABESHA <span style="color: var(--primary);">PREMIUM</span></div>
-    <button class="login-btn" onclick="adminLogin()">Admin Login</button>
+
+    <div class="logo">
+        HABESHA <span>PREMIUM</span>
+    </div>
+
+    <div class="top-buttons">
+        <button class="search-btn">🔍 Search</button>
+        <button class="login-btn" onclick="adminLogin()">
+            Admin Login
+        </button>
+    </div>
+
 </header>
 
+<div class="search-box">
+
+    <input
+    type="text"
+    id="searchInput"
+    placeholder="ቪዲዮ ፈልግ..."
+    onkeyup="searchVideos()">
+
+</div>
+
+<div class="stats">
+
+    <div class="stat-card">
+        <h2 id="totalVideos">0</h2>
+        <p>ጠቅላላ ቪዲዮዎች</p>
+    </div>
+
+    <div class="stat-card">
+        <h2>HD</h2>
+        <p>High Quality</p>
+    </div>
+
+    <div class="stat-card">
+        <h2>FREE</h2>
+        <p>Unlimited Access</p>
+    </div>
+
+</div>
+
 <div id="adminPanel" class="admin-section">
-    <h3 style="color: var(--primary); margin-top: 0;">ቪዲዮ መጫኛ ክፍል</h3>
-    <input type="text" id="vTitle" placeholder="የቪዲዮው ስም">
-    <input type="text" id="vThumb" placeholder="የፎቶ ሊንክ (Thumbnail)">
-    <input type="text" id="vUrl" placeholder="የቪዲዮ ሊንክ (URL)">
-    <button style="background: var(--primary); color: white; border: none; padding: 12px 25px; border-radius: 5px; cursor: pointer; width: 100%; font-weight: bold;" onclick="addVideo()">ቪዲዮውን ጫን</button>
-    <button onclick="adminLogout()" style="margin-top: 15px; background: none; color: #ff4757; border: none; cursor: pointer;">መውጫ (Logout)</button>
+
+    <h3>🎬 Video Upload Panel</h3>
+
+    <input type="text" id="vTitle" placeholder="Video Title">
+
+    <input type="text" id="vThumb" placeholder="Thumbnail Link">
+
+    <input type="text" id="vUrl" placeholder="Video URL">
+
+    <button class="upload-btn" onclick="addVideo()">
+        ➕ Upload Video
+    </button>
+
+    <button
+    onclick="adminLogout()"
+    style="margin-top:15px;background:none;color:red;">
+    Logout
+    </button>
+
+</div>
+
+<div class="loader" id="loader">
+    Loading Videos...
 </div>
 
 <div class="grid" id="videoGrid"></div>
 
+<footer>
+    © 2026 HABESHA PREMIUM
+</footer>
+
 <script>
-    const firebaseConfig = { databaseURL: "https://habesha-xxx-video-default-rtdb.firebaseio.com/" };
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
 
-    let isAdmin = false;
-    const MY_PASSWORD = "1234";
+/* FIREBASE */
 
-    function adminLogin() {
-        const pass = prompt("የይለፍ ቃል ያስገቡ:");
-        if (pass === MY_PASSWORD) {
-            isAdmin = true;
-            document.getElementById('adminPanel').style.display = 'block';
-            renderVideos();
-            alert("እንኳን ደህና መጡ!");
-        } else {
-            alert("የይለፍ ቃል ተሳስቷል!");
-        }
-    }
+const firebaseConfig = {
+    databaseURL:"https://habesha-xxx-video-default-rtdb.firebaseio.com/"
+};
 
-    function adminLogout() {
-        isAdmin = false;
-        document.getElementById('adminPanel').style.display = 'none';
+firebase.initializeApp(firebaseConfig);
+
+const db = firebase.database();
+
+/* ADMIN */
+
+let isAdmin = false;
+
+const MY_PASSWORD = "1234";
+
+/* LOGIN */
+
+function adminLogin(){
+
+    const pass = prompt("Enter Admin Password");
+
+    if(pass === MY_PASSWORD){
+
+        isAdmin = true;
+
+        document.getElementById("adminPanel").style.display = "block";
+
         renderVideos();
+
+        alert("Welcome Admin!");
+
+    }else{
+        alert("Wrong Password!");
     }
+}
 
-    function addVideo() {
-        if (!isAdmin) return alert("መጀመሪያ Login ያድርጉ!");
-        const title = document.getElementById('vTitle').value;
-        const thumb = document.getElementById('vThumb').value;
-        let url = document.getElementById('vUrl').value;
+/* LOGOUT */
 
-        if (url.includes("dropbox.com")) url = url.replace("dl=0", "raw=1");
+function adminLogout(){
 
-        if (title && thumb && url) {
-            db.ref('videos').push({ title, thumbnail: thumb, videoUrl: url })
-            .then(() => {
-                alert("ተጭኗል!");
-                document.getElementById('vTitle').value = '';
-                document.getElementById('vThumb').value = '';
-                document.getElementById('vUrl').value = '';
-            });
-        }
-    }
+    isAdmin = false;
 
-    function deleteVideo(id) {
-        if (!isAdmin) return;
-        if (confirm("ይህ ቪዲዮ ይጥፋ?")) {
-            db.ref('videos/' + id).remove()
-            .then(() => alert("ጠፍቷል!"));
-        }
-    }
-
-    function renderVideos() {
-        db.ref('videos').on('value', (snapshot) => {
-            const grid = document.getElementById('videoGrid');
-            grid.innerHTML = '';
-            snapshot.forEach((child) => {
-                const data = child.val();
-                const key = child.key;
-                grid.innerHTML += `
-                    <div class="video-card">
-                        ${isAdmin ? `<button class="del-btn" onclick="deleteVideo('${key}')">አጥፋ</button>` : ''}
-                        <video controls poster="${data.thumbnail}">
-                            <source src="${data.videoUrl}" type="video/mp4">
-                        </video>
-                        <div style="padding: 12px;">
-                            <h4 style="margin: 0; font-size: 15px;">${data.title}</h4>
-                        </div>
-                    </div>`;
-            });
-        });
-    }
+    document.getElementById("adminPanel").style.display = "none";
 
     renderVideos();
+}
+
+/* ADD VIDEO */
+
+function addVideo(){
+
+    if(!isAdmin){
+        return alert("Login First!");
+    }
+
+    const title =
+    document.getElementById("vTitle").value;
+
+    const thumb =
+    document.getElementById("vThumb").value;
+
+    let url =
+    document.getElementById("vUrl").value;
+
+    if(url.includes("dropbox.com")){
+        url = url.replace("dl=0","raw=1");
+    }
+
+    if(title && thumb && url){
+
+        db.ref("videos").push({
+
+            title:title,
+            thumbnail:thumb,
+            videoUrl:url,
+            createdAt:Date.now()
+
+        })
+
+        .then(()=>{
+
+            alert("Video Uploaded!");
+
+            document.getElementById("vTitle").value = "";
+            document.getElementById("vThumb").value = "";
+            document.getElementById("vUrl").value = "";
+
+        });
+
+    }else{
+        alert("Fill All Inputs!");
+    }
+}
+
+/* DELETE */
+
+function deleteVideo(id){
+
+    if(!isAdmin) return;
+
+    if(confirm("Delete This Video?")){
+
+        db.ref("videos/" + id).remove()
+
+        .then(()=>{
+            alert("Deleted!");
+        });
+    }
+}
+
+/* SEARCH */
+
+function searchVideos(){
+
+    const value =
+    document.getElementById("searchInput")
+    .value
+    .toLowerCase();
+
+    const cards =
+    document.querySelectorAll(".video-card");
+
+    cards.forEach(card=>{
+
+        const title =
+        card.querySelector(".video-title")
+        .innerText
+        .toLowerCase();
+
+        if(title.includes(value)){
+            card.style.display = "block";
+        }else{
+            card.style.display = "none";
+        }
+
+    });
+}
+
+/* LIKE */
+
+function likeVideo(id){
+
+    const likeRef = db.ref("likes/" + id);
+
+    likeRef.transaction((likes)=>{
+        return (likes || 0) + 1;
+    });
+}
+
+function loadLikes(id){
+
+    db.ref("likes/" + id).on("value",(snap)=>{
+
+        const likes = snap.val() || 0;
+
+        document.getElementById("like-" + id)
+        .innerText = likes;
+    });
+}
+
+/* VIEWS */
+
+function addView(id){
+
+    const viewRef = db.ref("views/" + id);
+
+    viewRef.transaction((views)=>{
+        return (views || 0) + 1;
+    });
+}
+
+function loadViews(id){
+
+    db.ref("views/" + id).on("value",(snap)=>{
+
+        const views = snap.val() || 0;
+
+        document.getElementById("view-" + id)
+        .innerText = views;
+    });
+}
+
+/* SHARE */
+
+function shareVideo(url){
+
+    navigator.clipboard.writeText(url);
+
+    alert("Link Copied!");
+}
+
+/* DOWNLOAD */
+
+function downloadVideo(url){
+
+    window.open(url,"_blank");
+}
+
+/* COMMENTS */
+
+function addComment(videoId){
+
+    const input =
+    document.getElementById("commentInput-" + videoId);
+
+    const text = input.value;
+
+    if(text.trim() === "") return;
+
+    db.ref("comments/" + videoId).push({
+
+        text:text,
+        createdAt:Date.now()
+
+    });
+
+    input.value = "";
+}
+
+function loadComments(videoId){
+
+    db.ref("comments/" + videoId)
+    .on("value",(snapshot)=>{
+
+        const container =
+        document.getElementById("comments-" + videoId);
+
+        container.innerHTML = "";
+
+        snapshot.forEach((child)=>{
+
+            const data = child.val();
+
+            container.innerHTML += `
+
+            <div class="comment-item">
+                💬 ${data.text}
+            </div>
+
+            `;
+        });
+    });
+}
+
+/* RENDER VIDEOS */
+
+function renderVideos(){
+
+    document.getElementById("loader").style.display = "block";
+
+    db.ref("videos").on("value",(snapshot)=>{
+
+        const grid =
+        document.getElementById("videoGrid");
+
+        grid.innerHTML = "";
+
+        let total = 0;
+
+        snapshot.forEach((child)=>{
+
+            total++;
+
+            const data = child.val();
+
+            const key = child.key;
+
+            grid.innerHTML += `
+
+            <div class="video-card">
+
+                ${isAdmin ? `
+                <button class="del-btn"
+                onclick="deleteVideo('${key}')">
+                Delete
+                </button>
+                ` : ''}
+
+                <video
+                controls
+                poster="${data.thumbnail}"
+                onclick="addView('${key}')">
+
+                    <source
+                    src="${data.videoUrl}"
+                    type="video/mp4">
+
+                </video>
+
+                <div class="video-info">
+
+                    <div class="video-title">
+                        ${data.title}
+                    </div>
+
+                    <span class="badge">
+                        PREMIUM
+                    </span>
+
+                    <div class="video-actions">
+
+                        <button
+                        onclick="likeVideo('${key}')"
+                        class="action-btn">
+
+                            ❤️
+                            <span id="like-${key}">
+                                0
+                            </span>
+
+                        </button>
+
+                        <button
+                        onclick="shareVideo('${data.videoUrl}')"
+                        class="action-btn">
+
+                            📤 Share
+
+                        </button>
+
+                        <button
+                        onclick="downloadVideo('${data.videoUrl}')"
+                        class="action-btn download-btn">
+
+                            📥 Download
+
+                        </button>
+
+                    </div>
+
+                    <div class="views">
+
+                        👁️
+                        <span id="view-${key}">
+                            0
+                        </span>
+                        Views
+
+                    </div>
+
+                    <div class="comment-box">
+
+                        <input
+                        type="text"
+                        id="commentInput-${key}"
+                        placeholder="Write Comment...">
+
+                        <button
+                        class="comment-btn"
+                        onclick="addComment('${key}')">
+
+                            💬 Comment
+
+                        </button>
+
+                        <div
+                        id="comments-${key}">
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            `;
+
+            setTimeout(()=>{
+
+                loadLikes(key);
+
+                loadViews(key);
+
+                loadComments(key);
+
+            },300);
+
+        });
+
+        document.getElementById("totalVideos")
+        .innerText = total;
+
+        document.getElementById("loader")
+        .style.display = "none";
+
+    });
+}
+
+/* START */
+
+renderVideos();
+
 </script>
 
 </body>
