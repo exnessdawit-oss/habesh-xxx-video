@@ -615,7 +615,7 @@ document.getElementById("templateSelect").value;
 
 if(pass !== ADMIN_PASSWORD){
 
-alert("Wrong Password ❌");
+alert('' saxam ❌");
 
 return;
 
@@ -716,12 +716,12 @@ ${video.title}
 <div class="action-btn"
 onclick="likeVideo(${index})">
 
-❤️ ${video.likes}
+❤️ $(video.likes)
 
 </div>
 
 <div class="action-btn"
-onclick="shareVideo('${video.url}')">
+onclick="shareVideo('$(video.url)')">
 
 🔗 SHARE
 
@@ -790,7 +790,7 @@ JSON.parse(localStorage.getItem("likedVideos"))
 
 if(!adminMode){
 
-if(likedVideos[i] >= 2){
+if(likedVideos[i] >= 1){
 
 alert("Maximum likes reached ❤️");
 
@@ -857,7 +857,7 @@ const pass = prompt("Admin Password");
 
 if(pass !== ADMIN_PASSWORD){
 
-alert("Wrong Password ❌");
+alert("saxasm❌");
 
 return;
 
